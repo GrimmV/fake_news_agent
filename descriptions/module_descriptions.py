@@ -56,19 +56,19 @@ module_descriptions = [
         "description": "Importance of the features for the individual model prediction at hand.",
         "parameters": {}
     },
-    {
-        "name": "word importance",
-        "description": "Importance of the individual words of the post with respect to the predicted class",
-        "parameters": {}
-    },
-    {
-        "name": "similar predictions",
-        "description": "Similar datapoints with the same prediction.",
-        "parameters": {}
-    },
-    {
-        "name": "counterfactuals",
-        "description": "Similar datapoints with another prediction.",
-        "parameters": {}
-    },
+    # {
+    #     "name": "word importance",
+    #     "description": "Importance of the individual words of the post with respect to the predicted class",
+    #     "parameters": {}
+    # },
+    # {
+    #     "name": "similar predictions",
+    #     "description": "Similar datapoints with the same prediction.",
+    #     "parameters": {}
+    # },
+    # {
+    #     "name": "counterfactuals",
+    #     "description": "Similar datapoints with another prediction.",
+    #     "parameters": {}
+    # },
 ]

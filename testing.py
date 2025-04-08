@@ -6,7 +6,7 @@ from descriptions.module_descriptions import module_descriptions
 
 from llm.llm import GPTModel
 
-from operations.initial import get_relevant_modules
+from operations.agent_handler import get_relevant_modules
 
 
 import os

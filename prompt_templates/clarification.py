@@ -1,13 +1,13 @@
 import json
 
-def initial_prompt(module_list, datapoint, label_descriptions = {}, feature_descriptions = []):
+def clarification_prompt(request, history, module_list, datapoint, label_descriptions = {}, feature_descriptions = []):
     
-    module_overview = ""
+    module_data = ""
     
     for elem in module_list:
-        module_overview = f'''{module_overview}{elem["name"]}: \n
-        description: {elem["description"]}\n
-        parameters: {elem["parameters"]}\n\n
+        module_data = f'''{module_data}{elem["name"]}: \n
+        parameters: {elem["params"]}\n
+        data: {elem["data"]}\n\n
     '''
 
     prompt = f'''A Machine Learning Model has been trained to predict if a given social media post 
@@ -20,8 +20,8 @@ def initial_prompt(module_list, datapoint, label_descriptions = {}, feature_desc
     
     Post content: {datapoint["statement"]} \\
     Properties: {datapoint["properties"]} \\
-    Model prediction: {datapoint["prediction"]} \\
-    
+    Model prediction: {datapoint["prediction"]} \\  
+            
     These are the possible classes:\\
     
     {json.dumps(label_descriptions)}\\
@@ -30,13 +30,17 @@ def initial_prompt(module_list, datapoint, label_descriptions = {}, feature_desc
         
     {json.dumps(feature_descriptions)}\\
         
-    These are the available modules that can be used to assist the user in their 
-    assessment of the model prediction:  \\
+    This is a summary of the most recent conversation history:  \\
     
-    {module_overview} \\
+    {history} \\
+        
+    Currently, the following data is shown to the user: \\
     
-    Choose a maximum of three of the modules provided with their respective parameters and add an 
-    explanation for your choice. You are allowed to repeat modules with different parameters.
+    {module_data}\\
+        
+    The user made a request of clarification towards the currently displayed visualizations and your assessment: \\
+
+    {request}
     '''
 
     return prompt

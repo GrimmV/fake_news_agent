@@ -1,6 +1,6 @@
 import json
 
-def initial_prompt(module_list, datapoint, label_descriptions = {}, feature_descriptions = []):
+def guidance_prompt(module_list, datapoint, history, label_descriptions = {}, feature_descriptions = []):
     
     module_overview = ""
     
@@ -20,8 +20,8 @@ def initial_prompt(module_list, datapoint, label_descriptions = {}, feature_desc
     
     Post content: {datapoint["statement"]} \\
     Properties: {datapoint["properties"]} \\
-    Model prediction: {datapoint["prediction"]} \\
-    
+    Model prediction: {datapoint["prediction"]} \\  
+            
     These are the possible classes:\\
     
     {json.dumps(label_descriptions)}\\
@@ -30,13 +30,17 @@ def initial_prompt(module_list, datapoint, label_descriptions = {}, feature_desc
         
     {json.dumps(feature_descriptions)}\\
         
+    This is a summary of the most recent conversation history:  \\
+    
+    {history} \\
+        
     These are the available modules that can be used to assist the user in their 
     assessment of the model prediction:  \\
     
     {module_overview} \\
     
-    Choose a maximum of three of the modules provided with their respective parameters and add an 
-    explanation for your choice. You are allowed to repeat modules with different parameters.
+    Give the user suggestions on what to explore next based on the collected insights and the possibilities 
+    given by the available modules.
     '''
 
     return prompt

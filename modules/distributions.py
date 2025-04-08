@@ -1,20 +1,25 @@
 import pandas as pd
 import numpy as np
 import plotly.express as px
+from modules.utils.label_mapper import label_map
+from modules.utils.word_similarity import find_most_similar_word
 
 class DistributionModule:
     
-    def __init__(self):
+    def __init__(self, features):
         self.df = pd.read_csv("data/full_df.csv")
+        self.features = features
         
-    def get_distribution_1d(self, label, feature_name):
+    def get_distribution_1d(self, feature_name, label):
         
-        print(label)
-        print(feature_name)
-        
-        class_df = self.df[self.df["new_labels"] == int(label)]
+        my_label = label_map[label]
+
+        class_df = self.df[self.df["new_labels"] == my_label]
         
         n_bins = 20
+        
+        if feature_name not in self.features:
+            feature_name = find_most_similar_word(self.features, feature_name)
         
         counts, bin_edges = np.histogram(class_df[feature_name], bins=n_bins)
         
@@ -31,9 +36,16 @@ class DistributionModule:
             "visual": visual
         }
         
-    def get_distribution_2d(self, label, feature_name_1, feature_name_2):
+    def get_distribution_2d(self, feature_name_1, feature_name_2, label):
         
-        class_df = self.df[self.df["new_labels"] == label]
+        my_label = label_map[label]
+        
+        class_df = self.df[self.df["new_labels"] == my_label]
+        
+        if feature_name_1 not in self.features:
+            feature_name_1 = find_most_similar_word(self.features, feature_name_1)
+        if feature_name_2 not in self.features:
+            feature_name_2 = find_most_similar_word(self.features, feature_name_2)
         
         col1 = class_df[feature_name_1]
         col2 = class_df[feature_name_2]

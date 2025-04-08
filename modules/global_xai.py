@@ -1,6 +1,8 @@
 import json
 import plotly.express as px
 
+from modules.utils.label_mapper import label_map
+
 class GlobalXAIModule:
     
     def __init__(self):
@@ -14,14 +16,14 @@ class GlobalXAIModule:
             
     def get_feature_importance(self, label):
         
-        label_key = f"class_{label}"
+        my_label = label_map[label]
         
-        features = self.feature_importances[label_key].keys()
-        values = self.feature_importances[label_key].values()
+        features = self.feature_importances[label].keys()
+        values = self.feature_importances[label].values()
         
         raw = {
-            "label": label,
-            "values": self.feature_importances[label_key]
+            "label": my_label,
+            "values": self.feature_importances[label]
         }
         
         visual = px.bar(x=features, y=values)
@@ -33,17 +35,11 @@ class GlobalXAIModule:
     
     def get_partial_dependence(self, feature_name, class_label):
         
-        label_mapper = {
-            "True": 0,
-            "Neither": 1,
-            "False": 2
-        }
-        
-        numeric_label = label_mapper[class_label]
+        my_label = label_map[class_label]
         
         elem = list(filter(lambda x: x["feature"] == feature_name, self.pdp))[0]
         grid_values = elem["partial_dependence"]["grid_values"][0]
-        average = elem["partial_dependence"]["average"][numeric_label]
+        average = elem["partial_dependence"]["average"][my_label]
 
         raw = {
             "feature": feature_name,

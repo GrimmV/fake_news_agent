@@ -63,5 +63,5 @@ if __name__ == "__main__":
     module = IndividualXAIModule()
     print(module.get_similars(10883))
     print(module.get_counterfactuals(10883))
-    shap_out = module.get_shap_values(10883, features)
+    shap_out = module.get_shap_values(10883)
     shap_out["visual"].show()
