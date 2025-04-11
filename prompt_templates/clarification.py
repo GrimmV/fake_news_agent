@@ -19,7 +19,7 @@ def clarification_prompt(request, history, module_list, datapoint, label_descrip
     The following is the datapoint and the models output: \\
     
     Post content: {datapoint["statement"]} \\
-    Properties: {datapoint["properties"]} \\
+    Properties: {[{key: val["value"]} for key, val in datapoint["properties"].items()]} \\
     Model prediction: {datapoint["prediction"]} \\  
             
     These are the possible classes:\\

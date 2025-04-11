@@ -29,12 +29,12 @@ module_descriptions = [
     {
         "name": "performance metrics",
         "description": "Metrics to show model performance: accuracy, f1 score, precision, recall and roc auc score",
-        "parameters": {}
+        "parameters": []
     },
     {
         "name": "confusion matrix",
         "description": "Number of occurrences for each label-prediction pair.",
-        "parameters": {}
+        "parameters": []
     },
     {
         "name": "global feature importance",
@@ -54,21 +54,21 @@ module_descriptions = [
     {
         "name": "individual feature importance",
         "description": "Importance of the features for the individual model prediction at hand.",
+        "parameters": []
+    },
+    {
+        "name": "word importance",
+        "description": "Importance of the individual words of the post with respect to the predicted class",
         "parameters": {}
     },
-    # {
-    #     "name": "word importance",
-    #     "description": "Importance of the individual words of the post with respect to the predicted class",
-    #     "parameters": {}
-    # },
-    # {
-    #     "name": "similar predictions",
-    #     "description": "Similar datapoints with the same prediction.",
-    #     "parameters": {}
-    # },
-    # {
-    #     "name": "counterfactuals",
-    #     "description": "Similar datapoints with another prediction.",
-    #     "parameters": {}
-    # },
+    {
+        "name": "similar predictions",
+        "description": "Similar datapoints with the same prediction.",
+        "parameters": {}
+    },
+    {
+        "name": "counterfactuals",
+        "description": "Similar datapoints with another prediction.",
+        "parameters": {}
+    },
 ]

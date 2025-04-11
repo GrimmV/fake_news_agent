@@ -25,7 +25,7 @@ class GPTModel:
         self,
         prompt: str,
         response_model: BaseModel,
-        max_retries: int = 3,
+        max_retries: int = 5,
         validation_context: dict = None,
         system_message: str = "You are a helpful assistant.",
     ):

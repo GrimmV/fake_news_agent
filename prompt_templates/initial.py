@@ -19,7 +19,7 @@ def initial_prompt(module_list, datapoint, label_descriptions = {}, feature_desc
     The following is the datapoint and the models output: \\
     
     Post content: {datapoint["statement"]} \\
-    Properties: {datapoint["properties"]} \\
+    Properties: {[{key: val["value"]} for key, val in datapoint["properties"].items()]} \\
     Model prediction: {datapoint["prediction"]} \\
     
     These are the possible classes:\\
@@ -35,7 +35,7 @@ def initial_prompt(module_list, datapoint, label_descriptions = {}, feature_desc
     
     {module_overview} \\
     
-    Choose a maximum of three of the modules provided with their respective parameters and add an 
+    Choose a maximum of 3 of the modules provided with their respective parameters and add an 
     explanation for your choice. You are allowed to repeat modules with different parameters.
     '''
 

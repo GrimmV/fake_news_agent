@@ -11,7 +11,7 @@ def query_classification_prompt(request, history, datapoint, label_descriptions 
     The following is the datapoint and the models output: \\
     
     Post content: {datapoint["statement"]} \\
-    Properties: {datapoint["properties"]} \\
+    Properties: {[{key: val["value"]} for key, val in datapoint["properties"].items()]} \\
     Model prediction: {datapoint["prediction"]} \\  
             
     These are the possible classes:\\
@@ -32,11 +32,13 @@ def query_classification_prompt(request, history, datapoint, label_descriptions 
 
     Categorize the users request into one of the following categories: \\
         out-of-scope: the request is not relevant for fake news classification in social media, \\
-        clarification: The user asks for clarification of concepts, observations or insights, \\
-        confirmation: The user approves the current state of the conversation and/or wants to move on with the analysis, e.g. based on the suggested next steps, \\
-        objection: The user is challenging insights from the assistant, \\
+        continuation: The user wants to move on with the analysis, e.g. based on the suggested next steps, \\
+        objection: The user is challenging insights from the assistant or asking for clarification, \\
         ambiguous: The user request is not clear enough to handle it, \\
         other: None of the above \\
     '''
 
     return prompt
+
+
+# clarification: The user asks for clarification of concepts, observations or insights, \\

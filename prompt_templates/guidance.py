@@ -1,16 +1,19 @@
 import json
 
-def guidance_prompt(module_list, datapoint, history, label_descriptions = {}, feature_descriptions = []):
-    
+
+def guidance_prompt(
+    module_list, datapoint, history, label_descriptions={}, feature_descriptions=[]
+):
+
     module_overview = ""
-    
+
     for elem in module_list:
-        module_overview = f'''{module_overview}{elem["name"]}: \n
+        module_overview = f"""{module_overview}{elem["name"]}: \n
         description: {elem["description"]}\n
         parameters: {elem["parameters"]}\n\n
-    '''
+    """
 
-    prompt = f'''A Machine Learning Model has been trained to predict if a given social media post 
+    prompt = f"""A Machine Learning Model has been trained to predict if a given social media post 
     contains fake information or not based on the post content and some properties of it. \\
     
     The end user wants to dive deeper into the decision process of the model to make a judgement on 
@@ -19,7 +22,7 @@ def guidance_prompt(module_list, datapoint, history, label_descriptions = {}, fe
     The following is the datapoint and the models output: \\
     
     Post content: {datapoint["statement"]} \\
-    Properties: {datapoint["properties"]} \\
+    Properties: {[{key: val["value"]} for key, val in datapoint["properties"].items()]} \\
     Model prediction: {datapoint["prediction"]} \\  
             
     These are the possible classes:\\
@@ -39,8 +42,9 @@ def guidance_prompt(module_list, datapoint, history, label_descriptions = {}, fe
     
     {module_overview} \\
     
-    Give the user suggestions on what to explore next based on the collected insights and the possibilities 
-    given by the available modules.
-    '''
+    Give the user suggestions on what to explore next based on the history and the possibilities 
+    given by the available modules. Provide at least one suggestion that encourages the user to ask a new 
+    question to the assistant.
+    """
 
     return prompt

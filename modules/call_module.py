@@ -19,59 +19,64 @@ class ModuleCaller:
     def call_module(self, module_name: str, params: dict[str, str | Number], datapoint_id: int = None):
         
         if (module_name == "feature distribution"):
-            the_module = self.dist_module.get_distribution_1d(*params)
+            the_module = self.dist_module.get_distribution_1d(**params)
             visual = the_module["visual"]
             visual.update_layout(
-                margin=dict(l=10, r=10, t=10, b=10)
+                margin=dict(l=10, r=10, t=30, b=10)
             )
             return the_module
-        if (module_name == "feature distribution 2D"):
-            the_module = self.dist_module.get_distribution_2d(*params)
+        elif (module_name == "feature distribution 2D"):
+            the_module = self.dist_module.get_distribution_2d(**params)
             visual = the_module["visual"]
             visual.update_layout(
-                margin=dict(l=10, r=10, t=10, b=10)
+                margin=dict(l=10, r=10, t=30, b=10)
             )
             return the_module
-        if (module_name == "performance metrics"):
-            the_module = self.performance_module.get_performances(*params)
+        elif (module_name == "performance metrics"):
+            the_module = self.performance_module.get_performances(**params)
             visual = the_module["visual"]
             visual.update_layout(
-                margin=dict(l=10, r=10, t=10, b=10)
+                margin=dict(l=10, r=10, t=30, b=10)
             )
             return the_module
-        if (module_name == "confusion matrix"):
-            the_module = self.performance_module.get_confusion(*params)
+        elif (module_name == "confusion matrix"):
+            the_module = self.performance_module.get_confusion(**params)
             visual = the_module["visual"]
             visual.update_layout(
-                margin=dict(l=10, r=10, t=10, b=10)
+                margin=dict(l=10, r=10, t=30, b=10)
             )
             return the_module
-        if (module_name == "global feature importance"):
-            the_module = self.global_xai_module.get_feature_importance(*params)
+        elif (module_name == "global feature importance"):
+            the_module = self.global_xai_module.get_feature_importance(**params)
             visual = the_module["visual"]
             visual.update_layout(
-                margin=dict(l=10, r=10, t=10, b=10)
+                margin=dict(l=10, r=10, t=30, b=10)
             )
             return the_module
-        if (module_name == "partial dependence plot"):
-            the_module = self.global_xai_module.get_partial_dependence(*params)
+        elif (module_name == "partial dependence plot"):
+            print(params)
+            the_module = self.global_xai_module.get_partial_dependence(**params)
             visual = the_module["visual"]
             visual.update_layout(
-                margin=dict(l=10, r=10, t=10, b=10)
+                margin=dict(l=10, r=10, t=30, b=10)
             )
             return the_module
-        if (module_name == "individual feature importance"):
-            the_module = self.individual_xai_module.get_shap_values(dp_id=datapoint_id, *params)
+        elif (module_name == "individual feature importance"):
+            
+            the_module = self.individual_xai_module.get_shap_values(dp_id=datapoint_id)
             visual = the_module["visual"]
             visual.update_layout(
-                margin=dict(l=10, r=10, t=10, b=10)
+                margin=dict(l=10, r=10, t=30, b=10)
             )
             return the_module
-        if (module_name == "similar predictions"):
-            the_module = self.individual_xai_module.get_similars(*params)
+        elif (module_name == "similar predictions"):
+            the_module = self.individual_xai_module.get_similars(dp_id=datapoint_id, **params)
             return the_module
-        if (module_name == "counterfactuals"):
-            the_module = self.individual_xai_module.get_counterfactuals(*params)
+        elif (module_name == "counterfactuals"):
+            the_module = self.individual_xai_module.get_counterfactuals(dp_id=datapoint_id, **params)
+            return the_module
+        elif (module_name == "word importance"):
+            the_module = self.individual_xai_module.get_word_shap_values(dp_id=datapoint_id, **params)
             return the_module
         else:
             return None
