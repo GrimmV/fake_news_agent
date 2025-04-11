@@ -1,6 +1,3 @@
-
-from numbers import Number
-
 from modules.distributions import DistributionModule
 from modules.global_xai import GlobalXAIModule
 from modules.individual_xai import IndividualXAIModule
@@ -16,7 +13,7 @@ class ModuleCaller:
         self.individual_xai_module = IndividualXAIModule()
         self.performance_module = PerformanceModule()
 
-    def call_module(self, module_name: str, params: dict[str, str | Number], datapoint_id: int = None):
+    def call_module(self, module_name: str, params: dict[str, str], datapoint_id: int = None):
         
         if (module_name == "feature distribution"):
             the_module = self.dist_module.get_distribution_1d(**params)
