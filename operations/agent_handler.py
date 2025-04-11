@@ -50,10 +50,18 @@ class XaiInsights(BaseModel):
 class XaiInsights2(BaseModel):
     observations: str
     conclusions: str
+    
+class ChosenModule(BaseModel):
+    module: str
+    parameters: Dict[str, str] = Field(
+        description="Mandatory dictionary. Leave empty, if the module needs no parameters"
+    )
 
 class ModuleChoice(BaseModel):
     module: str
-    parameters: Dict[str, str]
+    parameters: Dict[str, str] = Field(
+        description="Mandatory dictionary. Provide empty dictionary, if the module needs no parameters"
+    )
     explanation: str
     
 def max_three_modules(v: List[ModuleChoice]) -> str:
@@ -66,6 +74,7 @@ def max_three_modules(v: List[ModuleChoice]) -> str:
 
 class Modules(BaseModel):
     modules: Annotated[List[ModuleChoice], AfterValidator(max_three_modules)]
+    
     
 class AgentHandler:
     
@@ -193,11 +202,11 @@ class AgentHandler:
             
         datapoint = retrieve_datapoint(self.df, dp_id)
         
-        prompt = continuation_prompt2(request, history, self.module_descriptions, datapoint, self.label_descriptions, self.feature_descriptions)
+        prompt = continuation_prompt(request, history, self.module_descriptions, datapoint, self.label_descriptions, self.feature_descriptions)
         
         response = self.llm.generate(
             prompt,
-            response_model=ModuleChoice,
+            response_model=Modules,
             system_message="You are an expert in explainable AI.",
         )
 

@@ -59,16 +59,16 @@ module_descriptions = [
     {
         "name": "word importance",
         "description": "Importance of the individual words of the post with respect to the predicted class",
-        "parameters": {}
+        "parameters": []
     },
     {
         "name": "similar predictions",
         "description": "Similar datapoints with the same prediction.",
-        "parameters": {}
+        "parameters": []
     },
     {
         "name": "counterfactuals",
         "description": "Similar datapoints with another prediction.",
-        "parameters": {}
+        "parameters": []
     },
 ]

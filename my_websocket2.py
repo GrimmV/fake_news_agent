@@ -237,9 +237,10 @@ async def workflow(websocket):
                         }
                     )
                 )
-                module = await loop.run_in_executor(
+                modules = await loop.run_in_executor(
                     None, agent_handler.continuation2, request, history[-history_lookback:], datapoint_id
                 )
+                module = modules["modules"][0]
                 history, message_id, modules_data = await module_assessment(
                     history, module, message_id, websocket, loop, username, datapoint_id, message_ids
                 )
@@ -337,7 +338,7 @@ async def module_assessment(history, module, message_id, websocket, loop, userna
         )
     )
     initial_insights = await loop.run_in_executor(
-        None, agent_handler.compute_insights, modules_data, datapoint_id
+        None, agent_handler.compute_insights2, modules_data, datapoint_id
     )
     history.append(
         f"Based on the observed data, the Assistant concluded: {initial_insights['conclusions']}"
