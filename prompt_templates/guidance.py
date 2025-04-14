@@ -1,4 +1,4 @@
-from base import base_prompt
+from prompt_templates.base import base_prompt
 
 def guidance_prompt(
     module_list, datapoint, history

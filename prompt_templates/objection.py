@@ -1,4 +1,4 @@
-from base import base_prompt
+from prompt_templates.base import base_prompt
 
 
 def objection_prompt(request, history, module_list, datapoint):

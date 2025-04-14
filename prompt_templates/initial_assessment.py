@@ -1,6 +1,6 @@
 from prompt_templates.base import base_prompt
 
-def assessment_prompt2(request, module_list, datapoint):
+def initial_assessment_prompt(module_list, datapoint):
     
     module_data = ""
     
@@ -9,7 +9,7 @@ def assessment_prompt2(request, module_list, datapoint):
         parameters: {elem["params"]}\n
         data: {elem["data"]}\n\n
     '''
-
+    
     base = base_prompt(datapoint)
 
     prompt = f'''{base} \\
@@ -17,13 +17,10 @@ def assessment_prompt2(request, module_list, datapoint):
     At this time, the following data is shown to the user: \\
     
     {module_data}\\
-        
-    This is the user reqest: \\
-        
-    {request} \\
     
-    Carefully analyze the data and describe the most relevant observations and the conclusions you can draw from 
-    them. Focus on the provided XAI data in your analysis, rather than the datapoint itself.
+    Carefully analyze the data, describe the most relevant observations, the conclusions you can draw from 
+    them and critically reflect on your analysis, highlighting the most relevant limitations. Focus on the 
+    provided XAI data in your analysis, rather than the datapoint itself.
     '''
 
     return prompt

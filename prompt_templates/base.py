@@ -1,6 +1,6 @@
 import json
-from utils.features import features
-from utils.labels import labels
+from prompt_templates.utils.features import features
+from prompt_templates.utils.labels import labels
 
 def base_prompt(datapoint): 
     

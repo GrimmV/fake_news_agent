@@ -1,9 +1,29 @@
-from base import base_prompt
+from prompt_templates.base import base_prompt
 
 
-def query_classification_prompt(request, history, datapoint):
+def query_classification_prompt(
+    request, available_modules, all_modules, history, datapoint
+):
 
     base = base_prompt(datapoint)
+
+    module_data = ""
+    
+    print("#####################################################")
+    print(available_modules)
+
+    for elem in available_modules:
+        module_data = f"""{module_data}{elem["module"]}: \n
+        parameters: {elem["parameters"]}\n\n
+    """
+
+    module_overview = ""
+
+    for elem in all_modules:
+        module_overview = f"""{module_overview}{elem["name"]}: \n
+        description: {elem["description"]}\n
+        parameters: {elem["parameters"]}\n\n
+    """
 
     prompt = f"""{base} \\
         
@@ -14,13 +34,16 @@ def query_classification_prompt(request, history, datapoint):
     The most recent request of the user is: \\
 
     {request} \\
+        
+    These are the modules displayed and available:
+    
+    {module_data}
+    
+    These are all the modules that can be accessed by you:
+    
+    {module_overview} \\
 
-    Categorize the users request into one of the following categories: \\
-        out-of-scope: the request is not relevant for fake news classification in social media, \\
-        continuation: The user wants to move on with the analysis, e.g. based on the suggested next steps, \\
-        objection: The user is challenging insights from the assistant or asking for clarification, \\
-        ambiguous: The user request is not clear enough to handle it, \\
-        other: None of the above \\
+    Make the choice if you need to fetch new data or if the available modules suffice to handle the users request. \\
     """
 
     return prompt

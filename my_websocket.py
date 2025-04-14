@@ -2,8 +2,6 @@ import asyncio
 import websockets
 import json
 
-from config import datapoint_id
-
 from descriptions.features import features
 from descriptions.labels import labels
 from descriptions.module_descriptions import module_descriptions
@@ -41,6 +39,7 @@ histories = {}
 async def workflow(websocket):
 
     loop = asyncio.get_event_loop()
+    modules = {}
 
     async for message in websocket:
         info = json.loads(message)
@@ -48,22 +47,30 @@ async def workflow(websocket):
         rq_type = info["type"]
         username = info["username"]
         datapoint_id = info["datapoint_id"]
+        
+        try:
+            histories
+        except NameError:
+            histories = {}
 
         if username not in usernames:
             handle_unallowed_username(websocket, 0, username)
             continue
         if username not in histories:
-            histories, message_ids = init_user_history(username)
+            histories[username] = {datapoint_id: []}
+            message_ids[username] = {datapoint_id: 0}
         elif datapoint_id not in histories[username]:
-            histories, message_ids = init_datapoint_history(datapoint_id, username)
+            histories[username][datapoint_id] = []
+            message_ids[username][datapoint_id] = 0
 
         message_id = message_ids[username][datapoint_id]
         history = histories[username][datapoint_id]
+        
 
         if rq_type == "initial":
 
-            modules = await identify_initial_modules(websocket, message_id, loop)
-            history, message_id, modules_data = await module_assessment(
+            modules, message_id = await identify_initial_modules(websocket, message_id, loop, datapoint_id, username)
+            history, message_id = await module_assessment(
                 history,
                 modules,
                 message_id,
@@ -92,149 +99,27 @@ async def workflow(websocket):
                 None,
                 agent_handler.classify_query,
                 request,
+                modules["modules"],
                 history[-history_lookback:],
                 datapoint_id,
             )
             query_class = query_classification["query_class"].value
             query_class_explanation = query_classification["explanation"]
+            tmp_message = "Fetching New Data" if query_class == "fetch-new" else "Handling User Request"
+            print(tmp_message)
             await websocket.send(
                 json.dumps(
                     {
                         "id": message_id,
                         "type": "processing",
                         "status": "done",
-                        "content": f"Classified User Query as: {query_class}",
+                        "content": tmp_message,
                     }
                 )
             )
 
             message_id = increment_message_id(message_ids, username, datapoint_id)
-            if query_class == "out-of-scope":
-                response = f"""
-                    Your request has been classified as out-of-scope because: {query_class_explanation}\\
-                    Please make a request inside of the applications scope.
-                """
-                await websocket.send(
-                    json.dumps(
-                        {
-                            "id": message_id,
-                            "type": "processing",
-                            "status": "done",
-                            "content": response,
-                        }
-                    )
-                )
-                message_id = increment_message_id(message_ids, username, datapoint_id)
-            elif query_class == "ambiguous":
-                history.append(f"User request: {request}")
-                response = f"""
-                    Your request has been classified as ambiguous because: {query_class_explanation}\\
-                    Please clarify your request so that the assistant can respond accordingly.
-                """
-                history.append(
-                    f"Assistant handled ambiguity: {query_class_explanation}"
-                )
-                await websocket.send(
-                    json.dumps(
-                        {
-                            "id": message_id,
-                            "type": "processing",
-                            "status": "done",
-                            "content": response,
-                        }
-                    )
-                )
-                message_id = increment_message_id(message_ids, username, datapoint_id)
-            elif query_class == "clarification":
-                history.append(f"User request: {request}")
-                await websocket.send(
-                    json.dumps(
-                        {
-                            "id": message_id,
-                            "type": "processing",
-                            "status": "pending",
-                            "content": "Thinking about clarification...",
-                        }
-                    )
-                )
-                clarification = await loop.run_in_executor(
-                    None,
-                    agent_handler.clarify,
-                    request,
-                    history[-history_lookback:],
-                    modules_data,
-                    datapoint_id,
-                )
-                history.append(f"Assistant offered clarification: {clarification}")
-                await websocket.send(
-                    json.dumps(
-                        {
-                            "id": message_id,
-                            "type": "processing",
-                            "status": "done",
-                            "content": "Finished clarification",
-                        }
-                    )
-                )
-
-                message_id = increment_message_id(message_ids, username, datapoint_id)
-                await websocket.send(
-                    json.dumps(
-                        {
-                            "id": message_id,
-                            "type": "clarification",
-                            "status": "done",
-                            "content": clarification["clarification"],
-                        }
-                    )
-                )
-                message_id = increment_message_id(message_ids, username, datapoint_id)
-            elif query_class == "objection":
-                history.append(f"User request: {request}")
-                await websocket.send(
-                    json.dumps(
-                        {
-                            "id": message_id,
-                            "type": "processing",
-                            "status": "pending",
-                            "content": "Assessing objection...",
-                        }
-                    )
-                )
-                objection = await loop.run_in_executor(
-                    None,
-                    agent_handler.objection,
-                    request,
-                    history[-history_lookback:],
-                    modules_data,
-                    datapoint_id,
-                )
-                history.append(f"Assistant handled user objection: {objection}")
-                await websocket.send(
-                    json.dumps(
-                        {
-                            "id": message_id,
-                            "type": "processing",
-                            "status": "done",
-                            "content": "Finished assessment",
-                        }
-                    )
-                )
-
-                message_id = increment_message_id(message_ids, username, datapoint_id)
-                await websocket.send(
-                    json.dumps(
-                        {
-                            "id": message_id,
-                            "type": "objection",
-                            "status": "done",
-                            "content": objection["objection"],
-                        }
-                    )
-                )
-                message_id = increment_message_id(message_ids, username, datapoint_id)
-            elif query_class == "continuation":
-                history.append(f"User request: {request}")
+            if query_class == "fetch-new":
                 await websocket.send(
                     json.dumps(
                         {
@@ -252,7 +137,21 @@ async def workflow(websocket):
                     history[-history_lookback:],
                     datapoint_id,
                 )
-                history, message_id, modules_data = await module_assessment(
+                history.append(f"User request: {request}")
+                history.append(f"Modules chosen by the assistant: {modules['modules']}")
+                await websocket.send(
+                    json.dumps(
+                        {
+                            "id": message_id,
+                            "type": "processing",
+                            "status": "done",
+                            "content": "Relevant Data Chosen",
+                        }
+                    )
+                )
+
+                message_id = increment_message_id(message_ids, username, datapoint_id)
+                history, message_id = await module_assessment(
                     history,
                     modules,
                     message_id,
@@ -261,30 +160,32 @@ async def workflow(websocket):
                     username,
                     datapoint_id,
                     message_ids,
+                    request,
+                    insight_type="request"
                 )
             else:
-                response = f"""
-                    Your request has been classified as "other" because: {query_class_explanation}\\
-                    Please write a new request so that it can be properly classified in the application scope.
-                """
-                await websocket.send(
-                    json.dumps(
-                        {
-                            "id": message_id,
-                            "type": "processing",
-                            "status": "done",
-                            "content": response,
-                        }
-                    )
+                history, message_id = await module_assessment(
+                    history,
+                    modules,
+                    message_id,
+                    websocket,
+                    loop,
+                    username,
+                    datapoint_id,
+                    message_ids,
+                    request,
+                    insight_type="request"
                 )
-                message_id = increment_message_id(message_ids, username, datapoint_id)
 
 
 def add_parameter_options(modules):
 
     new_modules = {"modules": []}
 
+    print("#########################################################")
+    print(modules)
     my_modules = modules["modules"]
+    
 
     for module in my_modules:
         param_options = {}
@@ -303,24 +204,19 @@ def add_parameter_options(modules):
 
 
 async def module_assessment(
-    history, modules, message_id, websocket, loop, username, datapoint_id, message_ids
+    history,
+    modules,
+    message_id,
+    websocket,
+    loop,
+    username,
+    datapoint_id,
+    message_ids,
+    request="",
+    insight_type="initial",
 ):
 
     modules = add_parameter_options(modules)
-
-    history.append(f"Modules chosen by the assistant: {modules['modules']}")
-    await websocket.send(
-        json.dumps(
-            {
-                "id": message_id,
-                "type": "processing",
-                "status": "done",
-                "content": "Relevant Data Chosen",
-            }
-        )
-    )
-
-    message_id = increment_message_id(message_ids, username, datapoint_id)
     await websocket.send(
         json.dumps(
             {"id": message_id, "type": "modules", "status": "done", "content": modules}
@@ -328,6 +224,31 @@ async def module_assessment(
     )
 
     message_id = increment_message_id(message_ids, username, datapoint_id)
+
+    message_id, modules_data = await retrieving_data(
+        websocket, message_id, loop, modules, username, datapoint_id
+    )
+
+    message_id, history = await compute_insights(
+        websocket,
+        message_id,
+        loop,
+        modules_data,
+        history,
+        username,
+        datapoint_id,
+        request,
+        insight_type,
+    )
+
+    history, message_id = await compute_next_steps(
+        websocket, message_id, loop, history, datapoint_id, username
+    )
+
+    return history, message_id
+
+
+async def retrieving_data(websocket, message_id, loop, modules, username, datapoint_id):
     await websocket.send(
         json.dumps(
             {
@@ -353,6 +274,20 @@ async def module_assessment(
     )
 
     message_id = increment_message_id(message_ids, username, datapoint_id)
+
+    return message_id, modules_data
+
+
+async def compute_insights(
+    websocket,
+    message_id,
+    loop,
+    modules_data,
+    history,
+    username, datapoint_id,
+    request="",
+    insight_type="initial",
+):
     await websocket.send(
         json.dumps(
             {
@@ -363,11 +298,17 @@ async def module_assessment(
             }
         )
     )
-    initial_insights = await loop.run_in_executor(
-        None, agent_handler.compute_insights, modules_data, datapoint_id
-    )
+    if insight_type == "initial":
+        insights = await loop.run_in_executor(
+            None, agent_handler.compute_initial_insights, modules_data, datapoint_id
+        )
+    else:
+        insights = await loop.run_in_executor(
+            None, agent_handler.compute_insights, request, modules_data, datapoint_id
+        )
+
     history.append(
-        f"Based on the observed data, the Assistant concluded: {initial_insights['conclusions']}"
+        f"Based on the observed data, the Assistant concluded: {insights['conclusions']}"
     )
     await websocket.send(
         json.dumps(
@@ -387,12 +328,16 @@ async def module_assessment(
                 "id": message_id,
                 "type": "insights",
                 "status": "done",
-                "content": initial_insights,
+                "content": insights,
             }
         )
     )
-
     message_id = increment_message_id(message_ids, username, datapoint_id)
+
+    return message_id, history
+
+
+async def compute_next_steps(websocket, message_id, loop, history, datapoint_id, username):
     await websocket.send(
         json.dumps(
             {
@@ -435,7 +380,7 @@ async def module_assessment(
 
     message_id = increment_message_id(message_ids, username, datapoint_id)
 
-    return history, message_id, modules_data
+    return history, message_id
 
 
 def increment_message_id(message_ids, username, datapoint_id):
@@ -457,20 +402,7 @@ async def handle_unallowed_username(websocket, message_id, username):
     )
 
 
-def init_user_history(username):
-    histories[username] = {datapoint_id: []}
-    message_ids[username] = {datapoint_id: 0}
-    return histories, message_ids
-
-
-def init_datapoint_history(datapoint_id, username):
-
-    histories[username][datapoint_id] = []
-    message_ids[username][datapoint_id] = 0
-
-    return histories, message_ids
-
-async def identify_initial_modules(websocket, message_id, loop):
+async def identify_initial_modules(websocket, message_id, loop, datapoint_id, username):
     await websocket.send(
         json.dumps(
             {
@@ -484,8 +416,20 @@ async def identify_initial_modules(websocket, message_id, loop):
     modules = await loop.run_in_executor(
         None, agent_handler.get_relevant_modules, datapoint_id
     )
-    
-    return modules
+    await websocket.send(
+        json.dumps(
+            {
+                "id": message_id,
+                "type": "processing",
+                "status": "done",
+                "content": "Relevant Data Chosen",
+            }
+        )
+    )
+    message_id = increment_message_id(message_ids, username, datapoint_id)
+
+    return modules, message_id
+
 
 async def main():
     async with websockets.serve(workflow, "localhost", 8765):

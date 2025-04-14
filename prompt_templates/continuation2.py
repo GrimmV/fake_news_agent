@@ -1,4 +1,4 @@
-from base import base_prompt
+from prompt_templates.base import base_prompt
 
 def continuation_prompt2(
     request,
