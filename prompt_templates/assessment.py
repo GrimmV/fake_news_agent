@@ -1,6 +1,6 @@
-import json
+from base import base_prompt
 
-def assessment_prompt(module_list, datapoint, label_descriptions = {}, feature_descriptions = []):
+def assessment_prompt(module_list, datapoint):
     
     module_data = ""
     
@@ -9,26 +9,10 @@ def assessment_prompt(module_list, datapoint, label_descriptions = {}, feature_d
         parameters: {elem["params"]}\n
         data: {elem["data"]}\n\n
     '''
+    
+    base = base_prompt(datapoint)
 
-    prompt = f'''A Machine Learning Model has been trained to predict if a given social media post 
-    contains fake information or not based on the post content and some properties of it. \\
-    
-    The end user wants to dive deeper into the decision process of the model to make a judgement on 
-    the correctness of the particular ML model prediction and build trust towards it. \\
-        
-    The following is the datapoint and the models output: \\
-    
-    Post content: {datapoint["statement"]} \\
-    Properties: {[{key: val["value"]} for key, val in datapoint["properties"].items()]} \\
-    Model prediction: {datapoint["prediction"]} \\      
-            
-    These are the possible classes:\\
-    
-    {json.dumps(label_descriptions)}\\
-    
-    These are the features that the model uses additionally to the statement: \\
-        
-    {json.dumps(feature_descriptions)}\\
+    prompt = f'''{base} \\
         
     At this time, the following data is shown to the user: \\
     

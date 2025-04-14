@@ -1,27 +1,12 @@
-import json
+from base import base_prompt
 
-def query_classification_prompt(request, history, datapoint, label_descriptions = {}, feature_descriptions = []):
 
-    prompt = f'''A Machine Learning Model has been trained to predict if a given social media post 
-    contains fake information or not based on the post content and some properties of it. \\
-    
-    The end user wants to dive deeper into the decision process of the model to make a judgement on 
-    the correctness of the particular ML model prediction and build trust towards it. \\
+def query_classification_prompt(request, history, datapoint):
+
+    base = base_prompt(datapoint)
+
+    prompt = f"""{base} \\
         
-    The following is the datapoint and the models output: \\
-    
-    Post content: {datapoint["statement"]} \\
-    Properties: {[{key: val["value"]} for key, val in datapoint["properties"].items()]} \\
-    Model prediction: {datapoint["prediction"]} \\  
-            
-    These are the possible classes:\\
-    
-    {json.dumps(label_descriptions)}\\
-    
-    These are the features that the model uses additionally to the statement: \\
-        
-    {json.dumps(feature_descriptions)}\\
-                
     This is a summary of the most recent conversation history:  \\
     
     {history} \\
@@ -36,7 +21,7 @@ def query_classification_prompt(request, history, datapoint, label_descriptions 
         objection: The user is challenging insights from the assistant or asking for clarification, \\
         ambiguous: The user request is not clear enough to handle it, \\
         other: None of the above \\
-    '''
+    """
 
     return prompt
 

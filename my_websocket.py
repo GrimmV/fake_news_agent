@@ -37,6 +37,7 @@ history_lookback = 3
 message_ids = {}
 histories = {}
 
+
 async def workflow(websocket):
 
     loop = asyncio.get_event_loop()
@@ -49,51 +50,28 @@ async def workflow(websocket):
         datapoint_id = info["datapoint_id"]
 
         if username not in usernames:
-            await websocket.send(
-                json.dumps(
-                    {
-                        "id": message_id,
-                        "type": "processing",
-                        "status": "done",
-                        "content": f"You, {username}, are not eligible to interact with the assistant",
-                    }
-                )
-            )
+            handle_unallowed_username(websocket, 0, username)
             continue
         if username not in histories:
-            histories[username] = {
-                datapoint_id: []
-            }
-            message_ids[username] = {
-                datapoint_id: 0
-            }
+            histories, message_ids = init_user_history(username)
         elif datapoint_id not in histories[username]:
-            histories[username][datapoint_id] = []
-            message_ids[username][datapoint_id] = 0
-            
+            histories, message_ids = init_datapoint_history(datapoint_id, username)
+
         message_id = message_ids[username][datapoint_id]
         history = histories[username][datapoint_id]
-        
-        print(histories)
-        print(message_ids)
-        
+
         if rq_type == "initial":
-            
-            await websocket.send(
-                json.dumps(
-                    {
-                        "id": message_id,
-                        "type": "processing",
-                        "status": "pending",
-                        "content": "Choosing Relevant Data...",
-                    }
-                )
-            )
-            modules = await loop.run_in_executor(
-                None, agent_handler.get_relevant_modules, datapoint_id
-            )
+
+            modules = await identify_initial_modules(websocket, message_id, loop)
             history, message_id, modules_data = await module_assessment(
-                history, modules, message_id, websocket, loop, username, datapoint_id, message_ids
+                history,
+                modules,
+                message_id,
+                websocket,
+                loop,
+                username,
+                datapoint_id,
+                message_ids,
             )
         elif rq_type == "request":
 
@@ -111,7 +89,11 @@ async def workflow(websocket):
                 )
             )
             query_classification = await loop.run_in_executor(
-                None, agent_handler.classify_query, request, history[-history_lookback:], datapoint_id
+                None,
+                agent_handler.classify_query,
+                request,
+                history[-history_lookback:],
+                datapoint_id,
             )
             query_class = query_classification["query_class"].value
             query_class_explanation = query_classification["explanation"]
@@ -264,10 +246,21 @@ async def workflow(websocket):
                     )
                 )
                 modules = await loop.run_in_executor(
-                    None, agent_handler.continuation, request, history[-history_lookback:], datapoint_id
+                    None,
+                    agent_handler.continuation,
+                    request,
+                    history[-history_lookback:],
+                    datapoint_id,
                 )
                 history, message_id, modules_data = await module_assessment(
-                    history, modules, message_id, websocket, loop, username, datapoint_id, message_ids
+                    history,
+                    modules,
+                    message_id,
+                    websocket,
+                    loop,
+                    username,
+                    datapoint_id,
+                    message_ids,
                 )
             else:
                 response = f"""
@@ -309,7 +302,9 @@ def add_parameter_options(modules):
     return new_modules
 
 
-async def module_assessment(history, modules, message_id, websocket, loop, username, datapoint_id, message_ids):
+async def module_assessment(
+    history, modules, message_id, websocket, loop, username, datapoint_id, message_ids
+):
 
     modules = add_parameter_options(modules)
 
@@ -409,7 +404,10 @@ async def module_assessment(history, modules, message_id, websocket, loop, usern
         )
     )
     next_steps = await loop.run_in_executor(
-        None, agent_handler.compute_next_steps, history[-history_lookback:], datapoint_id
+        None,
+        agent_handler.compute_next_steps,
+        history[-history_lookback:],
+        datapoint_id,
     )
     history.append(f"The assistant suggested the following next steps: {next_steps}")
     await websocket.send(
@@ -439,9 +437,55 @@ async def module_assessment(history, modules, message_id, websocket, loop, usern
 
     return history, message_id, modules_data
 
+
 def increment_message_id(message_ids, username, datapoint_id):
     message_ids[username][datapoint_id] += 1
     return message_ids[username][datapoint_id]
+
+
+async def handle_unallowed_username(websocket, message_id, username):
+
+    await websocket.send(
+        json.dumps(
+            {
+                "id": message_id,
+                "type": "processing",
+                "status": "done",
+                "content": f"You, {username}, are not eligible to interact with the assistant",
+            }
+        )
+    )
+
+
+def init_user_history(username):
+    histories[username] = {datapoint_id: []}
+    message_ids[username] = {datapoint_id: 0}
+    return histories, message_ids
+
+
+def init_datapoint_history(datapoint_id, username):
+
+    histories[username][datapoint_id] = []
+    message_ids[username][datapoint_id] = 0
+
+    return histories, message_ids
+
+async def identify_initial_modules(websocket, message_id, loop):
+    await websocket.send(
+        json.dumps(
+            {
+                "id": message_id,
+                "type": "processing",
+                "status": "pending",
+                "content": "Choosing Relevant Data...",
+            }
+        )
+    )
+    modules = await loop.run_in_executor(
+        None, agent_handler.get_relevant_modules, datapoint_id
+    )
+    
+    return modules
 
 async def main():
     async with websockets.serve(workflow, "localhost", 8765):
