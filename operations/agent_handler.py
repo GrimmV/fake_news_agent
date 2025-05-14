@@ -1,7 +1,7 @@
 import pandas as pd
 
 from pydantic import BaseModel, Field
-from typing import List, Dict
+from typing import List, Dict, Any
 from typing_extensions import Annotated
 from pydantic import AfterValidator
 from enum import Enum
@@ -17,7 +17,8 @@ from prompt_templates.clarification import clarification_prompt
 from prompt_templates.objection import objection_prompt
 from prompt_templates.continuation import continuation_prompt
 from prompt_templates.continuation2 import continuation_prompt2
-
+from prompt_templates.module_summarization import module_summarization_prompt
+from prompt_templates.trust_assessment import trust_assessment_prompt
 from operations.utils.retrieve_datapoint import retrieve_datapoint
 
 
@@ -40,9 +41,9 @@ class QueryClassification(BaseModel):
 
 
 class NextSteps(BaseModel):
-    suggestion1: str
-    suggestion2: str
-    suggestion3: str
+    suggestion1: str = Field(description="Choose 1 - 3 available modules and present them to the user in a human, prose format and tell why they are relevant to the user's query")
+    suggestion2: str = Field(description="Choose 1 - 3 available modules and present them to the user in a human, prose format and tell why they are relevant to the user's query")
+    suggestion3: str = Field(description="Provide a general suggestion for the user to explore the data further")
 
 
 class XaiInsights(BaseModel):
@@ -79,6 +80,13 @@ def max_three_modules(v: List[ModuleChoice]) -> str:
         raise ValueError("The number of modules must not exceed 3")
     return v
 
+class TrustAssessment(BaseModel):
+    trustworthiness: bool = Field(description="True if the prediction is trustworthy, False otherwise")
+    score: int = Field(description="A trustworthyness score between 0 and 100")
+    reason: str = Field(description="A reason for the trustworthiness score")
+
+class ModuleSummarization(BaseModel):
+    summarization: str
 
 class Modules(BaseModel):
     modules: Annotated[List[ModuleChoice], AfterValidator(max_three_modules)]
@@ -240,6 +248,9 @@ class AgentHandler:
             response_model=Modules,
             system_message="You are an expert in explainable AI.",
         )
+        
+        print("response:")
+        print(response.dict())
 
         return response.dict()
 
@@ -257,4 +268,34 @@ class AgentHandler:
             system_message="You are an expert in explainable AI.",
         )
 
+        return response.dict()
+
+    def module_summarization(self, modules: str, dp_id: int) -> dict:
+        
+        datapoint = retrieve_datapoint(self.df, dp_id)
+        
+        supportive_information = f"""
+            Values: {datapoint["properties"]}
+            Prediction: {datapoint["prediction"]["label"]}
+        """
+        
+        prompt = module_summarization_prompt(modules, supportive_information)
+
+        response = self.llm.generate(
+            prompt,
+            response_model=ModuleSummarization,
+            system_message="You are an expert in explainable AI.",
+        )
+        
+        return response.dict()["summarization"]
+
+    def trust_assessment(self, trace: List[Dict[str, Any]]) -> str:
+        prompt = trust_assessment_prompt(trace)
+
+        response = self.llm.generate(
+            prompt,
+            response_model=TrustAssessment,
+            system_message="You are an expert in explainable AI.",
+        )
+        
         return response.dict()

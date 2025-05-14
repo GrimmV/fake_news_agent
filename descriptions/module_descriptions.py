@@ -18,14 +18,6 @@ module_descriptions = [
             "label"
         ]
     },
-    # {
-    #     "name": "word distribution",
-    #     "description": "Histogram of the most used words for a given class.",
-    #     "parameters": {
-    #         "name": "feature name",
-    #         "class": "class label"
-    #     }
-    # },
     {
         "name": "performance metrics",
         "description": "Metrics to show model performance: accuracy, f1 score, precision, recall and roc auc score",

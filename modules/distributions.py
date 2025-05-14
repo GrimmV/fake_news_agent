@@ -24,7 +24,7 @@ class DistributionModule:
 
         counts, bin_edges = np.histogram(class_df[feature_name], bins=n_bins)
 
-        raw = {"counts": counts, "edges": bin_edges}
+        raw = {"counts": counts.astype(int).tolist(), "edges": bin_edges.astype(float).tolist()}
 
         visual = px.histogram(
             class_df,

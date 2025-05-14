@@ -19,10 +19,14 @@ class GlobalXAIModule:
 
         my_label = label_map[label]
 
-        features = self.feature_importances[label].keys()
-        values = self.feature_importances[label].values()
+        features = list(self.feature_importances[label].keys())
+        values = list(self.feature_importances[label].values())
+        
+        # Create list of (feature, value) tuples and sort by value
+        feature_value_pairs = list(zip(features, values))
+        top_features = [feature for feature, _ in sorted(feature_value_pairs, key=lambda x: x[1], reverse=True)[:3]]
 
-        raw = {"label": my_label, "values": self.feature_importances[label]}
+        raw = {"label": my_label, "values": self.feature_importances[label], "top_features": top_features}
 
         visual = px.bar(
             x=features,

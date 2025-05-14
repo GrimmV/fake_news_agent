@@ -29,6 +29,7 @@ class IndividualXAIModule:
     def get_similars(self, dp_id, **kwargs):
 
         elem = list(filter(lambda x: x["id"] == dp_id, self.similars))[0]
+        elem["elems"] = elem["elems"][1:]
 
         return {"raw": elem, "visual": None}
 
@@ -42,8 +43,13 @@ class IndividualXAIModule:
     def get_shap_values(self, dp_id, **kwargs):
         with open(shaps_location) as f:
             shaps = json.load(f)
+            
+        # print(shaps)
+        print(dp_id)
 
-        elem = list(filter(lambda x: x["id"] == dp_id, shaps))[0]
+        elem = list(filter(lambda x: x["id"] == dp_id, shaps))
+        print(elem)
+        elem = elem[0]
         
         print("######### normal shap retrieval ##############")
         print(elem)
@@ -95,8 +101,8 @@ if __name__ == "__main__":
 
     module = IndividualXAIModule()
     print(module.get_similars(10883))
-    print(module.get_counterfactuals(10883))
-    # shap_out = module.get_shap_values(10883)
-    shap_out = module.get_word_shap_values(10883)
+    # print(module.get_counterfactuals(10883))
+    shap_out = module.get_shap_values(10883)
+    # shap_out = module.get_word_shap_values(10883)
     print(shap_out["raw"])
     # shap_out["visual"].show()
