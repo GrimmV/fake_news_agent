@@ -26,10 +26,9 @@ async def agentic_assessment(
     agent_handler: AgentHandler,
     dp_id: int,
     websocket_send_callback: Callable[[str], None] = None,
+    loop: asyncio.AbstractEventLoop = None,
 ) -> List[Dict[str, Any]]:
     trace = []
-    
-    loop = asyncio.get_event_loop()
 
     # Step 1: Global Performance Context
     trace, performance_output = await call_and_summarize_module(
@@ -70,21 +69,23 @@ async def agentic_assessment(
     )
     top_features = global_feature_importance_output["top_features"]
 
+    # Technically several features could be focused on, but to decrease the context, we stick with one:
+    feature = top_features[0]
+
     # Step 3: Partial Dependence
-    for feature in top_features:
-        trace, dist = await call_and_summarize_module(
-            module_caller=module_caller,
-            agent_handler=agent_handler,
-            trace=trace,
-            module_name="partial dependence plot",
-            module_params={"feature_name": feature, "label": predicted_label},
-            description_template="Contains the partial dependence plot of {feature} towards the predicted label {predicted_label}.",
-            dp_id=dp_id,
-            feature_name_for_action=feature,
-            predicted_label_for_action=predicted_label,
-            websocket_send_callback=websocket_send_callback,
-            loop=loop,
-        )
+    trace, dist = await call_and_summarize_module(
+        module_caller=module_caller,
+        agent_handler=agent_handler,
+        trace=trace,
+        module_name="partial dependence plot",
+        module_params={"feature_name": feature, "label": predicted_label},
+        description_template="Contains the partial dependence plot of {feature} towards the predicted label {predicted_label}.",
+        dp_id=dp_id,
+        feature_name_for_action=feature,
+        predicted_label_for_action=predicted_label,
+        websocket_send_callback=websocket_send_callback,
+        loop=loop,
+    )
 
     # Step 4: Local Instance Analysis
     trace, local_feature_importance_output = await call_and_summarize_module(
@@ -110,21 +111,19 @@ async def agentic_assessment(
         loop=loop,
     )
 
-    # Step 5: Feature Distribution
-    for feature in top_features:
-        trace, dist = await call_and_summarize_module(
-            module_caller=module_caller,
-            agent_handler=agent_handler,
-            trace=trace,
-            module_name="feature distribution",
-            module_params={"feature_name": feature, "label": predicted_label},
-            description_template="Contains the feature distribution for the particular model prediction.",
-            dp_id=dp_id,
-            feature_name_for_action=feature,
-            predicted_label_for_action=predicted_label,
-            websocket_send_callback=websocket_send_callback,
-            loop=loop,
-        )
+    trace, dist = await call_and_summarize_module(
+        module_caller=module_caller,
+        agent_handler=agent_handler,
+        trace=trace,
+        module_name="feature distribution",
+        module_params={"feature_name": feature, "label": predicted_label},
+        description_template="Contains the feature distribution for the particular model prediction.",
+        dp_id=dp_id,
+        feature_name_for_action=feature,
+        predicted_label_for_action=predicted_label,
+        websocket_send_callback=websocket_send_callback,
+        loop=loop,
+    )
 
     # Step 6: Counterfactuals
     trace, counterfactual_output = await call_and_summarize_module(
@@ -159,11 +158,25 @@ async def agentic_assessment(
         agent_handler.trust_assessment,
         trace,
     )
-    trace.append({"action": "final assessment", "summary": conclusion})
+    conclusion2 = await loop.run_in_executor(
+        None,
+        agent_handler.trust_assessment2,
+        trace,
+    )
+    # trace.append({"action": "final assessment", "summary": conclusion})
     if websocket_send_callback:
         payload = {
             "type": "final_assessment",
+            "variant": "standard",
             "data": {"action": "final assessment", "summary": conclusion},
+        }
+        await websocket_send_callback(json.dumps(payload))
+
+    if websocket_send_callback:
+        payload = {
+            "type": "final_assessment",
+            "variant": "sceptical",
+            "data": {"action": "final assessment", "summary": conclusion2},
         }
         await websocket_send_callback(json.dumps(payload))
 
@@ -217,7 +230,7 @@ async def call_and_summarize_module(
     summary = await loop.run_in_executor(
         None,
         agent_handler.module_summarization,
-        json.dumps({module_name: module_output, "description": description}),
+        {"name": module_name, "description": description, "output": module_output},
         dp_id,
     )
 
@@ -229,12 +242,17 @@ async def call_and_summarize_module(
 
     action = " ".join(action_description_parts)
 
-    trace.append({"action": action, "summary": summary})
+    trace.append({"action": action, "summary": summary, "module_name": module_name})
 
     if websocket_send_callback:
         payload = {
             "type": "module_update",
-            "data": {"module": module_name, "params": module_params, "action": action, "summary": summary},
+            "data": {
+                "module": module_name,
+                "params": module_params,
+                "action": action,
+                "summary": summary,
+            },
         }
         await websocket_send_callback(json.dumps(payload))
 

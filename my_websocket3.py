@@ -34,7 +34,10 @@ module_caller = ModuleCaller([feature["name"] for feature in features])
 
 df = pd.read_csv("data/full_df.csv")
 
+
 async def workflow(websocket):
+
+    loop = asyncio.get_event_loop()
 
     async for message in websocket:
         info = json.loads(message)
@@ -46,9 +49,37 @@ async def workflow(websocket):
         # if username not in usernames:
         #     handle_unallowed_username(websocket, 0, username)
         #     continue
-        
-        await agentic_assessment(predicted_label=label, module_caller=module_caller, agent_handler=agent_handler, dp_id=datapoint_id, websocket_send_callback=websocket.send)
-        
+        if info["type"] == "initialization":
+            await agentic_assessment(
+                predicted_label=label,
+                module_caller=module_caller,
+                agent_handler=agent_handler,
+                dp_id=datapoint_id,
+                websocket_send_callback=websocket.send,
+                loop=loop,
+            )
+        elif info["type"] == "update_assessment":
+            meta_info = info["meta"]
+            context = meta_info["context"]
+            assessment_type = meta_info["assessment_type"]
+            module_focus = meta_info["module_focus"]
+            module_insights = meta_info["modules"]
+            conclusion = await loop.run_in_executor(
+                None,
+                agent_handler.trust_assessment_with_context,
+                module_insights,
+                context,
+                assessment_type,
+                module_focus,
+            )
+            payload = {
+                "type": "final_assessment",
+                "variant": assessment_type,
+                "data": {"action": "final assessment", "summary": conclusion},
+            }
+            print(payload)
+            await websocket.send(json.dumps(payload))
+
 
 async def handle_unallowed_username(websocket, message_id, username):
 
@@ -62,6 +93,7 @@ async def handle_unallowed_username(websocket, message_id, username):
             }
         )
     )
+
 
 async def main():
     async with websockets.serve(workflow, "localhost", 8765):

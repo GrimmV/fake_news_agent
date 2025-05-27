@@ -1,4 +1,4 @@
-def module_summarization_prompt(modules: str, supportive_information: str) -> str:
+def module_summarization_prompt(module: dict, supportive_information: str) -> str:
 
     return f"""
 
@@ -12,14 +12,14 @@ def module_summarization_prompt(modules: str, supportive_information: str) -> st
         
         \n
         
-        Modules: \n
+        Module: \n
         
-        {modules}
+        {module}
         
         \n
 
-        Given the datapoint and model prediction, summarize the results of the modules in a concise manner. \n
-        Only use the supportive information as a reference and focus on the results of the modules. Explicitely 
+        Given the datapoint and model prediction, summarize the results of the module in a concise manner. \n
+        Only use the supportive information as a reference and focus on the results of the module. Explicitely 
         mention the relevant numbers and values.
         
     """

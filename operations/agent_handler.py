@@ -1,5 +1,5 @@
 import pandas as pd
-
+import json
 from pydantic import BaseModel, Field
 from typing import List, Dict, Any
 from typing_extensions import Annotated
@@ -16,9 +16,9 @@ from prompt_templates.query_classification import query_classification_prompt
 from prompt_templates.clarification import clarification_prompt
 from prompt_templates.objection import objection_prompt
 from prompt_templates.continuation import continuation_prompt
-from prompt_templates.continuation2 import continuation_prompt2
 from prompt_templates.module_summarization import module_summarization_prompt
 from prompt_templates.trust_assessment import trust_assessment_prompt
+from prompt_templates.trust_assessment_with_context import trust_assessment_with_context_prompt
 from operations.utils.retrieve_datapoint import retrieve_datapoint
 
 
@@ -41,9 +41,15 @@ class QueryClassification(BaseModel):
 
 
 class NextSteps(BaseModel):
-    suggestion1: str = Field(description="Choose 1 - 3 available modules and present them to the user in a human, prose format and tell why they are relevant to the user's query")
-    suggestion2: str = Field(description="Choose 1 - 3 available modules and present them to the user in a human, prose format and tell why they are relevant to the user's query")
-    suggestion3: str = Field(description="Provide a general suggestion for the user to explore the data further")
+    suggestion1: str = Field(
+        description="Choose 1 - 3 available modules and present them to the user in a human, prose format and tell why they are relevant to the user's query"
+    )
+    suggestion2: str = Field(
+        description="Choose 1 - 3 available modules and present them to the user in a human, prose format and tell why they are relevant to the user's query"
+    )
+    suggestion3: str = Field(
+        description="Provide a general suggestion for the user to explore the data further"
+    )
 
 
 class XaiInsights(BaseModel):
@@ -80,13 +86,35 @@ def max_three_modules(v: List[ModuleChoice]) -> str:
         raise ValueError("The number of modules must not exceed 3")
     return v
 
+
 class TrustAssessment(BaseModel):
-    trustworthiness: bool = Field(description="True if the prediction is trustworthy, False otherwise")
-    score: int = Field(description="A trustworthyness score between 0 and 100")
-    reason: str = Field(description="A reason for the trustworthiness score")
+    trustworthiness: bool = Field(
+        description="True if the prediction is trustworthy, False otherwise"
+    )
+    score: int = Field(description="A trustworthiness score between 0 and 100")
+    reason: str = Field(description="A reason for your assessment of the trustworthiness")
+    most_relevant_modules: List[str] = Field(
+        min_length=1,
+        max_length=3,
+        description="The most relevant modules for the score (max 3)",
+    )
+
+class TrustAssessment2(BaseModel):
+    trustworthiness: bool = Field(
+        description="True if the prediction is trustworthy, False otherwise"
+    )
+    score: int = Field(description="A trustworthiness score between 0 and 100")
+    reason: str = Field(description="A reason for your assessment of the trustworthiness. Be as sceptical as possible.")
+    most_relevant_modules: List[str] = Field(
+        min_length=1,
+        max_length=3,
+        description="The most relevant modules for the score (max 3)",
+    )
+
 
 class ModuleSummarization(BaseModel):
     summarization: str
+
 
 class Modules(BaseModel):
     modules: Annotated[List[ModuleChoice], AfterValidator(max_three_modules)]
@@ -106,6 +134,8 @@ class AgentHandler:
         self.label_descriptions = label_descriptions
         self.feature_descriptions = feature_descriptions
         self.module_descriptions = module_descriptions
+        
+        self.cache = {}
 
     def get_relevant_modules(self, dp_id) -> dict:
 
@@ -134,7 +164,7 @@ class AgentHandler:
         )
 
         return response.dict()
-    
+
     def compute_initial_insights2(self, modules, dp_id) -> dict:
 
         datapoint = retrieve_datapoint(self.df, dp_id)
@@ -248,7 +278,7 @@ class AgentHandler:
             response_model=Modules,
             system_message="You are an expert in explainable AI.",
         )
-        
+
         print("response:")
         print(response.dict())
 
@@ -270,16 +300,16 @@ class AgentHandler:
 
         return response.dict()
 
-    def module_summarization(self, modules: str, dp_id: int) -> dict:
-        
+    def module_summarization(self, module: dict, dp_id: int) -> dict:
+
         datapoint = retrieve_datapoint(self.df, dp_id)
-        
+
         supportive_information = f"""
             Values: {datapoint["properties"]}
             Prediction: {datapoint["prediction"]["label"]}
         """
-        
-        prompt = module_summarization_prompt(modules, supportive_information)
+
+        prompt = module_summarization_prompt(json.dumps(module), supportive_information)
 
         response = self.llm.generate(
             prompt,
@@ -287,6 +317,14 @@ class AgentHandler:
             system_message="You are an expert in explainable AI.",
         )
         
+        cache_key = f"{dp_id}_{module['name']}"
+        
+        if cache_key in self.cache:
+            print(self.cache)
+            return self.cache[cache_key]
+        
+        self.cache[cache_key] = response.dict()["summarization"]
+
         return response.dict()["summarization"]
 
     def trust_assessment(self, trace: List[Dict[str, Any]]) -> str:
@@ -297,5 +335,29 @@ class AgentHandler:
             response_model=TrustAssessment,
             system_message="You are an expert in explainable AI.",
         )
+
+        return response.dict()
+
+    def trust_assessment2(self, trace: List[Dict[str, Any]]) -> str:
+        prompt = trust_assessment_prompt(trace)
+
+        response = self.llm.generate(
+            prompt,
+            response_model=TrustAssessment2,
+            system_message="You are an expert in explainable AI.",
+        )
+
+        return response.dict()
+    
+    def trust_assessment_with_context(self, module_insights: List[Dict[str, Any]], context: str, assessment_type: str, module_focus: str) -> str:
+        prompt = trust_assessment_with_context_prompt(module_insights, context, module_focus)
         
+        print(prompt)
+
+        response = self.llm.generate(
+            prompt,
+            response_model=TrustAssessment if assessment_type == "standard" else TrustAssessment2,
+            system_message="You are an expert in explainable AI.",
+        )
+
         return response.dict()
