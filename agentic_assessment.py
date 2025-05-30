@@ -180,7 +180,7 @@ async def agentic_assessment(
         }
         await websocket_send_callback(json.dumps(payload))
 
-    return trace
+    return trace, conclusion, conclusion2
 
 
 async def call_and_summarize_module(

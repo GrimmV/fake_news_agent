@@ -91,7 +91,7 @@ class TrustAssessment(BaseModel):
     trustworthiness: bool = Field(
         description="True if the prediction is trustworthy, False otherwise"
     )
-    score: int = Field(description="A trustworthiness score between 0 and 100")
+    score: int = Field(description="A trustworthiness score between 0 (not trustworthy) and 100 (fully trustworthy)")
     reason: str = Field(description="A reason for your assessment of the trustworthiness")
     most_relevant_modules: List[str] = Field(
         min_length=1,
@@ -103,7 +103,7 @@ class TrustAssessment2(BaseModel):
     trustworthiness: bool = Field(
         description="True if the prediction is trustworthy, False otherwise"
     )
-    score: int = Field(description="A trustworthiness score between 0 and 100")
+    score: int = Field(description="A trustworthiness score between 0 (not trustworthy) and 100 (fully trustworthy)")
     reason: str = Field(description="A reason for your assessment of the trustworthiness. Be as sceptical as possible.")
     most_relevant_modules: List[str] = Field(
         min_length=1,

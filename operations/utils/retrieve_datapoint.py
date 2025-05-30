@@ -4,11 +4,11 @@ def retrieve_datapoint(df, dp_id):
     raw_label = int(row["predictions"].iloc[0])
 
     if raw_label == 0:
-        label = "True"
+        label = "False"
     elif raw_label == 1:
         label = "Neither"
     elif raw_label == 2:
-        label = "False"
+        label = "True"
 
     lex_diversity_min = df["Lexical Diversity (TTR)"].min()
     lex_diversity_max = df["Lexical Diversity (TTR)"].max()
