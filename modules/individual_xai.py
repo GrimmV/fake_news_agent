@@ -1,15 +1,8 @@
 import json
 import plotly.express as px
+from descriptions.features import features
 
-features = [
-    "Lexical Diversity (TTR)",
-    "Average Word Length",
-    "Avg Syllables per Word",
-    "Difficult Word Ratio",
-    "Dependency Depth",
-    "Length",
-    "sentiment",
-]
+features_names = [x["name"] for x in features]
 
 shaps_location = "data/shap.csv"
 
@@ -56,7 +49,7 @@ class IndividualXAIModule:
 
         value_dict = elem["values"]
 
-        feature_dict = dict((k, value_dict[k]) for k in features if k in value_dict)
+        feature_dict = dict((k, value_dict[k]) for k in features_names if k in value_dict)
 
         elem["values"] = feature_dict
         
@@ -70,8 +63,9 @@ class IndividualXAIModule:
             labels={
                 "x": "Features",
                 "y": "Importance"
-            },
+            }
         )
+        visual.update_xaxes(tickangle=45)
 
         return {"raw": elem, "visual": visual}
 
@@ -88,8 +82,8 @@ class IndividualXAIModule:
         value_dict = elem["values"]
         keys = value_dict.keys()
         print(keys)
-        print(features)
-        word_keys = [x for x in keys if x not in features]
+        print(features_names)
+        word_keys = [x for x in keys if x not in features_names]
 
         feature_dict = dict((k, value_dict[k]) for k in word_keys if k in value_dict)
 

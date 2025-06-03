@@ -99,17 +99,17 @@ async def agentic_assessment(
         websocket_send_callback=websocket_send_callback,
         loop=loop,
     )
-    trace, word_importance_output = await call_and_summarize_module(
-        module_caller=module_caller,
-        agent_handler=agent_handler,
-        trace=trace,
-        module_name="word importance",
-        module_params={},
-        description_template="Contains the word importance for the particular model prediction.",
-        dp_id=dp_id,
-        websocket_send_callback=websocket_send_callback,
-        loop=loop,
-    )
+    # trace, word_importance_output = await call_and_summarize_module(
+    #     module_caller=module_caller,
+    #     agent_handler=agent_handler,
+    #     trace=trace,
+    #     module_name="word importance",
+    #     module_params={},
+    #     description_template="Contains the word importance for the particular model prediction.",
+    #     dp_id=dp_id,
+    #     websocket_send_callback=websocket_send_callback,
+    #     loop=loop,
+    # )
 
     trace, dist = await call_and_summarize_module(
         module_caller=module_caller,
@@ -126,31 +126,31 @@ async def agentic_assessment(
     )
 
     # Step 6: Counterfactuals
-    trace, counterfactual_output = await call_and_summarize_module(
-        module_caller=module_caller,
-        agent_handler=agent_handler,
-        trace=trace,
-        module_name="counterfactuals",
-        module_params={},
-        description_template="Contains the counterfactuals for the particular model prediction.",
-        dp_id=dp_id,
-        websocket_send_callback=websocket_send_callback,
-        loop=loop,
-    )
+    # trace, counterfactual_output = await call_and_summarize_module(
+    #     module_caller=module_caller,
+    #     agent_handler=agent_handler,
+    #     trace=trace,
+    #     module_name="counterfactuals",
+    #     module_params={},
+    #     description_template="Contains the counterfactuals for the particular model prediction.",
+    #     dp_id=dp_id,
+    #     websocket_send_callback=websocket_send_callback,
+    #     loop=loop,
+    # )
 
     # Step 7: Similarity Check
-    trace, sim = await call_and_summarize_module(
-        module_caller=module_caller,
-        agent_handler=agent_handler,
-        trace=trace,
-        module_name="similar predictions",
-        module_params={},
-        description_template="Contains statements from the dataset that are semantically similar and classified the same by the model. \
-            0 means True, 1 means Neither and 2 means False.",
-        dp_id=dp_id,
-        websocket_send_callback=websocket_send_callback,
-        loop=loop,
-    )
+    # trace, sim = await call_and_summarize_module(
+    #     module_caller=module_caller,
+    #     agent_handler=agent_handler,
+    #     trace=trace,
+    #     module_name="similar predictions",
+    #     module_params={},
+    #     description_template="Contains statements from the dataset that are semantically similar and classified the same by the model. \
+    #         0 means True, 1 means Neither and 2 means False.",
+    #     dp_id=dp_id,
+    #     websocket_send_callback=websocket_send_callback,
+    #     loop=loop,
+    # )
 
     # Step 8: Final Summary (Condensed)
     conclusion = await loop.run_in_executor(

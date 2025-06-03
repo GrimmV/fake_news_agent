@@ -15,9 +15,11 @@ class DistributionModule:
 
         my_label = label_map[label]
 
-        class_df = self.df[self.df["new_labels"] == my_label]
+        class_df = self.df[self.df["new_label"] == my_label]
+        
+        num_unique_values = len(class_df[feature_name].unique())
 
-        n_bins = 20
+        n_bins = 20 if num_unique_values > 20 else num_unique_values
 
         if feature_name not in self.features:
             feature_name = find_most_similar_word(self.features, feature_name)
@@ -41,7 +43,7 @@ class DistributionModule:
 
         my_label = label_map[label]
 
-        class_df = self.df[self.df["new_labels"] == my_label]
+        class_df = self.df[self.df["new_label"] == my_label]
 
         if feature_name_1 not in self.features:
             feature_name_1 = find_most_similar_word(self.features, feature_name_1)
