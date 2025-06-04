@@ -88,27 +88,12 @@ def max_three_modules(v: List[ModuleChoice]) -> str:
 
 
 class TrustAssessment(BaseModel):
-    trustworthiness: bool = Field(
-        description="True if the prediction is trustworthy, False otherwise"
-    )
-    score: int = Field(description="A trustworthiness score between 0 (not trustworthy) and 100 (fully trustworthy)")
-    reason: str = Field(description="A reason for your assessment of the trustworthiness")
+    judgement_rating: int = Field(description="Rating for the predictions trustwortiness between 3 (Excellent), 2 (Good), 1 (Moderate), and 0 (Poor)", ge=0, le=3)
+    judgement_reason: str = Field(description="A reason for the judgement rating")
     most_relevant_modules: List[str] = Field(
         min_length=1,
-        max_length=3,
-        description="The most relevant modules for the score (max 3)",
-    )
-
-class TrustAssessment2(BaseModel):
-    trustworthiness: bool = Field(
-        description="True if the prediction is trustworthy, False otherwise"
-    )
-    score: int = Field(description="A trustworthiness score between 0 (not trustworthy) and 100 (fully trustworthy)")
-    reason: str = Field(description="A reason for your assessment of the trustworthiness. Be as sceptical as possible.")
-    most_relevant_modules: List[str] = Field(
-        min_length=1,
-        max_length=3,
-        description="The most relevant modules for the score (max 3)",
+        max_length=2,
+        description="The most relevant modules for the judgement rating (max 2)",
     )
 
 
@@ -327,8 +312,8 @@ class AgentHandler:
 
         return response.dict()["summarization"]
 
-    def trust_assessment(self, trace: List[Dict[str, Any]]) -> str:
-        prompt = trust_assessment_prompt(trace)
+    def trust_assessment(self, trace: List[Dict[str, Any]], statement: str) -> str:
+        prompt = trust_assessment_prompt(trace, statement)
 
         response = self.llm.generate(
             prompt,
@@ -338,25 +323,25 @@ class AgentHandler:
 
         return response.dict()
 
-    def trust_assessment2(self, trace: List[Dict[str, Any]]) -> str:
-        prompt = trust_assessment_prompt(trace)
+    def trust_assessment2(self, trace: List[Dict[str, Any]], statement: str) -> str:
+        prompt = trust_assessment_prompt(trace, statement, sceptical=True)
 
         response = self.llm.generate(
             prompt,
-            response_model=TrustAssessment2,
+            response_model=TrustAssessment,
             system_message="You are an expert in explainable AI.",
         )
 
         return response.dict()
     
-    def trust_assessment_with_context(self, module_insights: List[Dict[str, Any]], context: str, assessment_type: str, module_focus: str) -> str:
-        prompt = trust_assessment_with_context_prompt(module_insights, context, module_focus)
+    def trust_assessment_with_context(self, module_insights: List[Dict[str, Any]], context: str, assessment_type: str, module_focus: str, statement: str) -> str:
+        prompt = trust_assessment_with_context_prompt(module_insights, context, module_focus, statement, sceptical={assessment_type != "standard"})
         
         print(prompt)
 
         response = self.llm.generate(
             prompt,
-            response_model=TrustAssessment if assessment_type == "standard" else TrustAssessment2,
+            response_model=TrustAssessment,
             system_message="You are an expert in explainable AI.",
         )
 

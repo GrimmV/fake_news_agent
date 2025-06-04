@@ -32,8 +32,13 @@ class PerformanceModule:
             title="Confusion Matrix",
             labels={"x": "Labels", "y": "Predictions"},
         )
+        
+        raw = {
+            "confusion": self.confusion,
+            "note": "First column/row  is the False label, second column/row is the Neither label and third column/row is the True label."
+        }
 
-        return {"raw": self.confusion, "visual": visual}
+        return {"raw": raw, "visual": visual}
 
 
 if __name__ == "__main__":

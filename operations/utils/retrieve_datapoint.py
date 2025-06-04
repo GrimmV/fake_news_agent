@@ -76,13 +76,15 @@ def retrieve_datapoint(df, dp_id):
     datapoint = {
         "author": row["speaker"].iloc[0],
         "statement": row["statement"].iloc[0],
+        "date": row["date"].iloc[0],
+        "avatar": row["avatar"].iloc[0],
         "dp_id": dp_id,
         "prediction": {
             "label": label,
             "probas": {
-                "True": "%.2f" % (float(row["prob_class_0"].iloc[0]) * 100) + " %",
+                "False": "%.2f" % (float(row["prob_class_0"].iloc[0]) * 100) + " %",
                 "Neither": "%.2f" % (float(row["prob_class_1"].iloc[0]) * 100) + " %",
-                "False": "%.2f" % (float(row["prob_class_2"].iloc[0]) * 100) + " %",
+                "True": "%.2f" % (float(row["prob_class_2"].iloc[0]) * 100) + " %",
             },
         },
         "properties": {

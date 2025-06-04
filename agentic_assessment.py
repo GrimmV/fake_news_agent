@@ -22,6 +22,7 @@ load_dotenv()
 # === AGENTIC REASONING LOOP ===
 async def agentic_assessment(
     predicted_label: str,
+    statement: str,
     module_caller: ModuleCaller,
     agent_handler: AgentHandler,
     dp_id: int,
@@ -29,8 +30,50 @@ async def agentic_assessment(
     loop: asyncio.AbstractEventLoop = None,
 ) -> List[Dict[str, Any]]:
     trace = []
+    
+    trace, local_feature_importance_output = await call_and_summarize_module(
+        module_caller=module_caller,
+        agent_handler=agent_handler,
+        trace=trace,
+        module_name="individual feature importance",
+        module_params={},
+        description_template="Contains the feature importance for the particular model prediction.",
+        dp_id=dp_id,
+        websocket_send_callback=websocket_send_callback,
+        loop=loop,
+    )
+    top_features = local_feature_importance_output["top_features"]
+    feature1 = top_features[0]
+    feature2 = top_features[1]
 
-    # Step 1: Global Performance Context
+    trace, dist = await call_and_summarize_module(
+        module_caller=module_caller,
+        agent_handler=agent_handler,
+        trace=trace,
+        module_name="feature distribution",
+        module_params={"feature_name": feature1, "label": predicted_label},
+        description_template="Contains the feature distribution for the particular model prediction.",
+        dp_id=dp_id,
+        feature_name_for_action=feature1,
+        predicted_label_for_action=predicted_label,
+        websocket_send_callback=websocket_send_callback,
+        loop=loop,
+    )
+    
+    trace, dist = await call_and_summarize_module(
+        module_caller=module_caller,
+        agent_handler=agent_handler,
+        trace=trace,
+        module_name="feature distribution 2D",
+        module_params={"feature_name_1": feature1, "feature_name_2": feature2, "label": predicted_label},
+        description_template="Contains the 2D feature distribution for the particular model prediction.",
+        dp_id=dp_id,
+        feature_name_for_action=[feature1, feature2],
+        predicted_label_for_action=predicted_label,
+        websocket_send_callback=websocket_send_callback,
+        loop=loop,
+    )
+
     trace, performance_output = await call_and_summarize_module(
         module_caller=module_caller,
         agent_handler=agent_handler,
@@ -54,7 +97,6 @@ async def agentic_assessment(
         loop=loop,
     )
 
-    # Step 2: Global Feature Importance
     trace, global_feature_importance_output = await call_and_summarize_module(
         module_caller=module_caller,
         agent_handler=agent_handler,
@@ -67,101 +109,33 @@ async def agentic_assessment(
         websocket_send_callback=websocket_send_callback,
         loop=loop,
     )
-    top_features = global_feature_importance_output["top_features"]
 
-    # Technically several features could be focused on, but to decrease the context, we stick with one:
-    feature = top_features[0]
-
-    # Step 3: Partial Dependence
     trace, dist = await call_and_summarize_module(
         module_caller=module_caller,
         agent_handler=agent_handler,
         trace=trace,
         module_name="partial dependence plot",
-        module_params={"feature_name": feature, "label": predicted_label},
+        module_params={"feature_name": feature1, "label": predicted_label},
         description_template="Contains the partial dependence plot of {feature} towards the predicted label {predicted_label}.",
         dp_id=dp_id,
-        feature_name_for_action=feature,
+        feature_name_for_action=feature1,
         predicted_label_for_action=predicted_label,
         websocket_send_callback=websocket_send_callback,
         loop=loop,
     )
-
-    # Step 4: Local Instance Analysis
-    trace, local_feature_importance_output = await call_and_summarize_module(
-        module_caller=module_caller,
-        agent_handler=agent_handler,
-        trace=trace,
-        module_name="individual feature importance",
-        module_params={},
-        description_template="Contains the feature importance for the particular model prediction.",
-        dp_id=dp_id,
-        websocket_send_callback=websocket_send_callback,
-        loop=loop,
-    )
-    # trace, word_importance_output = await call_and_summarize_module(
-    #     module_caller=module_caller,
-    #     agent_handler=agent_handler,
-    #     trace=trace,
-    #     module_name="word importance",
-    #     module_params={},
-    #     description_template="Contains the word importance for the particular model prediction.",
-    #     dp_id=dp_id,
-    #     websocket_send_callback=websocket_send_callback,
-    #     loop=loop,
-    # )
-
-    trace, dist = await call_and_summarize_module(
-        module_caller=module_caller,
-        agent_handler=agent_handler,
-        trace=trace,
-        module_name="feature distribution",
-        module_params={"feature_name": feature, "label": predicted_label},
-        description_template="Contains the feature distribution for the particular model prediction.",
-        dp_id=dp_id,
-        feature_name_for_action=feature,
-        predicted_label_for_action=predicted_label,
-        websocket_send_callback=websocket_send_callback,
-        loop=loop,
-    )
-
-    # Step 6: Counterfactuals
-    # trace, counterfactual_output = await call_and_summarize_module(
-    #     module_caller=module_caller,
-    #     agent_handler=agent_handler,
-    #     trace=trace,
-    #     module_name="counterfactuals",
-    #     module_params={},
-    #     description_template="Contains the counterfactuals for the particular model prediction.",
-    #     dp_id=dp_id,
-    #     websocket_send_callback=websocket_send_callback,
-    #     loop=loop,
-    # )
-
-    # Step 7: Similarity Check
-    # trace, sim = await call_and_summarize_module(
-    #     module_caller=module_caller,
-    #     agent_handler=agent_handler,
-    #     trace=trace,
-    #     module_name="similar predictions",
-    #     module_params={},
-    #     description_template="Contains statements from the dataset that are semantically similar and classified the same by the model. \
-    #         0 means True, 1 means Neither and 2 means False.",
-    #     dp_id=dp_id,
-    #     websocket_send_callback=websocket_send_callback,
-    #     loop=loop,
-    # )
 
     # Step 8: Final Summary (Condensed)
     conclusion = await loop.run_in_executor(
         None,
         agent_handler.trust_assessment,
         trace,
+        statement
     )
     conclusion2 = await loop.run_in_executor(
         None,
         agent_handler.trust_assessment2,
         trace,
+        statement
     )
     # trace.append({"action": "final assessment", "summary": conclusion})
     if websocket_send_callback:
@@ -191,7 +165,7 @@ async def call_and_summarize_module(
     module_params,
     description_template,
     dp_id,
-    feature_name_for_action=None,
+    feature_name_for_action: str | List[str] = None,
     predicted_label_for_action=None,
     websocket_send_callback: Callable[[str], None] = None,
     loop: asyncio.AbstractEventLoop = None,
@@ -236,7 +210,10 @@ async def call_and_summarize_module(
 
     action_description_parts = [module_name]
     if feature_name_for_action:
-        action_description_parts.append(f"for {feature_name_for_action}")
+        if isinstance(feature_name_for_action, list):
+            action_description_parts.append(f"for {', '.join(feature_name_for_action)}")
+        else:
+            action_description_parts.append(f"for {feature_name_for_action}")
     if predicted_label_for_action:
         action_description_parts.append(f"(label: {predicted_label_for_action})")
 

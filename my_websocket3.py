@@ -45,6 +45,11 @@ async def workflow(websocket):
         datapoint_id = info["datapoint_id"]
         datapoint = retrieve_datapoint(df, datapoint_id)
         label = datapoint["prediction"]["label"]
+        statement = datapoint["statement"]
+        date = datapoint["date"]
+        author = datapoint["author"]
+        
+        combined_statement = f"{author} ({date}): {statement}"
 
         # if username not in usernames:
         #     handle_unallowed_username(websocket, 0, username)
@@ -52,6 +57,7 @@ async def workflow(websocket):
         if info["type"] == "initialization":
             await agentic_assessment(
                 predicted_label=label,
+                statement=combined_statement,
                 module_caller=module_caller,
                 agent_handler=agent_handler,
                 dp_id=datapoint_id,
@@ -71,6 +77,7 @@ async def workflow(websocket):
                 context,
                 assessment_type,
                 module_focus,
+                combined_statement,
             )
             payload = {
                 "type": "final_assessment",

@@ -2,7 +2,7 @@ from typing import List, Dict, Any
 
 
 def trust_assessment_with_context_prompt(
-    trace: List[Dict[str, Any]], context: List[str], module_focus: str
+    trace: List[Dict[str, Any]], context: List[str], module_focus: str, statement: str, sceptical: bool = False
 ) -> str:
     module_prompt = ""
     context_prompt = ""
@@ -24,8 +24,14 @@ def trust_assessment_with_context_prompt(
     {module_prompt}\\
     
     {context_prompt}\\
+    
+    This is the statement:
+    {statement}
+
 
     How trustworthy do you estimate the prediction to be? Focus on the actions related to local explanations and counterfactuals/similar texts.
+    
+    {"Be as sceptical as possible" if sceptical else ""}
     
     Mention the most important numbers and values in your reasoning.
     """

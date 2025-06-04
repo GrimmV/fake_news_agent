@@ -1,16 +1,20 @@
 import json
 import plotly.express as px
+import pandas as pd
 from descriptions.features import features
+from operations.utils.retrieve_datapoint import retrieve_datapoint
 
 features_names = [x["name"] for x in features]
 
 shaps_location = "data/shap.csv"
+
 
 class IndividualXAIModule:
 
     def __init__(self):
         similars_location = "data/similars.csv"
         cfs_location = "data/counterfactuals.csv"
+        self.df = pd.read_csv("data/full_df.csv")
 
         with open(similars_location) as f:
             self.similars = json.load(f)
@@ -32,45 +36,56 @@ class IndividualXAIModule:
 
         return {"raw": elem, "visual": None}
 
-    
     def get_shap_values(self, dp_id, **kwargs):
         with open(shaps_location) as f:
             shaps = json.load(f)
-            
+
         # print(shaps)
         print(dp_id)
 
         elem = list(filter(lambda x: x["id"] == dp_id, shaps))
+        datapoint = retrieve_datapoint(self.df, dp_id)
+        feature_values = datapoint["properties"]
         print(elem)
         elem = elem[0]
-        
+
         print("######### normal shap retrieval ##############")
         print(elem)
 
         value_dict = elem["values"]
 
-        feature_dict = dict((k, value_dict[k]) for k in features_names if k in value_dict)
+        feature_dict = dict(
+            (
+                k,
+                {
+                    "shap_value": value_dict[k],
+                    "feature_value": feature_values[k]["value"],
+                },
+            )
+            for k in features_names
+            if k in value_dict
+        )
 
         elem["values"] = feature_dict
         
-        print(feature_dict.keys())
-        print(feature_dict.values())
+        my_list = list(feature_dict.items())
+        my_list.sort(key=lambda x: abs(x[1]["shap_value"]), reverse=True)
+        top_features = [x[0] for x in my_list]
+        elem["top_features"] = top_features
 
         visual = px.bar(
             x=feature_dict.keys(),
-            y=feature_dict.values(),
+            y=[elem["shap_value"] for elem in feature_dict.values()],
             title="Individual Feature Importance",
-            labels={
-                "x": "Features",
-                "y": "Importance"
-            }
+            labels={"x": "Features", "y": "Importance"},
         )
         visual.update_xaxes(tickangle=45)
+        print(elem)
 
         return {"raw": elem, "visual": visual}
 
     def get_word_shap_values(self, dp_id, **kwargs):
-        
+
         with open(shaps_location) as f:
             shaps = json.load(f)
 
@@ -78,7 +93,7 @@ class IndividualXAIModule:
 
         print("######### word shap retrieval ##############")
         print(elem)
-        
+
         value_dict = elem["values"]
         keys = value_dict.keys()
         print(keys)
@@ -89,7 +104,9 @@ class IndividualXAIModule:
 
         elem["values"] = feature_dict
 
+
         return {"raw": elem, "visual": None}
+
 
 if __name__ == "__main__":
 
