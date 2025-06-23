@@ -22,10 +22,18 @@ load_dotenv()
 
 API_KEY = os.getenv("API_KEY")
 MODEL_NAME = os.getenv("MODEL_NAME")
+MODEL_NAME_2 = os.getenv("MODEL_NAME_2")
 llm = GPTModel(model_name=MODEL_NAME, key=API_KEY)
+llm_2 = GPTModel(model_name=MODEL_NAME_2, key=API_KEY)
 
 agent_handler = AgentHandler(
     llm,
+    label_descriptions=labels,
+    feature_descriptions=features,
+    module_descriptions=module_descriptions,
+)
+agent_handler_2 = AgentHandler(
+    llm_2,
     label_descriptions=labels,
     feature_descriptions=features,
     module_descriptions=module_descriptions,
@@ -51,15 +59,16 @@ async def workflow(websocket):
         
         combined_statement = f"{author} ({date}): {statement}"
 
-        # if username not in usernames:
-        #     handle_unallowed_username(websocket, 0, username)
-        #     continue
+        if username not in usernames:
+            await handle_unallowed_username(websocket, 0, username)
+            continue
         if info["type"] == "initialization":
             await agentic_assessment(
                 predicted_label=label,
                 statement=combined_statement,
                 module_caller=module_caller,
                 agent_handler=agent_handler,
+                agent_handler_2=agent_handler_2,
                 dp_id=datapoint_id,
                 websocket_send_callback=websocket.send,
                 loop=loop,
@@ -72,7 +81,7 @@ async def workflow(websocket):
             module_insights = meta_info["modules"]
             conclusion = await loop.run_in_executor(
                 None,
-                agent_handler.trust_assessment_with_context,
+                agent_handler_2.trust_assessment_with_context,
                 module_insights,
                 context,
                 assessment_type,

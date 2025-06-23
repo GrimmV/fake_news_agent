@@ -57,10 +57,6 @@ class DistributionModule:
         y_bins = 5 if len(col2.unique()) > 5 else len(col2.unique())
 
         counts, xedges, yedges = np.histogram2d(col1, col2, bins=(x_bins, y_bins))
-        
-        print(counts)
-        print(xedges)
-        print(yedges)
 
         raw = {"counts": counts.tolist(), "xedges": xedges.tolist(), "yedges": yedges.tolist(), "feature_name_1": feature_name_1, "feature_name_2": feature_name_2}
         

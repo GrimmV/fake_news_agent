@@ -4,6 +4,7 @@ import json
 import pandas as pd
 import asyncio
 from operations.utils.retrieve_datapoint import retrieve_datapoint
+import time
 
 from descriptions.features import features
 from descriptions.labels import labels
@@ -18,6 +19,9 @@ from dotenv import load_dotenv
 # load .env file to environment
 load_dotenv()
 
+CACHE_DIR = "agentic_assessment_cache"
+os.makedirs(CACHE_DIR, exist_ok=True)
+
 
 # === AGENTIC REASONING LOOP ===
 async def agentic_assessment(
@@ -25,12 +29,48 @@ async def agentic_assessment(
     statement: str,
     module_caller: ModuleCaller,
     agent_handler: AgentHandler,
+    agent_handler_2: AgentHandler,
     dp_id: int,
     websocket_send_callback: Callable[[str], None] = None,
     loop: asyncio.AbstractEventLoop = None,
 ) -> List[Dict[str, Any]]:
+    cache_key = f"{dp_id}.json"
+    cache_path = os.path.join(CACHE_DIR, cache_key)
+    if os.path.exists(cache_path):
+        with open(cache_path, "r", encoding="utf-8") as f:
+            cached = json.load(f)
+            trace = cached["trace"]
+            for step in trace:
+                payload = {
+                    "type": "module_update",
+                    "data": {
+                        "module": step["module_name"],
+                        "params": step["module_params"],
+                        "action": step["action"],
+                        "summary": step["summary"],
+                    },
+                }
+                await websocket_send_callback(json.dumps(payload))
+            
+            await asyncio.sleep(5)
+            conclusion = cached["conclusion"]
+            conclusion2 = cached["conclusion2"]
+            payload = {
+                "type": "final_assessment",
+                "variant": "standard",
+                "data": {"action": "final assessment", "summary": conclusion},
+            }
+            await websocket_send_callback(json.dumps(payload))
+            payload = {
+                "type": "final_assessment",
+                "variant": "sceptical",
+                "data": {"action": "final assessment", "summary": conclusion2},
+            }
+            await websocket_send_callback(json.dumps(payload))
+        return cached["trace"], cached["conclusion"], cached["conclusion2"]
+
     trace = []
-    
+
     trace, local_feature_importance_output = await call_and_summarize_module(
         module_caller=module_caller,
         agent_handler=agent_handler,
@@ -59,13 +99,17 @@ async def agentic_assessment(
         websocket_send_callback=websocket_send_callback,
         loop=loop,
     )
-    
+
     trace, dist = await call_and_summarize_module(
         module_caller=module_caller,
         agent_handler=agent_handler,
         trace=trace,
         module_name="feature distribution 2D",
-        module_params={"feature_name_1": feature1, "feature_name_2": feature2, "label": predicted_label},
+        module_params={
+            "feature_name_1": feature1,
+            "feature_name_2": feature2,
+            "label": predicted_label,
+        },
         description_template="Contains the 2D feature distribution for the particular model prediction.",
         dp_id=dp_id,
         feature_name_for_action=[feature1, feature2],
@@ -91,7 +135,7 @@ async def agentic_assessment(
         trace=trace,
         module_name="confusion matrix",
         module_params={},
-        description_template="Contains the confusion matrix of the model predictions. First row/column is True, second is Neither and third is False.",
+        description_template="Contains the confusion matrix of the model predictions. First row/column is False, second is Neither and third is True.",
         dp_id=dp_id,
         websocket_send_callback=websocket_send_callback,
         loop=loop,
@@ -126,16 +170,10 @@ async def agentic_assessment(
 
     # Step 8: Final Summary (Condensed)
     conclusion = await loop.run_in_executor(
-        None,
-        agent_handler.trust_assessment,
-        trace,
-        statement
+        None, agent_handler_2.trust_assessment, trace, statement
     )
     conclusion2 = await loop.run_in_executor(
-        None,
-        agent_handler.trust_assessment2,
-        trace,
-        statement
+        None, agent_handler_2.trust_assessment2, trace, statement
     )
     # trace.append({"action": "final assessment", "summary": conclusion})
     if websocket_send_callback:
@@ -153,6 +191,12 @@ async def agentic_assessment(
             "data": {"action": "final assessment", "summary": conclusion2},
         }
         await websocket_send_callback(json.dumps(payload))
+
+    # Always save to cache if not present
+    with open(cache_path, "w", encoding="utf-8") as f:
+        json.dump(
+            {"trace": trace, "conclusion": conclusion, "conclusion2": conclusion2}, f
+        )
 
     return trace, conclusion, conclusion2
 
@@ -219,7 +263,14 @@ async def call_and_summarize_module(
 
     action = " ".join(action_description_parts)
 
-    trace.append({"action": action, "summary": summary, "module_name": module_name})
+    trace.append(
+        {
+            "action": action,
+            "summary": summary,
+            "module_name": module_name,
+            "module_params": module_params,
+        }
+    )
 
     if websocket_send_callback:
         payload = {
