@@ -209,8 +209,8 @@ async def call_and_summarize_module(
     module_params,
     description_template,
     dp_id,
-    feature_name_for_action: str | List[str] = None,
-    predicted_label_for_action=None,
+    feature_name_for_action = None,
+    predicted_label_for_action = None,
     websocket_send_callback: Callable[[str], None] = None,
     loop: asyncio.AbstractEventLoop = None,
 ):
