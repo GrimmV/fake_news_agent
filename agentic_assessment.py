@@ -48,6 +48,7 @@ async def agentic_assessment(
                         "params": step["module_params"],
                         "action": step["action"],
                         "summary": step["summary"],
+                        "laymans_summary": step["laymans_summary"],
                     },
                 }
                 await websocket_send_callback(json.dumps(payload))
@@ -245,12 +246,17 @@ async def call_and_summarize_module(
 
     description = description_template.format(**description_kwargs)
 
-    summary = await loop.run_in_executor(
+    summarization = await loop.run_in_executor(
         None,
         agent_handler.module_summarization,
         {"name": module_name, "description": description, "output": module_output},
         dp_id,
     )
+    
+    print(summarization)
+    
+    summary = summarization["summarization"]
+    laymans_summary = summarization["laymans_summary"]
 
     action_description_parts = [module_name]
     if feature_name_for_action:
@@ -267,6 +273,7 @@ async def call_and_summarize_module(
         {
             "action": action,
             "summary": summary,
+            "laymans_summary": laymans_summary,
             "module_name": module_name,
             "module_params": module_params,
         }
@@ -280,8 +287,10 @@ async def call_and_summarize_module(
                 "params": module_params,
                 "action": action,
                 "summary": summary,
+                "laymans_summary": laymans_summary,
             },
         }
+        print(payload)
         await websocket_send_callback(json.dumps(payload))
 
     return trace, module_output

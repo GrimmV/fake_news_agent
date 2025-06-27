@@ -18,7 +18,9 @@ from prompt_templates.objection import objection_prompt
 from prompt_templates.continuation import continuation_prompt
 from prompt_templates.module_summarization import module_summarization_prompt
 from prompt_templates.trust_assessment import trust_assessment_prompt
-from prompt_templates.trust_assessment_with_context import trust_assessment_with_context_prompt
+from prompt_templates.trust_assessment_with_context import (
+    trust_assessment_with_context_prompt,
+)
 from operations.utils.retrieve_datapoint import retrieve_datapoint
 
 
@@ -88,17 +90,30 @@ def max_three_modules(v: List[ModuleChoice]) -> str:
 
 
 class TrustAssessment(BaseModel):
-    judgement_rating: int = Field(description="Rating for the predictions trustwortiness between 3 (Excellent), 2 (Good), 1 (Moderate), and 0 (Poor)", ge=0, le=3)
+    judgement_rating: int = Field(
+        description="Rating for the predictions trustwortiness between 3 (Excellent), 2 (Good), 1 (Moderate), and 0 (Poor)",
+        ge=0,
+        le=3,
+    )
     judgement_reason: str = Field(description="A reason for the judgement rating")
+    judgement_reason_short: str = Field(
+        description="One sentence summary of the judgement reason in a way that is understandable by a 5th grader"
+    )
     most_relevant_modules: List[str] = Field(
         min_length=1,
         max_length=2,
         description="The most relevant modules for the judgement rating (max 2)",
     )
+    # most_likely_class: str = Field(
+    #     description="Given your judgement rating and the statement, if you had to decide on the most likely class yourself (True, Neither or False), which class would you choose? Provide a short explanation."
+    # )
 
 
 class ModuleSummarization(BaseModel):
     summarization: str
+    laymans_summary: str = Field(
+        description="A laymans summary of the summarization being understandable by a 5th grader"
+    )
 
 
 class Modules(BaseModel):
@@ -119,7 +134,7 @@ class AgentHandler:
         self.label_descriptions = label_descriptions
         self.feature_descriptions = feature_descriptions
         self.module_descriptions = module_descriptions
-        
+
         self.cache = {}
 
     def get_relevant_modules(self, dp_id) -> dict:
@@ -301,18 +316,19 @@ class AgentHandler:
             response_model=ModuleSummarization,
             system_message="You are an expert in explainable AI.",
         )
-        
+
         cache_key = f"{dp_id}_{module['name']}"
-        
+
         if cache_key in self.cache:
             print(self.cache)
             return self.cache[cache_key]
-        
-        self.cache[cache_key] = response.dict()["summarization"]
 
-        return response.dict()["summarization"]
+        self.cache[cache_key] = response.dict()
+
+        return response.dict()
 
     def trust_assessment(self, trace: List[Dict[str, Any]], statement: str) -> str:
+
         prompt = trust_assessment_prompt(trace, statement)
 
         response = self.llm.generate(
@@ -333,10 +349,23 @@ class AgentHandler:
         )
 
         return response.dict()
-    
-    def trust_assessment_with_context(self, module_insights: List[Dict[str, Any]], context: str, assessment_type: str, module_focus: str, statement: str) -> str:
-        prompt = trust_assessment_with_context_prompt(module_insights, context, module_focus, statement, sceptical={assessment_type != "standard"})
-        
+
+    def trust_assessment_with_context(
+        self,
+        module_insights: List[Dict[str, Any]],
+        context: str,
+        assessment_type: str,
+        module_focus: str,
+        statement: str,
+    ) -> str:
+        prompt = trust_assessment_with_context_prompt(
+            module_insights,
+            context,
+            module_focus,
+            statement,
+            sceptical={assessment_type != "standard"},
+        )
+
         print(prompt)
 
         response = self.llm.generate(
