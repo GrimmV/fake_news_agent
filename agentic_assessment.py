@@ -4,7 +4,6 @@ import json
 import pandas as pd
 import asyncio
 from operations.utils.retrieve_datapoint import retrieve_datapoint
-import time
 
 from descriptions.features import features
 from descriptions.labels import labels
