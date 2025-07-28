@@ -5,6 +5,7 @@ from typing import List, Dict, Any
 from typing_extensions import Annotated
 from pydantic import AfterValidator
 from enum import Enum
+from opentelemetry.trace import StatusCode
 
 from prompt_templates.module_summarization import module_summarization_prompt
 from prompt_templates.trust_assessment import trust_assessment_prompt
@@ -118,12 +119,14 @@ class AgentHandler:
         label_descriptions: dict = None,
         feature_descriptions: dict = None,
         module_descriptions: dict = None,
+        tracer = None
     ):
         self.df = pd.read_csv("data/full_df.csv")
         self.llm = llm
         self.label_descriptions = label_descriptions
         self.feature_descriptions = feature_descriptions
         self.module_descriptions = module_descriptions
+        self.tracer = tracer
 
         self.cache = {}
 
@@ -138,42 +141,55 @@ class AgentHandler:
 
         prompt = module_summarization_prompt(json.dumps(module), supportive_information)
 
-        response = self.llm.generate(
-            prompt,
-            response_model=ModuleSummarization,
-            system_message="You are an expert in explainable AI.",
-        )
-
-        cache_key = f"{dp_id}_{module['name']}"
-
-        if cache_key in self.cache:
-            print(self.cache)
-            return self.cache[cache_key]
-
-        self.cache[cache_key] = response.dict()
+        with self.tracer.start_as_current_span("module_summarization", openinference_span_kind="llm") as span:
+            
+            span.set_input(prompt)
+            
+            response = self.llm.generate(
+                prompt,
+                response_model=ModuleSummarization,
+                system_message="You are an expert in explainable AI.",
+            )
+            
+            span.set_output(response.dict())
+            span.set_status(StatusCode.OK)
 
         return response.dict()
 
     def trust_assessment(self, trace: List[Dict[str, Any]], statement: str) -> str:
 
         prompt = trust_assessment_prompt(trace, statement)
-
-        response = self.llm.generate(
-            prompt,
-            response_model=TrustAssessment,
-            system_message="You are an expert in explainable AI.",
-        )
+        
+        with self.tracer.start_as_current_span("trust_assessment", openinference_span_kind="llm") as span:
+            
+            span.set_input(prompt)
+            
+            response = self.llm.generate(
+                prompt,
+                response_model=TrustAssessment,
+                system_message="You are an expert in explainable AI.",
+            )
+            
+            span.set_output(response.dict())
+            span.set_status(StatusCode.OK)
 
         return response.dict()
 
     def trust_assessment2(self, trace: List[Dict[str, Any]], statement: str) -> str:
         prompt = trust_assessment_prompt(trace, statement, sceptical=True)
 
-        response = self.llm.generate(
-            prompt,
-            response_model=TrustAssessment,
-            system_message="You are an expert in explainable AI.",
-        )
+        with self.tracer.start_as_current_span("trust_assessment2", openinference_span_kind="llm") as span:
+            
+            span.set_input(prompt)
+            
+            response = self.llm.generate(
+                prompt,
+                response_model=TrustAssessment,
+                system_message="You are an expert in explainable AI.",
+            )
+            
+            span.set_output(response.dict())
+            span.set_status(StatusCode.OK)
 
         return response.dict()
 

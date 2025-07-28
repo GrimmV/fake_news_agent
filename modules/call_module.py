@@ -2,11 +2,13 @@ from modules.distributions import DistributionModule
 from modules.global_xai import GlobalXAIModule
 from modules.individual_xai import IndividualXAIModule
 from modules.performance import PerformanceModule
+from modules.utils.return_module import return_module
 
 class ModuleCaller:
     
-    def __init__(self, features: list[str]):
+    def __init__(self, features: list[str], tracer):
         self.features = features
+        self.tracer = tracer
 
         self.dist_module = DistributionModule(features)
         self.global_xai_module = GlobalXAIModule()
@@ -15,68 +17,23 @@ class ModuleCaller:
 
     def call_module(self, module_name: str, params: dict[str, str], datapoint_id: int = None):
         
-        if (module_name == "feature distribution"):
-            the_module = self.dist_module.get_distribution_1d(**params)
-            visual = the_module["visual"]
-            visual.update_layout(
-                margin=dict(l=10, r=10, t=30, b=10)
-            )
-            return the_module
-        elif (module_name == "feature distribution 2D"):
-            the_module = self.dist_module.get_distribution_2d(**params)
-            visual = the_module["visual"]
-            visual.update_layout(
-                margin=dict(l=10, r=10, t=30, b=10)
-            )
-            return the_module
-        elif (module_name == "performance metrics"):
-            the_module = self.performance_module.get_performances(**params)
-            visual = the_module["visual"]
-            visual.update_layout(
-                margin=dict(l=10, r=10, t=30, b=10)
-            )
-            return the_module
-        elif (module_name == "confusion matrix"):
-            the_module = self.performance_module.get_confusion(**params)
-            visual = the_module["visual"]
-            visual.update_layout(
-                margin=dict(l=10, r=10, t=30, b=10)
-            )
-            return the_module
-        elif (module_name == "global feature importance"):
-            the_module = self.global_xai_module.get_feature_importance(**params)
-            visual = the_module["visual"]
-            visual.update_layout(
-                margin=dict(l=10, r=10, t=30, b=10)
-            )
-            return the_module
-        elif (module_name == "partial dependence plot"):
-            print(params)
-            the_module = self.global_xai_module.get_partial_dependence(**params)
-            visual = the_module["visual"]
-            visual.update_layout(
-                margin=dict(l=10, r=10, t=30, b=10)
-            )
-            return the_module
-        elif (module_name == "individual feature importance"):
-            
-            the_module = self.individual_xai_module.get_shap_values(dp_id=datapoint_id)
-            visual = the_module["visual"]
-            visual.update_layout(
-                margin=dict(l=10, r=10, t=30, b=10)
-            )
-            return the_module
-        elif (module_name == "similar predictions"):
-            the_module = self.individual_xai_module.get_similars(dp_id=datapoint_id, **params)
-            return the_module
-        elif (module_name == "counterfactuals"):
-            the_module = self.individual_xai_module.get_counterfactuals(dp_id=datapoint_id, **params)
-            return the_module
-        elif (module_name == "word importance"):
-            the_module = self.individual_xai_module.get_word_shap_values(dp_id=datapoint_id, **params)
-            return the_module
-        else:
-            return None
+        with self.tracer.start_as_current_span(module_name, openinference_span_kind="chain") as span:
+            if (module_name == "feature distribution"):
+                return return_module(self.dist_module.get_distribution_1d, params, span=span)
+            elif (module_name == "feature distribution 2D"):
+                return return_module(self.dist_module.get_distribution_2d, params, span=span)
+            elif (module_name == "performance metrics"):
+                return return_module(self.performance_module.get_performances, params, span=span)
+            elif (module_name == "confusion matrix"):
+                return return_module(self.performance_module.get_confusion, params, span=span)
+            elif (module_name == "global feature importance"):
+                return return_module(self.global_xai_module.get_feature_importance, params, span=span)
+            elif (module_name == "partial dependence plot"):
+                return return_module(self.global_xai_module.get_partial_dependence, params, span=span)
+            elif (module_name == "individual feature importance"):
+                return return_module(self.individual_xai_module.get_shap_values, params={}, datapoint_id=datapoint_id, span=span)
+            else:
+                return None
         
     def collect_data(self, modules, datapoint_id):
         modules_data = []

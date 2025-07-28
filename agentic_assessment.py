@@ -50,7 +50,8 @@ async def agentic_assessment(
                         "laymans_summary": step["laymans_summary"],
                     },
                 }
-                await websocket_send_callback(json.dumps(payload))
+                if websocket_send_callback:
+                    await websocket_send_callback(json.dumps(payload))
             
             await asyncio.sleep(5)
             conclusion = cached["conclusion"]
@@ -60,13 +61,15 @@ async def agentic_assessment(
                 "variant": "standard",
                 "data": {"action": "final assessment", "summary": conclusion},
             }
-            await websocket_send_callback(json.dumps(payload))
+            if websocket_send_callback:
+                await websocket_send_callback(json.dumps(payload))
             payload = {
                 "type": "final_assessment",
                 "variant": "sceptical",
                 "data": {"action": "final assessment", "summary": conclusion2},
             }
-            await websocket_send_callback(json.dumps(payload))
+            if websocket_send_callback:
+                await websocket_send_callback(json.dumps(payload))
         return cached["trace"], cached["conclusion"], cached["conclusion2"]
 
     trace = []
