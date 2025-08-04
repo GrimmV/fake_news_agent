@@ -1,7 +1,8 @@
-def retrieve_datapoint(df, dp_id):
+def retrieve_datapoint(df, dp_id, with_label=False):
     row = df[df["id"] == dp_id]
 
     raw_label = int(row["prediction"].iloc[0])
+    true_raw_label = int(row["label"].iloc[0])
 
     if raw_label == 0:
         label = "False"
@@ -9,6 +10,13 @@ def retrieve_datapoint(df, dp_id):
         label = "Neither"
     elif raw_label == 2:
         label = "True"
+        
+    if true_raw_label == 0 or true_raw_label == 1:
+        true_label = 0
+    elif true_raw_label == 4 or true_raw_label == 5:
+        true_label = 2
+    else:
+        true_label = 1
         
     datapoint_properties = [
         {
@@ -96,5 +104,8 @@ def retrieve_datapoint(df, dp_id):
             } for elem in datapoint_properties
         },
     }
+    
+    if with_label:
+        datapoint["label"] = true_label
 
     return datapoint

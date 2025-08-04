@@ -3,6 +3,11 @@ from pydantic import BaseModel
 from openai import OpenAI
 from dataclasses import dataclass
 from llm.logger import log_kwargs, log_exception
+from openai import OpenAI
+from pydantic import BaseModel
+from llm.logger import log_kwargs, log_exception
+
+import instructor
 
 
 @dataclass
@@ -14,7 +19,7 @@ class LLMOptions:
 
 
 class GPTModel:
-    def __init__(self, model_name, key):
+    def __init__(self, model_name: str, key: str):
         self.model_name = model_name
         self.key = key
         self.client = instructor.from_openai(OpenAI(api_key=key))
@@ -26,6 +31,47 @@ class GPTModel:
         prompt: str,
         response_model: BaseModel,
         max_retries: int = 5,
+        validation_context: dict = None,
+        system_message: str = "You are a helpful assistant.",
+    ):
+
+        messages = [
+            {
+                "role": "system",
+                "content": system_message,
+            },
+            {"role": "user", "content": prompt},
+        ]
+        gpt_response = self.client.chat.completions.create(
+            model=self.model_name,
+            messages=messages,
+            max_retries=max_retries,
+            response_model=response_model,
+            validation_context=validation_context,
+        )
+
+        return gpt_response
+
+
+
+class OllamaOpenAI:
+    def __init__(self, model_name: str, base_url: str = None):
+        self.model_name = model_name
+        self.base_url = base_url
+        self.client = instructor.from_openai(
+            OpenAI(
+                base_url=base_url,
+                api_key="ollama",  # required, but unused
+            )
+        )
+        self.client.on("completion:kwargs", log_kwargs)
+        self.client.on("completion:error", log_exception)
+
+    def generate(
+        self,
+        prompt: str,
+        response_model: BaseModel,
+        max_retries: int = 3,
         validation_context: dict = None,
         system_message: str = "You are a helpful assistant.",
     ):

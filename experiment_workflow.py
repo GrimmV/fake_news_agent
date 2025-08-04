@@ -5,7 +5,7 @@ from descriptions.module_descriptions import module_descriptions
 import asyncio
 from modules.call_module import ModuleCaller
 
-from llm.llm import GPTModel
+from llm.llm import GPTModel, OllamaOpenAI
 from operations.agent_handler import AgentHandler
 from agentic_assessment_sync import agentic_assessment
 from operations.utils.retrieve_datapoint import retrieve_datapoint
@@ -19,8 +19,16 @@ load_dotenv(override=True)
 API_KEY = os.getenv("API_KEY")
 MODEL_NAME = os.getenv("MODEL_NAME")
 MODEL_NAME_2 = os.getenv("MODEL_NAME_2")
-llm = GPTModel(model_name=MODEL_NAME, key=API_KEY)
-llm_2 = GPTModel(model_name=MODEL_NAME_2, key=API_KEY)
+BASE_URL = os.getenv("OLLAMA_ENDPOINT")
+
+if MODEL_NAME in ["gpt-4o-mini", "gpt-4o", "o3", "o3-mini"]:
+    llm = GPTModel(model_name=MODEL_NAME, key=API_KEY)
+else:
+    llm = OllamaOpenAI(model_name=MODEL_NAME, base_url=BASE_URL)
+if MODEL_NAME_2 in ["gpt-4o-mini", "gpt-4o", "o3", "o3-mini"]:
+    llm_2 = GPTModel(model_name=MODEL_NAME_2, key=API_KEY)
+else:
+    llm_2 = OllamaOpenAI(model_name=MODEL_NAME_2, base_url=BASE_URL)
 
 tracer = init_phoenix("experiment_workflow_test_0.1")
 
