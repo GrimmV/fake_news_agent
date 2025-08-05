@@ -21,5 +21,5 @@ Technical Assessment: {assessment}
 Please analyze the data carefully and provide an explanation followed by your response.
 
 EXPLANATION: Provide your reasoning step by step, evaluating the clarity of the technical assessment based on the natural language descriptions.
-LABEL: "clear" or "unclear"
+LABEL: "clear", "mostly clear" or "unclear"
 """

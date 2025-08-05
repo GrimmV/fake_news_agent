@@ -1,4 +1,4 @@
-LAYMAN_CLARITY_LLM_JUDGE_PROMPT = """
+LAYMAN_TRUTHFULNESS_LLM_JUDGE_PROMPT = """
 In this task, you will be presented with a technical description and a layman's description that claims to explain the same concept in simpler terms. Your objective is to evaluate whether the layman's description is truthful and accurate in representing the underlying technical description.
 
 A truthful layman's description is one that accurately translates the technical concepts into simpler language without misrepresentation, exaggeration, or omission of important details. An untruthful layman's description is one that misinterprets, distorts, or misrepresents the technical information, even if it may sound plausible or well-written.
@@ -14,5 +14,5 @@ Layman's Description: {layman_description}
 Please analyze the technical description carefully and compare it with the layman's description to assess truthfulness.
 
 EXPLANATION: Provide your reasoning step by step, evaluating whether the layman's description accurately represents the technical description.
-LABEL: "truthful" or "untruthful"
+LABEL: "truthful", "mostly truthful" or "untruthful"
 """

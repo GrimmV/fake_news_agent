@@ -16,5 +16,5 @@ Natural Language Description: {natural_language_description}
 Please analyze the explainable AI data carefully and compare it with the natural language description to assess truthfulness.
 
 EXPLANATION: Provide your reasoning step by step, evaluating whether the natural language description accurately represents the explainable AI data.
-LABEL: "truthful" or "untruthful"
+LABEL: "truthful", "mostly truthful" or "untruthful"
 """

@@ -24,5 +24,5 @@ Natural Language Description: {natural_language_description}
 Please analyze the data carefully and provide an explanation followed by your response.
 
 EXPLANATION: Provide your reasoning step by step, evaluating the clarity of the natural language description based on the explainable AI data.
-LABEL: "clear" or "unclear"
+LABEL: "clear", "mostly clear" or "unclear"
 """

@@ -115,9 +115,9 @@ def agentic_assessment(
 
     # Step 8: Final Summary (Condensed)
     conclusion = agent_handler_2.trust_assessment(trace, statement)
-    conclusion2 = agent_handler_2.trust_assessment2(trace, statement)
+    # conclusion2 = agent_handler_2.trust_assessment2(trace, statement)
 
-    return {"trace": trace, "conclusion": conclusion, "conclusion2": conclusion2}
+    return {"trace": trace, "conclusion": conclusion}
 
 
 def call_and_summarize_module(

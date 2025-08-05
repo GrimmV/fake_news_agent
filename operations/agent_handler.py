@@ -6,6 +6,7 @@ from typing_extensions import Annotated
 from pydantic import AfterValidator
 from enum import Enum
 from opentelemetry.trace import StatusCode
+import os
 
 from prompt_templates.module_summarization import module_summarization_prompt
 from prompt_templates.trust_assessment import trust_assessment_prompt
@@ -13,6 +14,13 @@ from prompt_templates.trust_assessment_with_context import (
     trust_assessment_with_context_prompt,
 )
 from operations.utils.retrieve_datapoint import retrieve_datapoint
+
+from dotenv import load_dotenv
+load_dotenv(override=True)
+
+no_thinking = os.getenv("NO_THINKING")
+
+no_thinking_command = "/no_think" if no_thinking == "True" else ""
 
 
 class Objection(BaseModel):
@@ -148,7 +156,7 @@ class AgentHandler:
             response = self.llm.generate(
                 prompt,
                 response_model=ModuleSummarization,
-                system_message="You are an expert in explainable AI.",
+                system_message=f"You are an expert in explainable AI. {no_thinking_command}",
             )
             
             span.set_output(response.dict())
@@ -167,7 +175,7 @@ class AgentHandler:
             response = self.llm.generate(
                 prompt,
                 response_model=TrustAssessment,
-                system_message="You are an expert in explainable AI.",
+                system_message=f"You are an expert in explainable AI. {no_thinking_command}",
             )
             
             span.set_output(response.dict())
@@ -185,7 +193,7 @@ class AgentHandler:
             response = self.llm.generate(
                 prompt,
                 response_model=TrustAssessment,
-                system_message="You are an expert in explainable AI.",
+                system_message=f"You are an expert in explainable AI. {no_thinking_command}",
             )
             
             span.set_output(response.dict())
@@ -214,7 +222,7 @@ class AgentHandler:
         response = self.llm.generate(
             prompt,
             response_model=TrustAssessment,
-            system_message="You are an expert in explainable AI.",
+            system_message=f"You are an expert in explainable AI. {no_thinking_command}",
         )
 
         return response.dict()

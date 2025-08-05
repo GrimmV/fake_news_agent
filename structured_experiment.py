@@ -6,7 +6,7 @@ from prompt_templates.evaluations.truthworthiness import (
     TRUTHWORTHINESS_LLM_JUDGE_PROMPT,
 )
 from prompt_templates.evaluations.laymans_quality_xai import (
-    LAYMAN_CLARITY_LLM_JUDGE_PROMPT,
+    LAYMAN_TRUTHFULNESS_LLM_JUDGE_PROMPT,
 )
 from prompt_templates.evaluations.technical_clarity import (
     TECHNICAL_CLARITY_LLM_JUDGE_PROMPT,
@@ -14,13 +14,19 @@ from prompt_templates.evaluations.technical_clarity import (
 from prompt_templates.evaluations.technical_clarity_assessment import (
     TECHNICAL_ASSESSMENT_CLARITY_LLM_JUDGE_PROMPT,
 )
+from prompt_templates.evaluations.focus_quality import (
+    FOCUS_QUALITY_LLM_JUDGE_PROMPT,
+)
 import os
 from phoenix.evals import llm_classify, OpenAIModel
 from dotenv import load_dotenv
 from operations.utils.retrieve_datapoint import retrieve_datapoint
 
-ds_version = "old_5"
-experiment_version = "v1.2"
+MODEL_NAME = os.getenv("MODEL_NAME")
+NO_THINKING = os.getenv("NO_THINKING")
+
+ds_version = "old_6"
+experiment_version = f"v1.3-{MODEL_NAME}-{'thinking' if NO_THINKING == 'False' else 'no_thinking'}"
 
 load_dotenv(override=True)
 
@@ -33,7 +39,7 @@ def run_agent_task(dp_id):
     return experiment_workflow(dp_id)
 
 
-def layman_xai_clarity(output: str) -> float:
+def layman_xai_truthfulness(output: str) -> float:
     reasoning = []
     for elem in output.get("trace"):
         df = pd.DataFrame(
@@ -44,8 +50,8 @@ def layman_xai_clarity(output: str) -> float:
         )
         response = llm_classify(
             data=df,
-            template=LAYMAN_CLARITY_LLM_JUDGE_PROMPT,
-            rails=["truthful", "untruthful"],
+            template=LAYMAN_TRUTHFULNESS_LLM_JUDGE_PROMPT,
+            rails=["truthful", "mostly truthful", "untruthful"],
             model=eval_model,
             provide_explanation=True,
         )
@@ -55,7 +61,7 @@ def layman_xai_clarity(output: str) -> float:
     return sum(reasoning) / len(reasoning)
 
 
-def short_assessment_clarity(output: str) -> bool:
+def short_assessment_truthfulness(output: str) -> bool:
     elem = output.get("conclusion")
     df = pd.DataFrame(
         {
@@ -65,14 +71,37 @@ def short_assessment_clarity(output: str) -> bool:
     )
     response = llm_classify(
         data=df,
-        template=LAYMAN_CLARITY_LLM_JUDGE_PROMPT,
-        rails=["truthful", "untruthful"],
+        template=LAYMAN_TRUTHFULNESS_LLM_JUDGE_PROMPT,
+        rails=["truthful", "mostly truthful", "untruthful"],
         model=eval_model,
         provide_explanation=True,
     )
 
     return response["label"] == "truthful"
 
+def focus_quality(output: str) -> float:
+    trace = output.get("trace")
+    conclusion = output.get("conclusion")
+    relevant_modules = conclusion.get("most_relevant_modules")
+    summaries = [elem["summary"] for elem in trace if elem.get("module_name") in relevant_modules]
+    if len(summaries) == 0:
+        return False
+    df = pd.DataFrame(
+        {
+            "natural_language_descriptions": ["\n".join(summaries)],
+            "assessment": [conclusion.get("judgement_reason")],
+        }
+    )
+    response = llm_classify(
+        data=df,
+        template=FOCUS_QUALITY_LLM_JUDGE_PROMPT,
+        rails=["strongly contributes", "weakly contributes"],
+        model=eval_model,
+        provide_explanation=True,
+    )
+
+    # output the percentual amount of clear statements
+    return response["label"] == "strongly contributes"
 
 def label_correlation(input: str, output: str) -> float:
     dp_id = input.get("dp_id")
@@ -102,7 +131,7 @@ def xai_description_truthfulness(output: str) -> float:
         response = llm_classify(
             data=df,
             template=TRUTHWORTHINESS_LLM_JUDGE_PROMPT,
-            rails=["truthful", "untruthful"],
+            rails=["truthful", "mostly truthful", "untruthful"],
             model=eval_model,
             provide_explanation=True,
         )
@@ -113,7 +142,7 @@ def xai_description_truthfulness(output: str) -> float:
 
 
 # evaluate quality of xai summaries
-def technical_clarity(output: str) -> float:
+def technical_xai_clarity(output: str) -> float:
     reasoning = []
     for elem in output.get("trace"):
         df = pd.DataFrame(
@@ -127,7 +156,7 @@ def technical_clarity(output: str) -> float:
         response = llm_classify(
             data=df,
             template=TECHNICAL_CLARITY_LLM_JUDGE_PROMPT,
-            rails=["clear", "unclear"],
+            rails=["clear", "mostly clear", "unclear"],
             model=eval_model,
             provide_explanation=True,
         )
@@ -139,7 +168,6 @@ def technical_clarity(output: str) -> float:
 
 # evaluate quality of technical assessment
 def technical_assessment_clarity(output: str) -> float:
-    reasoning = []
     trace = output.get("trace")
     conclusion = output.get("conclusion")
     summaries = [elem["summary"] for elem in trace]
@@ -152,14 +180,12 @@ def technical_assessment_clarity(output: str) -> float:
     response = llm_classify(
         data=df,
         template=TECHNICAL_ASSESSMENT_CLARITY_LLM_JUDGE_PROMPT,
-        rails=["clear", "unclear"],
+        rails=["clear", "mostly clear", "unclear"],
         model=eval_model,
         provide_explanation=True,
     )
-    reasoning.append(response["label"] == "clear")
 
-    # output the percentual amount of clear statements
-    return sum(reasoning) / len(reasoning)
+    return response["label"] == "clear"
 
 
 def main():
@@ -194,10 +220,11 @@ def main():
         run_agent_task,
         evaluators=[
             xai_description_truthfulness,
-            layman_xai_clarity,
-            short_assessment_clarity,
+            layman_xai_truthfulness,
+            short_assessment_truthfulness,
+            focus_quality,
             label_correlation,
-            technical_clarity,
+            technical_xai_clarity,
             technical_assessment_clarity,
         ],
         experiment_name=f"Structured Experiment {experiment_version}",
