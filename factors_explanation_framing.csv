@@ -1,0 +1,65 @@
+experiment_key,label,experiment_id,case_type,explanation,reference,associated_divergence_type,ground_truth_label,predicted_label,trustscore
+false_exp_1,false,1,model_wrong_llm_trusts,Confident summaries claim certainty+poor sources drive 'True' decisively,individual feature importance + global feature importance: laymans_summary,explanation_framing,0,2,2
+false_exp_1,false,1,model_wrong_llm_trusts,"PDP shows 'True' prob peaks ~0.418 at 0.8 certainty, implying strong effect",partial dependence plot (exaggerated_uncertainty): summary,explanation_framing,0,2,2
+false_exp_1,false,1,model_wrong_llm_trusts,"Explanations give confident, coherent rationale (certainty, source quality, polarization).",individual feature importance summary,explanation_framing,0,2,2
+pof_exp_1,pof,1,model_wrong_llm_trusts,Module says 'prediction of True' but layman says 'likely false' for same case,individual feature importance: summary vs laymans_summary,explanation_framing,0,2,2
+pof_exp_4,pof,4,model_wrong_llm_trusts,Confusion matrix framed as “strong performance” though recalls are ~65%,confusion matrix summary,explanation_framing,0,2,3
+pof_exp_4,pof,4,model_wrong_llm_trusts,"Summary claims “predicts ‘True’ with high confidence,” boosting perceived certainty",individual feature importance summary,explanation_framing,0,2,3
+pof_exp_6,pof,6,model_right_llm_distrusts,Summary frames content as 'extreme' and 'underestimation of severity' despite prediction.,confusion matrix summary,explanation_framing,0,0,0
+pof_exp_6,pof,6,model_wrong_llm_trusts,Perf metrics framed as 'correctly predicted' and 'reasonably effective' at only 0.65 accuracy.,performance metrics: laymans_summary (accuracy=0.65),explanation_framing,0,2,3
+pof_exp_6,pof,6,model_wrong_llm_trusts,"Confusion matrix has 23% FP from 'False' to 'True', yet framed as 'performs best' and 'fairly accurate'.",confusion matrix: summary/laymans_summary,explanation_framing,0,2,3
+pof_exp_6,pof,6,model_wrong_llm_trusts,"2D distribution summary misidentifies highest bin (9) over the 60-count low-pol, high-cert bin.",feature distribution 2D: summary/table,explanation_framing,0,2,3
+pof_exp_7,pof,7,model_right_llm_distrusts,Layman summary says 'not false (likely true)' while prediction=0 (False),individual feature importance: laymans_summary,explanation_framing,0,0,1
+pof_exp_7,pof,7,model_right_llm_distrusts,"Main summary asserts strong confidence in falsehood, contradicting layman text",individual feature importance: summary,explanation_framing,0,0,1
+pof_exp_7,pof,7,model_wrong_llm_trusts,Metrics framed as 'moderately good' despite only 0.65 accuracy/F1,performance metrics: acc 0.65; layman 'moderately good',explanation_framing,0,2,2
+pof_exp_7,pof,7,model_wrong_llm_trusts,"Confusion matrix summary praises performance ('very good', 'handled well')",confusion matrix layman summary,explanation_framing,0,2,2
+pof_exp_7,pof,7,model_wrong_llm_trusts,Source_quality 1.0 called both 'vague/no evidence' and 'strong sources',feature dist summary vs global FI layman,explanation_framing,0,2,2
+false_exp_4,false,4,model_wrong_llm_trusts,Performance described as 'solid' despite 0.65 accuracy,performance metrics summary,explanation_framing,0,2,3
+false_exp_4,false,4,model_wrong_llm_trusts,"Confusion matrix says model is “most reliable” on True at 65%, implying strong dependability.",confusion matrix → summary,explanation_framing,0,2,3
+false_exp_5,false,5,model_wrong_llm_trusts,'Decent' performance framing despite only 0.65 accuracy and F1 ~0.65,performance metrics → laymans_summary,explanation_framing,0,2,2
+false_exp_5,false,5,model_wrong_llm_trusts,"Confusion matrix framed as 'mostly accurate, especially for True'",confusion matrix → laymans_summary,explanation_framing,0,2,2
+false_exp_5,false,5,model_wrong_llm_trusts,"Global importance narrative asserts features align with True, reinforcing prediction",global feature importance → laymans_summary,explanation_framing,0,2,2
+false_exp_5,false,5,model_wrong_llm_trusts,"Feature explanation uses strong language (“significantly influence”), signaling confidence",individual feature importance summary,explanation_framing,0,2,2
+false_exp_6,false,6,model_wrong_llm_trusts,"Performance is only 0.65 acc/F1≈0.65, yet framed as “fairly reliable.”",performance metrics: accuracy 0.65; layman’s summary wording,explanation_framing,0,2,2
+false_exp_6,false,6,model_wrong_llm_trusts,"Narratives assert “label ‘True’ aligns with elevated polarization,” reinforcing trust.",feature distribution summary emphasizes alignment with 'True',explanation_framing,0,2,2
+false_exp_6,false,6,model_wrong_llm_trusts,Feature dist. framed as 'highly polarized... aligning with True'.,feature distribution: summary,explanation_framing,0,2,2
+false_exp_6,false,6,model_wrong_llm_trusts,2D dist. claims pattern 'supports the model's prediction'.,feature distribution 2D: summary,explanation_framing,0,2,2
+false_exp_7,false,7,model_wrong_llm_trusts,Confusion matrix write-up calls performance 'strong' and 'high reliability' at 0.65 TPR.,confusion matrix.laymans_summary,explanation_framing,0,2,2
+false_exp_7,false,7,model_wrong_llm_trusts,"65% accuracy framed as 'moderately good', boosting perceived reliability.",performance metrics laymans_summary,explanation_framing,0,2,2
+false_exp_7,false,7,model_wrong_llm_trusts,Confusion matrix described as 'quite accurate' despite notable confusions (18%/16%).,confusion matrix laymans_summary,explanation_framing,0,2,2
+mostly_false_exp_1,mostly,exp,model_wrong_llm_trusts,"65% accuracy described as 'moderate to strong', boosting perceived reliability",performance metrics: summary,explanation_framing,1,2,2
+mostly_false_exp_1,mostly,exp,model_wrong_llm_trusts,'True' TPR 65% framed as 'quite accurate' for True predictions,confusion matrix: laymans_summary,explanation_framing,1,2,2
+mostly_false_exp_1,mostly,exp,model_wrong_llm_trusts,Neutral feature values but narrative asserts an 'overall polarizing tone',individual feature importance: laymans_summary; feature values mostly 0.0,explanation_framing,1,2,2
+mostly_false_exp_4,mostly,exp,model_wrong_llm_trusts,"Explanations repeatedly assert the output “supports the prediction of ‘True’,” boosting confidence cues.",feature distribution + global importance summaries,explanation_framing,1,2,2
+mostly_false_exp_4,mostly,exp,model_wrong_llm_trusts,Confusion matrix is framed as “fairly confident” though True-class accuracy is 65%.,confusion matrix laymans_summary,explanation_framing,1,2,2
+mostly_false_exp_5,mostly,exp,model_wrong_llm_trusts,Confusion matrix claims posts are 'highly likely to be true' with only 0.65 class accuracy,confusion matrix • laymans_summary,explanation_framing,1,2,2
+mostly_false_exp_5,mostly,exp,model_wrong_llm_trusts,"Exaggerated_uncertainty=1.0 described as 'absolute certainty', implying strong confidence cues",individual feature importance • summary,explanation_framing,1,2,2
+mostly_false_exp_6,mostly,exp,model_wrong_llm_trusts,Feature distribution text mixes 'source_quality' module with 'polarization' bins,feature distribution for source_quality summary,explanation_framing,1,2,3
+mostly_false_exp_6,mostly,exp,model_wrong_llm_trusts,PDP summary contradicts its numbers about source_quality vs 'True' probability,partial dependence plot summary (values 0.404→0.346→0.074 vs text claim),explanation_framing,1,2,3
+mostly_false_exp_7,mostly,exp,model_wrong_llm_trusts,Layman summaries repeatedly use strong certainty ('highly polarizing'),individual feature importance + feature distribution layman,explanation_framing,1,2,2
+mostly_false_exp_7,mostly,exp,model_wrong_llm_trusts,PDP narrative contradicts its numbers on source_quality effect,PDP layman vs values (0.4035 at 0 → 0.0737 at 2),explanation_framing,1,2,2
+half_true_exp_1,half,exp,model_wrong_llm_trusts,"Performance only 0.65, yet framed as 'decent job', boosting perceived reliability.",performance metrics laymans_summary,explanation_framing,1,2,3
+half_true_exp_1,half,exp,model_wrong_llm_trusts,Confusion matrix called 'moderate to strong' despite ~64–66% per-class accuracy.,confusion matrix summary,explanation_framing,1,2,3
+half_true_exp_1,half,exp,model_wrong_llm_trusts,"2D feature chart claims a strong correlation, explicitly supporting the prediction.",feature distribution 2D summary,explanation_framing,1,2,3
+half_true_exp_4,half,exp,model_wrong_llm_trusts,Confident framing: “The model prediction is True…” with detailed causal rationale.,individual feature importance.summary,explanation_framing,1,2,3
+half_true_exp_4,half,exp,model_wrong_llm_trusts,Perf text says “correctly predicted the outcome” despite only 0.65 accuracy.,performance metrics.laymans_summary + accuracy=0.65,explanation_framing,1,2,3
+half_true_exp_5,half,exp,model_right_llm_distrusts,"Text says 'strong signals of misrepresentation' yet final label 'Neither', stressing ambiguity.",individual feature importance.summary,explanation_framing,1,1,1
+half_true_exp_5,half,exp,model_wrong_llm_trusts,"IFI highlights 'specific evidence' and neutral tone, implying a credible prediction",individual feature importance: laymans_summary,explanation_framing,1,2,2
+half_true_exp_6,half,exp,model_wrong_llm_trusts,"65% accuracy framed as “decent” and “reasonable reliability,” boosting perceived trust.",performance metrics laymans_summary,explanation_framing,1,2,2
+half_true_exp_6,half,exp,model_wrong_llm_trusts,"Confusion matrix described as “strong accuracy/robust,” despite notable off-diagonals.",confusion matrix summary,explanation_framing,1,2,2
+half_true_exp_6,half,exp,model_wrong_llm_trusts,"Instance summary asserts confident, clear drivers (e.g., exaggerated_uncertainty=1.0).",individual feature importance summary,explanation_framing,1,2,2
+half_true_exp_7,half,exp,model_wrong_llm_trusts,"65% accuracy is described as 'reasonably reliable,' likely boosting trust",performance metrics.laymans_summary,explanation_framing,1,2,2
+half_true_exp_7,half,exp,model_wrong_llm_trusts,Confusion matrix framed as 'strong performance' and 'most confident' on True,confusion matrix.summary/laymans_summary,explanation_framing,1,2,2
+mostly_true_exp_7,mostly,exp,model_right_llm_distrusts,Claims 'high us-vs-them language (0.0)'—self-contradictory wording,performance metrics summary,explanation_framing,2,2,1
+mostly_true_exp_7,mostly,exp,model_right_llm_distrusts,PDP: higher polarization lowers 'True' prob; SHAP ranks polarization as top driver,partial dependence vs individual feature importance,explanation_framing,2,2,1
+mostly_true_exp_7,mostly,exp,model_right_llm_distrusts,"Distribution says neutral/mild, yet narrative calls post 'highly inflammatory'",feature distribution vs metrics layman summaries,explanation_framing,2,2,1
+true_exp_1,true,1,model_wrong_llm_trusts,Layman summary says 'not highly polarizing' despite polarization=0.8,IFI laymans_summary; GFI laymans_summary (polarization 0.8),explanation_framing,2,1,2
+true_exp_1,true,1,model_wrong_llm_trusts,PDP shows 'Neither' prob drops to 32.9% at 0.8 but framed as still balanced,PDP summary,explanation_framing,2,1,2
+true_exp_4,true,4,model_wrong_llm_trusts,"Confusion matrix summary claims highest precision for 'Neither', implying reliability",confusion matrix: summary,explanation_framing,2,1,2
+true_exp_4,true,4,model_wrong_llm_trusts,Layman summaries assert 'not polarizing' and a 'neutral classification' tone,individual/global feature importance: laymans_summary,explanation_framing,2,1,2
+true_exp_4,true,4,model_right_llm_distrusts,"PDP: higher polarization lowers 'True' prob, yet instance SHAP highlights polarization as key driver.",PDP polarization trend vs SHAP value 0.1387,explanation_framing,2,2,1
+true_exp_5,true,5,model_wrong_llm_trusts,Explanations say the 'Neither' prediction is supported by moderate feature values.,feature distribution summary,explanation_framing,2,1,2
+true_exp_5,true,5,model_wrong_llm_trusts,"Layman summary claims 'isn't highly polarizing (0.8)', downplaying a high value.",feature distribution laymans_summary,explanation_framing,2,1,2
+true_exp_5,true,5,model_right_llm_distrusts,Contradictory framing: 'calm and balanced' yet 'True' aligns with it,feature distribution: summary vs layman's summary inconsistency,explanation_framing,2,2,1
+true_exp_6,true,6,model_wrong_llm_trusts,Narratives describe the text as 'not highly polarizing' despite high polarization=0.8,individual feature importance: summary; values.polarization=0.8,explanation_framing,2,1,2
+true_exp_7,true,7,model_wrong_llm_trusts,"Layman summaries stress 'balanced' and 'reducing extremity', implying reliability.",laymans_summary (IFI),explanation_framing,2,1,2

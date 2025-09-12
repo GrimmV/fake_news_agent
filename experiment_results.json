@@ -1,0 +1,2573 @@
+{
+  "false_exp_1": [
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": true,
+      "case_type": "model_wrong_llm_trusts",
+      "rationale": "Substantial label–prediction gap (|0-2|=2.00 ≥ 1) AND high trustscore (2 ≥ 2).",
+      "analysis": {
+        "case_type": "model_wrong_llm_trusts",
+        "label": 0,
+        "prediction": 2,
+        "trustscore": 2,
+        "analysis": {
+          "primary_cause": "explanation_framing",
+          "secondary_causes": [
+            "overgeneralization_from_dataset_statistics",
+            "content_model_confusion",
+            "feature_interpretation_bias"
+          ],
+          "factors": [
+            {
+              "explanation": "Confident summaries claim certainty+poor sources drive 'True' decisively",
+              "reference": "individual feature importance + global feature importance: laymans_summary",
+              "associated_divergence_type": "explanation_framing"
+            },
+            {
+              "explanation": "SHAP -0.0998 for 'exaggerated_uncertainty' contradicts 'drives True' text",
+              "reference": "individual feature importance: SHAP vs summary",
+              "associated_divergence_type": "feature_interpretation_bias"
+            },
+            {
+              "explanation": "2D distribution: 59 cases high certainty+no evidence framed as key pattern",
+              "reference": "feature distribution 2D: summary",
+              "associated_divergence_type": "overgeneralization_from_dataset_statistics"
+            },
+            {
+              "explanation": "PDP shows 'True' prob peaks ~0.418 at 0.8 certainty, implying strong effect",
+              "reference": "partial dependence plot (exaggerated_uncertainty): summary",
+              "associated_divergence_type": "explanation_framing"
+            },
+            {
+              "explanation": "Only 0.65 accuracy; 23% False→True FPs signal notable error risk",
+              "reference": "performance metrics; confusion matrix",
+              "associated_divergence_type": "performance_baseline"
+            }
+          ],
+          "meta_comment": "The XAI narratives emphasize strong, decisive feature effects, which can encourage high trust. They leverage dataset patterns and PDP trends that suggest robust signals. Yet the model’s overall performance is only moderate with notable False→True errors. The SHAP sign vs narrative mismatch likely further nudged the LLM toward trusting this prediction."
+        }
+      }
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": true,
+      "case_type": "model_wrong_llm_trusts",
+      "rationale": "Substantial label–prediction gap (|0-2|=2.00 ≥ 1) AND high trustscore (2 ≥ 2).",
+      "analysis": {
+        "case_type": "model_wrong_llm_trusts",
+        "label": 0,
+        "prediction": 2,
+        "trustscore": 2,
+        "analysis": {
+          "primary_cause": "explanation_framing",
+          "secondary_causes": [
+            "meta_performance_overweighting",
+            "content_model_confusion",
+            "feature_interpretation_bias"
+          ],
+          "factors": [
+            {
+              "explanation": "Performance touted as strong (accuracy 0.65; 'performs well across categories').",
+              "reference": "performance metrics + confusion matrix summaries",
+              "associated_divergence_type": "meta_performance_overweighting"
+            },
+            {
+              "explanation": "Explanations give confident, coherent rationale (certainty, source quality, polarization).",
+              "reference": "individual feature importance summary",
+              "associated_divergence_type": "explanation_framing"
+            },
+            {
+              "explanation": "Claims 'absolute certainty' despite exaggerated_uncertainty=0.0, muddling feature meaning.",
+              "reference": "individual feature importance laymans_summary",
+              "associated_divergence_type": "feature_interpretation_bias"
+            },
+            {
+              "explanation": "Task uses True/Neither/False harmful labels, not 0–5 truth scale, inviting mismatch.",
+              "reference": "confusion matrix note + module texts using 'harmful (True)'",
+              "associated_divergence_type": "content_model_confusion"
+            }
+          ],
+          "meta_comment": "The trace frames the model as broadly reliable and provides confident, plausible reasoning, which can inflate trust. Positive performance language and tidy explanations likely outweighed instance-specific inconsistencies. The mislabeling of exaggerated_uncertainty and the harmful/neutral schema further muddled semantics. Together, these factors encouraged the LLM to overtrust a prediction that underperformed on this case."
+        }
+      }
+    }
+  ],
+  "pof_exp_1": [
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=3 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": true,
+      "case_type": "model_wrong_llm_trusts",
+      "rationale": "Substantial label–prediction gap (|0-2|=2.00 ≥ 1) AND high trustscore (2 ≥ 2).",
+      "analysis": {
+        "case_type": "model_wrong_llm_trusts",
+        "label": 0,
+        "prediction": 2,
+        "trustscore": 2,
+        "analysis": {
+          "primary_cause": "explanation_framing",
+          "secondary_causes": [
+            "content_model_confusion",
+            "meta_performance_overweighting",
+            "feature_interpretation_bias"
+          ],
+          "factors": [
+            {
+              "explanation": "Module says 'prediction of True' but layman says 'likely false' for same case",
+              "reference": "individual feature importance: summary vs laymans_summary",
+              "associated_divergence_type": "explanation_framing"
+            },
+            {
+              "explanation": "2D distribution links high polarization to True; PDP shows polarization lowers True prob",
+              "reference": "feature distribution 2D vs partial dependence plot (polarization)",
+              "associated_divergence_type": "content_model_confusion"
+            },
+            {
+              "explanation": "Performance framed as 'strong' and 'minimal confusion' despite 0.65 accuracy",
+              "reference": "confusion matrix summary; performance metrics accuracy=0.65",
+              "associated_divergence_type": "meta_performance_overweighting"
+            },
+            {
+              "explanation": "'Low source quality (1.0) contributes' to True label, semantically inconsistent",
+              "reference": "individual feature importance summary",
+              "associated_divergence_type": "feature_interpretation_bias"
+            }
+          ],
+          "meta_comment": "Inconsistent and positively framed explanations portray the model as confident and accurate. Conflicts between summaries (True vs False) and feature-label relations create confusion. The confusion matrix narrative overstates performance relative to accuracy. These framings likely led the LLM to over-trust the prediction despite the model’s actual error."
+        }
+      }
+    }
+  ],
+  "pof_exp_4": [
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=3 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=3 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": true,
+      "case_type": "model_wrong_llm_trusts",
+      "rationale": "Substantial label–prediction gap (|0-2|=2.00 ≥ 1) AND high trustscore (3 ≥ 2).",
+      "analysis": {
+        "case_type": "model_wrong_llm_trusts",
+        "label": 0,
+        "prediction": 2,
+        "trustscore": 3,
+        "analysis": {
+          "primary_cause": "explanation_framing",
+          "secondary_causes": [
+            "meta_performance_overweighting",
+            "content_model_confusion",
+            "overgeneralization_from_dataset_statistics"
+          ],
+          "factors": [
+            {
+              "explanation": "Confusion matrix framed as “strong performance” though recalls are ~65%",
+              "reference": "confusion matrix summary",
+              "associated_divergence_type": "explanation_framing"
+            },
+            {
+              "explanation": "Moderate accuracy (0.65) could be over-weighted as adequate reliability",
+              "reference": "performance metrics: accuracy 0.65",
+              "associated_divergence_type": "meta_performance_overweighting"
+            },
+            {
+              "explanation": "Summary claims “predicts ‘True’ with high confidence,” boosting perceived certainty",
+              "reference": "individual feature importance summary",
+              "associated_divergence_type": "explanation_framing"
+            },
+            {
+              "explanation": "Contradiction: summary says high-confidence True; layman’s says likely false",
+              "reference": "individual feature importance layman’s summary",
+              "associated_divergence_type": "content_model_confusion"
+            },
+            {
+              "explanation": "Highlight of 60 cases in a True bin may suggest strong, generalizable pattern",
+              "reference": "feature distribution 2D (label: True): low pol & high uncertainty cell",
+              "associated_divergence_type": "overgeneralization_from_dataset_statistics"
+            }
+          ],
+          "meta_comment": "The trace repeatedly frames performance and the specific prediction as confident or strong, which can elicit high trust. Metrics are only moderate, yet the language emphasizes reliability, encouraging overreliance on them. Conflicting summaries likely increased confusion, making the assertive framing more salient. The dataset pattern highlights further reinforced a sense of robustness, despite limitations."
+        }
+      }
+    }
+  ],
+  "pof_exp_5": [
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=3 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=3 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=2.00 (thr align≤0, diverge≥1), trust=1 (low≤1, high≥2).",
+      "analysis": null
+    }
+  ],
+  "pof_exp_6": [
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": true,
+      "case_type": "model_right_llm_distrusts",
+      "rationale": "Close label–prediction alignment (|0-0|=0.00 ≤ 0) AND low trustscore (0 ≤ 1).",
+      "analysis": {
+        "case_type": "model_right_llm_distrusts",
+        "label": 0,
+        "prediction": 0,
+        "trustscore": 0,
+        "analysis": {
+          "primary_cause": "meta_performance_overweighting",
+          "secondary_causes": [
+            "explanation_framing",
+            "content_model_confusion",
+            "feature_interpretation_bias"
+          ],
+          "factors": [
+            {
+              "explanation": "Accuracy 0.65, F1 0.648 → moderate performance may lower LLM trust.",
+              "reference": "performance metrics",
+              "associated_divergence_type": "meta_performance_overweighting"
+            },
+            {
+              "explanation": "False class TPR 64% with 21% Neither and 15% True mislabels shows confusion.",
+              "reference": "confusion matrix",
+              "associated_divergence_type": "meta_performance_overweighting"
+            },
+            {
+              "explanation": "Summary frames content as 'extreme' and 'underestimation of severity' despite prediction.",
+              "reference": "confusion matrix summary",
+              "associated_divergence_type": "explanation_framing"
+            },
+            {
+              "explanation": "'No evidence' (source_quality=2) boosts 'False' prob to 74.8%, potentially counterintuitive.",
+              "reference": "partial dependence plot",
+              "associated_divergence_type": "content_model_confusion"
+            },
+            {
+              "explanation": "High polarization/dehumanization emphasized, conflicting with 'not conspiracy' prediction.",
+              "reference": "individual feature importance summary",
+              "associated_divergence_type": "feature_interpretation_bias"
+            }
+          ],
+          "meta_comment": "The LLM likely overweighted the model’s moderate baseline (65% accuracy) and the class confusions (only 64% TPR for False), reducing trust. Explanations also framed the content as extreme and hinted at underestimation, nudging distrust. The counterintuitive mapping where “no evidence” raises the False probability and emphasis on polarizing features could confuse interpretation. These cues together plausibly led to a low trustscore despite a correct prediction."
+        }
+      }
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=3 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": true,
+      "case_type": "model_wrong_llm_trusts",
+      "rationale": "Substantial label–prediction gap (|0-2|=2.00 ≥ 1) AND high trustscore (3 ≥ 2).",
+      "analysis": {
+        "case_type": "model_wrong_llm_trusts",
+        "label": 0,
+        "prediction": 2,
+        "trustscore": 3,
+        "analysis": {
+          "primary_cause": "explanation_framing",
+          "secondary_causes": [
+            "content_model_confusion",
+            "meta_performance_overweighting",
+            "feature_interpretation_bias"
+          ],
+          "factors": [
+            {
+              "explanation": "Perf metrics framed as 'correctly predicted' and 'reasonably effective' at only 0.65 accuracy.",
+              "reference": "performance metrics: laymans_summary (accuracy=0.65)",
+              "associated_divergence_type": "explanation_framing"
+            },
+            {
+              "explanation": "Confusion matrix has 23% FP from 'False' to 'True', yet framed as 'performs best' and 'fairly accurate'.",
+              "reference": "confusion matrix: summary/laymans_summary",
+              "associated_divergence_type": "explanation_framing"
+            },
+            {
+              "explanation": "2D distribution summary misidentifies highest bin (9) over the 60-count low-pol, high-cert bin.",
+              "reference": "feature distribution 2D: summary/table",
+              "associated_divergence_type": "explanation_framing"
+            },
+            {
+              "explanation": "'True' label alternately means 'statement likely false' and 'highly polarized/extreme' across modules.",
+              "reference": "individual feature importance: summary; feature distribution: laymans_summary",
+              "associated_divergence_type": "content_model_confusion"
+            },
+            {
+              "explanation": "High 'source_quality' (1.0) cited as 'credible sources', likely inflating trust.",
+              "reference": "individual feature importance: values/summary; global feature importance: laymans_summary",
+              "associated_divergence_type": "feature_interpretation_bias"
+            }
+          ],
+          "meta_comment": "The assistant likely over-trusted because the XAI summaries emphasized positive performance and supportive patterns, despite only moderate accuracy and notable false positives for the predicted class. Confusing, inconsistent label semantics ('True' meaning different things) further obscured risk. The 2D distribution was also mis-summarized, adding to a favorable but misleading narrative. Highlighting high source_quality reinforced trust in the prediction."
+        }
+      }
+    }
+  ],
+  "pof_exp_7": [
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=3 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": true,
+      "case_type": "model_right_llm_distrusts",
+      "rationale": "Close label–prediction alignment (|0-0|=0.00 ≤ 0) AND low trustscore (1 ≤ 1).",
+      "analysis": {
+        "case_type": "model_right_llm_distrusts",
+        "label": 0,
+        "prediction": 0,
+        "trustscore": 1,
+        "analysis": {
+          "primary_cause": "explanation_framing",
+          "secondary_causes": [
+            "meta_performance_overweighting",
+            "content_model_confusion"
+          ],
+          "factors": [
+            {
+              "explanation": "Layman summary says 'not false (likely true)' while prediction=0 (False)",
+              "reference": "individual feature importance: laymans_summary",
+              "associated_divergence_type": "explanation_framing"
+            },
+            {
+              "explanation": "Main summary asserts strong confidence in falsehood, contradicting layman text",
+              "reference": "individual feature importance: summary",
+              "associated_divergence_type": "explanation_framing"
+            },
+            {
+              "explanation": "Overall accuracy/F1 near 0.65, signaling only moderate reliability",
+              "reference": "performance metrics: accuracy 0.65, F1 0.6482",
+              "associated_divergence_type": "meta_performance_overweighting"
+            },
+            {
+              "explanation": "False often misclassified as Neither (21%) or True (15%)",
+              "reference": "confusion matrix: False→Neither 21%, False→True 15%",
+              "associated_divergence_type": "meta_performance_overweighting"
+            },
+            {
+              "explanation": "Features framed as 'toxicity indicators' rather than direct fact evidence",
+              "reference": "individual feature importance: 'key toxicity indicators'",
+              "associated_divergence_type": "content_model_confusion"
+            }
+          ],
+          "meta_comment": "The explanation contains an internal contradiction: the layman summary implies the claim is not false, while the main summary states confidence in falsehood. This inconsistency can undermine trust in the instance-level rationale. Additionally, the model-wide metrics are only moderate and the confusion matrix shows notable misclassification rates, which can further depress trust. Framing drivers as toxicity indicators rather than direct factual evidence may have added to skepticism about the basis of the correct prediction."
+        }
+      }
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=3 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=3 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": true,
+      "case_type": "model_wrong_llm_trusts",
+      "rationale": "Substantial label–prediction gap (|0-2|=2.00 ≥ 1) AND high trustscore (2 ≥ 2).",
+      "analysis": {
+        "case_type": "model_wrong_llm_trusts",
+        "label": 0,
+        "prediction": 2,
+        "trustscore": 2,
+        "analysis": {
+          "primary_cause": "explanation_framing",
+          "secondary_causes": [
+            "content_model_confusion",
+            "meta_performance_overweighting",
+            "performance_baseline"
+          ],
+          "factors": [
+            {
+              "explanation": "Metrics framed as 'moderately good' despite only 0.65 accuracy/F1",
+              "reference": "performance metrics: acc 0.65; layman 'moderately good'",
+              "associated_divergence_type": "explanation_framing"
+            },
+            {
+              "explanation": "Confusion matrix summary praises performance ('very good', 'handled well')",
+              "reference": "confusion matrix layman summary",
+              "associated_divergence_type": "explanation_framing"
+            },
+            {
+              "explanation": "Inconsistent label use: 'True'=manipulative; feature dist says 'prediction is True' vs pred=2",
+              "reference": "feature dist (label: True) vs individual FI 'prediction=2'",
+              "associated_divergence_type": "content_model_confusion"
+            },
+            {
+              "explanation": "Source_quality 1.0 called both 'vague/no evidence' and 'strong sources'",
+              "reference": "feature dist summary vs global FI layman",
+              "associated_divergence_type": "explanation_framing"
+            },
+            {
+              "explanation": "2D distribution highlights 60 cases aligning with 'True', inviting frequency overgeneralization",
+              "reference": "feature distribution 2D table and summary",
+              "associated_divergence_type": "overgeneralization_from_dataset_statistics"
+            }
+          ],
+          "meta_comment": "The assistant likely overweighted positively framed explanations and summaries that described the model as performing well, despite only moderate metrics. Conflicting label semantics and contradictory descriptions (e.g., source quality) further muddled interpretation, reducing caution. Frequency cues in the 2D distribution reinforced a sense of reliability for this feature pattern. Together, this framing and confusion plausibly led to a higher trust score for the model’s (assumed-correct) prediction even when ground truth diverged."
+        }
+      }
+    }
+  ],
+  "false_exp_4": [
+    {
+      "should_investigate": true,
+      "case_type": "model_right_llm_distrusts",
+      "rationale": "Close label–prediction alignment (|0-0|=0.00 ≤ 0) AND low trustscore (1 ≤ 1).",
+      "analysis": {
+        "case_type": "model_right_llm_distrusts",
+        "label": 0,
+        "prediction": 0,
+        "trustscore": 1,
+        "analysis": {
+          "primary_cause": "content_model_confusion",
+          "secondary_causes": [
+            "meta_performance_overweighting",
+            "explanation_framing",
+            "label_trust_mismatch"
+          ],
+          "factors": [
+            {
+              "explanation": "'False' alternately framed as 'not misleading' vs 'low quality/untrustworthy'",
+              "reference": "[individual feature importance.summary] vs [feature distribution.summary]",
+              "associated_divergence_type": "content_model_confusion"
+            },
+            {
+              "explanation": "Confusion matrix uses 'False/Neither/True' as veracity classes, adding label ambiguity",
+              "reference": "[confusion matrix.summary]",
+              "associated_divergence_type": "content_model_confusion"
+            },
+            {
+              "explanation": "SHAP shows victim_villain_language=0.0932 despite feature_value=0.0 (inconsistent signal)",
+              "reference": "[individual feature importance.module_output]",
+              "associated_divergence_type": "other"
+            },
+            {
+              "explanation": "Overall performance is moderate (accuracy≈0.65, F1≈0.65), which can depress trust",
+              "reference": "[performance metrics.module_output]",
+              "associated_divergence_type": "meta_performance_overweighting"
+            },
+            {
+              "explanation": "2D summary says 'model's false prediction (False)', blurring error vs class meaning",
+              "reference": "[feature distribution 2D.summary]",
+              "associated_divergence_type": "content_model_confusion"
+            }
+          ],
+          "meta_comment": "The trace presents conflicting meanings for the 'False' label and mixes task semantics across modules, creating ambiguity about what the model predicted. Inconsistencies in feature attributions further muddy the explanation. Coupled with only moderate performance metrics, the LLM likely discounted the otherwise correct prediction. This confusion plausibly led to a lower trust score despite the model matching the ground truth."
+        }
+      }
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": true,
+      "case_type": "model_wrong_llm_trusts",
+      "rationale": "Substantial label–prediction gap (|0-2|=2.00 ≥ 1) AND high trustscore (3 ≥ 2).",
+      "analysis": {
+        "case_type": "model_wrong_llm_trusts",
+        "label": 0,
+        "prediction": 2,
+        "trustscore": 3,
+        "analysis": {
+          "primary_cause": "content_model_confusion",
+          "secondary_causes": [
+            "explanation_framing",
+            "meta_performance_overweighting",
+            "feature_interpretation_bias",
+            "overgeneralization_from_dataset_statistics"
+          ],
+          "factors": [
+            {
+              "explanation": "Task framed as detecting polarization/manipulation, not truthfulness",
+              "reference": "confusion matrix laymans_summary ('manipulative language')",
+              "associated_divergence_type": "content_model_confusion"
+            },
+            {
+              "explanation": "Explanations center on certainty, source quality, polarization features",
+              "reference": "global feature importance summary",
+              "associated_divergence_type": "content_model_confusion"
+            },
+            {
+              "explanation": "Performance described as 'solid' despite 0.65 accuracy",
+              "reference": "performance metrics summary",
+              "associated_divergence_type": "explanation_framing"
+            },
+            {
+              "explanation": "'True' class said 65% correct, suggesting dependable predictions",
+              "reference": "confusion matrix summary",
+              "associated_divergence_type": "meta_performance_overweighting"
+            },
+            {
+              "explanation": "PDP shows higher certainty -> 'True'; generalized as reliable cue",
+              "reference": "partial dependence plot summary",
+              "associated_divergence_type": "overgeneralization_from_dataset_statistics"
+            }
+          ],
+          "meta_comment": "The trace consistently presents the model as identifying polarization/manipulation rather than factual veracity. It emphasizes features like certainty and source quality and shows that higher certainty increases the 'True' prediction. Performance is framed as solid with 0.65 accuracy and 65% correctness for the 'True' class, implying reliability. This framing and metric emphasis likely led the LLM to overtrust the specific prediction."
+        }
+      }
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": true,
+      "case_type": "model_wrong_llm_trusts",
+      "rationale": "Substantial label–prediction gap (|0-2|=2.00 ≥ 1) AND high trustscore (3 ≥ 2).",
+      "analysis": {
+        "case_type": "model_wrong_llm_trusts",
+        "label": 0,
+        "prediction": 2,
+        "trustscore": 3,
+        "analysis": {
+          "primary_cause": "explanation_framing",
+          "secondary_causes": [
+            "meta_performance_overweighting",
+            "content_model_confusion",
+            "overgeneralization_from_dataset_statistics",
+            "feature_interpretation_bias"
+          ],
+          "factors": [
+            {
+              "explanation": "Confusion matrix says model is “most reliable” on True at 65%, implying strong dependability.",
+              "reference": "confusion matrix → summary",
+              "associated_divergence_type": "explanation_framing"
+            },
+            {
+              "explanation": "Accuracy 0.65 framed as “moderate but acceptable,” which can justify high trust.",
+              "reference": "performance metrics → summary",
+              "associated_divergence_type": "meta_performance_overweighting"
+            },
+            {
+              "explanation": "2D distribution highlights strong pattern (high certainty + weak source ⇒ True), boosting confidence.",
+              "reference": "feature distribution 2D → summary",
+              "associated_divergence_type": "overgeneralization_from_dataset_statistics"
+            },
+            {
+              "explanation": "SHAP for exaggerated_uncertainty is negative, yet text claims it drives True prediction.",
+              "reference": "individual feature importance → shap_value -0.0998 vs summary",
+              "associated_divergence_type": "feature_interpretation_bias"
+            },
+            {
+              "explanation": "Metrics assert instance-like values (e.g., polarization=1.0) not supported elsewhere, adding spurious certainty.",
+              "reference": "performance metrics → summary vs earlier feature_value=0.0",
+              "associated_divergence_type": "content_model_confusion"
+            }
+          ],
+          "meta_comment": "The narrative repeatedly frames the model as reliable for the True class and acceptable overall, which can inflate trust. Dataset-level patterns and PDP/distribution summaries further suggest the instance fits a strong signal. Inconsistencies in SHAP interpretation and injected instance-like feature claims may have misled the LLM into perceiving stronger evidence than warranted. Together, these framings explain why the LLM issued a high trust score despite the model’s moderate performance."
+        }
+      }
+    }
+  ],
+  "false_exp_5": [
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=3 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": true,
+      "case_type": "model_wrong_llm_trusts",
+      "rationale": "Substantial label–prediction gap (|0-2|=2.00 ≥ 1) AND high trustscore (2 ≥ 2).",
+      "analysis": {
+        "case_type": "model_wrong_llm_trusts",
+        "label": 0,
+        "prediction": 2,
+        "trustscore": 2,
+        "analysis": {
+          "primary_cause": "explanation_framing",
+          "secondary_causes": [
+            "meta_performance_overweighting",
+            "overgeneralization_from_dataset_statistics"
+          ],
+          "factors": [
+            {
+              "explanation": "'Decent' performance framing despite only 0.65 accuracy and F1 ~0.65",
+              "reference": "performance metrics → laymans_summary",
+              "associated_divergence_type": "explanation_framing"
+            },
+            {
+              "explanation": "Confusion matrix framed as 'mostly accurate, especially for True'",
+              "reference": "confusion matrix → laymans_summary",
+              "associated_divergence_type": "explanation_framing"
+            },
+            {
+              "explanation": "Global importance narrative asserts features align with True, reinforcing prediction",
+              "reference": "global feature importance → laymans_summary",
+              "associated_divergence_type": "explanation_framing"
+            },
+            {
+              "explanation": "PDP claims rising certainty increases True probability, justifying the model output",
+              "reference": "partial dependence plot → summary",
+              "associated_divergence_type": "overgeneralization_from_dataset_statistics"
+            }
+          ],
+          "meta_comment": "The XAI summaries repeatedly presented the model as reliable and its rationale as compelling (e.g., “mostly accurate,” “decent,” and feature narratives that support the True class). This affirmative framing likely led the LLM to over-trust the specific prediction despite only moderate overall performance. The LLM also appears to generalize from dataset-level plots (PDP) to this instance, further reinforcing confidence."
+        }
+      }
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=3 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": true,
+      "case_type": "model_wrong_llm_trusts",
+      "rationale": "Substantial label–prediction gap (|0-2|=2.00 ≥ 1) AND high trustscore (2 ≥ 2).",
+      "analysis": {
+        "case_type": "model_wrong_llm_trusts",
+        "label": 0,
+        "prediction": 2,
+        "trustscore": 2,
+        "analysis": {
+          "primary_cause": "explanation_framing",
+          "secondary_causes": [
+            "meta_performance_overweighting",
+            "performance_baseline",
+            "overgeneralization_from_dataset_statistics"
+          ],
+          "factors": [
+            {
+              "explanation": "Perf metrics show only 0.65 accuracy, yet trust was high (2/3)",
+              "reference": "performance metrics: accuracy 0.65",
+              "associated_divergence_type": "performance_baseline"
+            },
+            {
+              "explanation": "Confusion matrix framed 65% TPR as “fairly confident,” encouraging trust",
+              "reference": "confusion matrix layman summary: “fairly confident—65%”",
+              "associated_divergence_type": "meta_performance_overweighting"
+            },
+            {
+              "explanation": "Feature explanation uses strong language (“significantly influence”), signaling confidence",
+              "reference": "individual feature importance summary",
+              "associated_divergence_type": "explanation_framing"
+            },
+            {
+              "explanation": "Distribution highlights many cases with high certainty and weak sources, implying typicality",
+              "reference": "feature distribution (0.9 most common) and 2D distribution counts",
+              "associated_divergence_type": "overgeneralization_from_dataset_statistics"
+            }
+          ],
+          "meta_comment": "The explanations repeatedly characterize the prediction as confident and well‑supported, which can nudge the LLM toward a higher trustscore. This effect is reinforced by the confusion matrix being described as “fairly confident” at 65% TPR, despite only moderate overall accuracy. The baseline performance (accuracy 0.65) would warrant caution, but the framing downplays this. Highlighting dataset patterns with high certainty/low source quality likely further suggested that this case fit a common, reliable pattern."
+        }
+      }
+    }
+  ],
+  "false_exp_6": [
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=3 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": true,
+      "case_type": "model_wrong_llm_trusts",
+      "rationale": "Substantial label–prediction gap (|0-2|=2.00 ≥ 1) AND high trustscore (2 ≥ 2).",
+      "analysis": {
+        "case_type": "model_wrong_llm_trusts",
+        "label": 0,
+        "prediction": 2,
+        "trustscore": 2,
+        "analysis": {
+          "primary_cause": "explanation_framing",
+          "secondary_causes": [
+            "meta_performance_overweighting",
+            "feature_interpretation_bias",
+            "content_model_confusion"
+          ],
+          "factors": [
+            {
+              "explanation": "Performance is only 0.65 acc/F1≈0.65, yet framed as “fairly reliable.”",
+              "reference": "performance metrics: accuracy 0.65; layman’s summary wording",
+              "associated_divergence_type": "explanation_framing"
+            },
+            {
+              "explanation": "False→True errors are 23%, a risky mode for this case, underemphasized.",
+              "reference": "confusion matrix: 23% of False misclassified as True",
+              "associated_divergence_type": "meta_performance_overweighting"
+            },
+            {
+              "explanation": "Narratives assert “label ‘True’ aligns with elevated polarization,” reinforcing trust.",
+              "reference": "feature distribution summary emphasizes alignment with 'True'",
+              "associated_divergence_type": "explanation_framing"
+            },
+            {
+              "explanation": "PDP shows certainty boosts ‘True’; may be overread as case-specific validity.",
+              "reference": "PDP: ‘exaggerated_uncertainty’ ↑ ⇒ P(True)↑ to ~0.38",
+              "associated_divergence_type": "feature_interpretation_bias"
+            },
+            {
+              "explanation": "Explanations equate ‘True’ with polarizing/inflammatory, blurring truth semantics.",
+              "reference": "multiple layman summaries: 'True' ≈ highly polarizing/inflammatory",
+              "associated_divergence_type": "content_model_confusion"
+            }
+          ],
+          "meta_comment": "Moderate metrics and a notable False→True error mode suggest caution, yet the explanations framed the model as fairly reliable and provided a causal story supporting the ‘True’ prediction. The PDP and feature narratives likely nudged acceptance of the model’s output. Additionally, label semantics in the summaries conflated ‘True’ with polarization, obscuring factual risk. These combined to inflate the LLM’s trust above what the performance evidence supports."
+        }
+      }
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": true,
+      "case_type": "model_wrong_llm_trusts",
+      "rationale": "Substantial label–prediction gap (|0-2|=2.00 ≥ 1) AND high trustscore (2 ≥ 2).",
+      "analysis": {
+        "case_type": "model_wrong_llm_trusts",
+        "label": 0,
+        "prediction": 2,
+        "trustscore": 2,
+        "analysis": {
+          "primary_cause": "explanation_framing",
+          "secondary_causes": [
+            "content_model_confusion",
+            "meta_performance_overweighting",
+            "feature_interpretation_bias"
+          ],
+          "factors": [
+            {
+              "explanation": "Feature dist. framed as 'highly polarized... aligning with True'.",
+              "reference": "feature distribution: summary",
+              "associated_divergence_type": "explanation_framing"
+            },
+            {
+              "explanation": "2D dist. claims pattern 'supports the model's prediction'.",
+              "reference": "feature distribution 2D: summary",
+              "associated_divergence_type": "explanation_framing"
+            },
+            {
+              "explanation": "65% accuracy framed as 'doing a decent job'.",
+              "reference": "performance metrics: laymans_summary",
+              "associated_divergence_type": "meta_performance_overweighting"
+            },
+            {
+              "explanation": "Negative SHAP treated as strong positive evidence for prediction.",
+              "reference": "individual feature importance: summary",
+              "associated_divergence_type": "feature_interpretation_bias"
+            },
+            {
+              "explanation": "Focus on 'polarizing' content, not veracity of claim.",
+              "reference": "individual feature importance: laymans_summary",
+              "associated_divergence_type": "content_model_confusion"
+            }
+          ],
+          "meta_comment": "The XAI narratives repeatedly asserted that patterns ‘support the model’s prediction’ and highlighted polarization, which likely inflated perceived evidential strength. Model performance was only ~65% but was described as ‘doing a decent job,’ further normalizing high trust. The individual explanation misread SHAP directionality, adding to an impression of strong support. Together, framing and task-focus confusion led the LLM to overtrust the prediction despite moderate performance signals."
+        }
+      }
+    }
+  ],
+  "false_exp_7": [
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": true,
+      "case_type": "model_wrong_llm_trusts",
+      "rationale": "Substantial label–prediction gap (|0-2|=2.00 ≥ 1) AND high trustscore (2 ≥ 2).",
+      "analysis": {
+        "case_type": "model_wrong_llm_trusts",
+        "label": 0,
+        "prediction": 2,
+        "trustscore": 2,
+        "analysis": {
+          "primary_cause": "explanation_framing",
+          "secondary_causes": [
+            "overgeneralization_from_dataset_statistics",
+            "meta_performance_overweighting",
+            "feature_interpretation_bias"
+          ],
+          "factors": [
+            {
+              "explanation": "Confusion matrix write-up calls performance 'strong' and 'high reliability' at 0.65 TPR.",
+              "reference": "confusion matrix.laymans_summary",
+              "associated_divergence_type": "explanation_framing"
+            },
+            {
+              "explanation": "Metrics framed as 'moderate' and 'balanced', encouraging trust despite 0.65 accuracy.",
+              "reference": "performance metrics.laymans_summary",
+              "associated_divergence_type": "meta_performance_overweighting"
+            },
+            {
+              "explanation": "IFI claims all features at 0.0 yet they 'contribute strongly' to a 'True' prediction.",
+              "reference": "individual feature importance.summary",
+              "associated_divergence_type": "feature_interpretation_bias"
+            },
+            {
+              "explanation": "Feature distribution text generalizes dataset clusters as supporting 'True' for this case.",
+              "reference": "feature distribution.summary",
+              "associated_divergence_type": "overgeneralization_from_dataset_statistics"
+            },
+            {
+              "explanation": "2D distribution narrative treats common patterns as case evidence, boosting confidence.",
+              "reference": "feature distribution 2D.laymans_summary",
+              "associated_divergence_type": "overgeneralization_from_dataset_statistics"
+            }
+          ],
+          "meta_comment": "The XAI narratives framed the model as reliable and well‑supported, emphasizing strength and balance. They leaned on dataset‑level patterns and partial summaries rather than instance‑specific evidence. Inconsistencies (e.g., baseline features still ‘driving’ the result) further biased interpretation toward trust. This framing and generalization likely led the LLM to over‑trust the prediction given only moderate performance."
+        }
+      }
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=3 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": true,
+      "case_type": "model_wrong_llm_trusts",
+      "rationale": "Substantial label–prediction gap (|0-2|=2.00 ≥ 1) AND high trustscore (2 ≥ 2).",
+      "analysis": {
+        "case_type": "model_wrong_llm_trusts",
+        "label": 0,
+        "prediction": 2,
+        "trustscore": 2,
+        "analysis": {
+          "primary_cause": "explanation_framing",
+          "secondary_causes": [
+            "overgeneralization_from_dataset_statistics",
+            "performance_baseline",
+            "feature_interpretation_bias"
+          ],
+          "factors": [
+            {
+              "explanation": "65% accuracy framed as 'moderately good', boosting perceived reliability.",
+              "reference": "performance metrics laymans_summary",
+              "associated_divergence_type": "explanation_framing"
+            },
+            {
+              "explanation": "Confusion matrix described as 'quite accurate' despite notable confusions (18%/16%).",
+              "reference": "confusion matrix laymans_summary",
+              "associated_divergence_type": "explanation_framing"
+            },
+            {
+              "explanation": "Model performance only ~0.65 accuracy/F1, indicating a modest baseline.",
+              "reference": "performance metrics summary",
+              "associated_divergence_type": "performance_baseline"
+            },
+            {
+              "explanation": "2D distribution stresses 'highest count' pattern, implying strong dataset regularity.",
+              "reference": "feature distribution 2D summary",
+              "associated_divergence_type": "overgeneralization_from_dataset_statistics"
+            },
+            {
+              "explanation": "Instance feature_values are 0.0, yet many features cited as key signals.",
+              "reference": "individual feature importance module_output.values",
+              "associated_divergence_type": "feature_interpretation_bias"
+            }
+          ],
+          "meta_comment": "Positive, certainty-laden summaries portray the model as reliable and accurate, which can inflate trust despite only moderate metrics. Dataset plots emphasize dominant patterns, encouraging overgeneralization from distributions to the specific case. Meanwhile, the baseline performance is modest, but this is downplayed by the framing. The instance-level feature values being zero while many features are highlighted may further mislead interpretation."
+        }
+      }
+    }
+  ],
+  "mostly_false_exp_1": [
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=3 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": true,
+      "case_type": "model_wrong_llm_trusts",
+      "rationale": "Substantial label–prediction gap (|1-2|=1.00 ≥ 1) AND high trustscore (2 ≥ 2).",
+      "analysis": {
+        "case_type": "model_wrong_llm_trusts",
+        "label": 1,
+        "prediction": 2,
+        "trustscore": 2,
+        "analysis": {
+          "primary_cause": "explanation_framing",
+          "secondary_causes": [
+            "performance_baseline",
+            "feature_interpretation_bias"
+          ],
+          "factors": [
+            {
+              "explanation": "65% accuracy described as 'moderate to strong', boosting perceived reliability",
+              "reference": "performance metrics: summary",
+              "associated_divergence_type": "explanation_framing"
+            },
+            {
+              "explanation": "'True' TPR 65% framed as 'quite accurate' for True predictions",
+              "reference": "confusion matrix: laymans_summary",
+              "associated_divergence_type": "explanation_framing"
+            },
+            {
+              "explanation": "Source_quality=0.0 called 'lack of source quality' though PDP says 0='specific evidence'",
+              "reference": "individual feature importance: summary; partial dependence plot: laymans_summary",
+              "associated_divergence_type": "feature_interpretation_bias"
+            },
+            {
+              "explanation": "2D distribution shows low source quality aligns with low polarization, contradicting narrative",
+              "reference": "feature distribution 2D: summary",
+              "associated_divergence_type": "feature_interpretation_bias"
+            },
+            {
+              "explanation": "Neutral feature values but narrative asserts an 'overall polarizing tone'",
+              "reference": "individual feature importance: laymans_summary; feature values mostly 0.0",
+              "associated_divergence_type": "explanation_framing"
+            }
+          ],
+          "meta_comment": "The trace repeatedly frames moderate performance (65% metrics) as strong, which can inflate trust. Additionally, explanations around source_quality conflict with the PDP and 2D distributions, muddying feature meaning. The narrative also asserts polarization despite largely neutral feature values. Together, positive framing and inconsistent feature interpretations likely led the LLM to over-trust the model on this instance."
+        }
+      }
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=3 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    }
+  ],
+  "mostly_false_exp_4": [
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": true,
+      "case_type": "model_wrong_llm_trusts",
+      "rationale": "Substantial label–prediction gap (|1-2|=1.00 ≥ 1) AND high trustscore (2 ≥ 2).",
+      "analysis": {
+        "case_type": "model_wrong_llm_trusts",
+        "label": 1,
+        "prediction": 2,
+        "trustscore": 2,
+        "analysis": {
+          "primary_cause": "explanation_framing",
+          "secondary_causes": [
+            "content_model_confusion",
+            "performance_baseline",
+            "feature_interpretation_bias"
+          ],
+          "factors": [
+            {
+              "explanation": "Explanations repeatedly assert the output “supports the prediction of ‘True’,” boosting confidence cues.",
+              "reference": "feature distribution + global importance summaries",
+              "associated_divergence_type": "explanation_framing"
+            },
+            {
+              "explanation": "Confusion matrix is framed as “fairly confident” though True-class accuracy is 65%.",
+              "reference": "confusion matrix laymans_summary",
+              "associated_divergence_type": "explanation_framing"
+            },
+            {
+              "explanation": "Overall accuracy 0.65 described as “decent/solid,” overstating reliability.",
+              "reference": "performance metrics laymans_summary",
+              "associated_divergence_type": "performance_baseline"
+            },
+            {
+              "explanation": "‘True’ is described as “likely misleading/harmful,” mixing label semantics.",
+              "reference": "individual importance + confusion matrix laymans_summaries",
+              "associated_divergence_type": "content_model_confusion"
+            },
+            {
+              "explanation": "Feature summary calls “high polarization” though feature_value is 0.0, inconsistent cues.",
+              "reference": "individual feature importance values vs summary",
+              "associated_divergence_type": "feature_interpretation_bias"
+            }
+          ],
+          "meta_comment": "The XAI text consistently framed the model’s output and metrics in confident, supportive language. This likely led the LLM to overtrust despite only moderate performance. Mixed semantics around the ‘True’ label and inconsistent feature descriptions further reduced caution. Together, these cues plausibly elevated the trustscore above what the performance warrants."
+        }
+      }
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=3 (low≤1, high≥2).",
+      "analysis": null
+    }
+  ],
+  "mostly_false_exp_5": [
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": true,
+      "case_type": "model_wrong_llm_trusts",
+      "rationale": "Substantial label–prediction gap (|1-2|=1.00 ≥ 1) AND high trustscore (2 ≥ 2).",
+      "analysis": {
+        "case_type": "model_wrong_llm_trusts",
+        "label": 1,
+        "prediction": 2,
+        "trustscore": 2,
+        "analysis": {
+          "primary_cause": "explanation_framing",
+          "secondary_causes": [
+            "meta_performance_overweighting",
+            "content_model_confusion",
+            "feature_interpretation_bias"
+          ],
+          "factors": [
+            {
+              "explanation": "Confusion matrix claims posts are 'highly likely to be true' with only 0.65 class accuracy",
+              "reference": "confusion matrix • laymans_summary",
+              "associated_divergence_type": "explanation_framing"
+            },
+            {
+              "explanation": "Overall performance framed as 'decent/balanced' at ~0.65 accuracy/F1, boosting perceived reliability",
+              "reference": "performance metrics • summary/laymans_summary",
+              "associated_divergence_type": "meta_performance_overweighting"
+            },
+            {
+              "explanation": "Exaggerated_uncertainty=1.0 described as 'absolute certainty', implying strong confidence cues",
+              "reference": "individual feature importance • summary",
+              "associated_divergence_type": "explanation_framing"
+            },
+            {
+              "explanation": "'True' label discussed as polarizing/harmful, conflating task semantics with truthfulness",
+              "reference": "feature distribution/2D (label: True) • summaries",
+              "associated_divergence_type": "content_model_confusion"
+            },
+            {
+              "explanation": "Source_quality value mapping is inconsistent (0.0 called 'no evidence'), yet used as key driver",
+              "reference": "individual feature importance • summary vs PDP • summary",
+              "associated_divergence_type": "feature_interpretation_bias"
+            }
+          ],
+          "meta_comment": "Explanations repeatedly framed moderate metrics and signals as strong, e.g., calling 65% class accuracy “highly likely” and labeling an uncertainty feature as “absolute certainty.” This presentation likely led the LLM to over-trust the prediction. Mixed task semantics around the 'True' label and inconsistent feature mappings further reduced clarity. Together, these cues favored a higher trust score despite the model’s only moderate performance and the instance being wrong."
+        }
+      }
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=3 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=3 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=3 (low≤1, high≥2).",
+      "analysis": null
+    }
+  ],
+  "mostly_false_exp_6": [
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": true,
+      "case_type": "model_wrong_llm_trusts",
+      "rationale": "Substantial label–prediction gap (|1-2|=1.00 ≥ 1) AND high trustscore (3 ≥ 2).",
+      "analysis": {
+        "case_type": "model_wrong_llm_trusts",
+        "label": 1,
+        "prediction": 2,
+        "trustscore": 3,
+        "analysis": {
+          "primary_cause": "content_model_confusion",
+          "secondary_causes": [
+            "explanation_framing",
+            "meta_performance_overweighting"
+          ],
+          "factors": [
+            {
+              "explanation": "Trace frames prediction as 'True' for polarizing content, not factual truth",
+              "reference": "individual feature importance summary; multiple modules label='True' = polarizing",
+              "associated_divergence_type": "content_model_confusion"
+            },
+            {
+              "explanation": "Confusion matrix layman’s summary equates 'True' with polarizing/harmful, not truthfulness",
+              "reference": "confusion matrix laymans_summary",
+              "associated_divergence_type": "content_model_confusion"
+            },
+            {
+              "explanation": "Feature distribution text mixes 'source_quality' module with 'polarization' bins",
+              "reference": "feature distribution for source_quality summary",
+              "associated_divergence_type": "explanation_framing"
+            },
+            {
+              "explanation": "PDP summary contradicts its numbers about source_quality vs 'True' probability",
+              "reference": "partial dependence plot summary (values 0.404→0.346→0.074 vs text claim)",
+              "associated_divergence_type": "explanation_framing"
+            },
+            {
+              "explanation": "Metrics framed as 'moderately reliable' and 'most confident', inviting over-trust",
+              "reference": "performance metrics laymans_summary; confusion matrix laymans_summary",
+              "associated_divergence_type": "meta_performance_overweighting"
+            }
+          ],
+          "meta_comment": "The trace consistently presents the model as a polarization detector, using a 'True' class that denotes polarizing content rather than factual accuracy. Conflicting and conflated explanations (e.g., mixing feature axes and contradicting the PDP values) further obscure what the prediction means. In addition, the performance summaries emphasize moderate reliability and confidence, likely encouraging the LLM to over-trust the output. Together, these factors make it plausible the LLM trusted a prediction that was irrelevant to truthfulness, producing the divergence."
+        }
+      }
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=3 (low≤1, high≥2).",
+      "analysis": null
+    }
+  ],
+  "mostly_false_exp_7": [
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": true,
+      "case_type": "model_wrong_llm_trusts",
+      "rationale": "Substantial label–prediction gap (|1-2|=1.00 ≥ 1) AND high trustscore (2 ≥ 2).",
+      "analysis": {
+        "case_type": "model_wrong_llm_trusts",
+        "label": 1,
+        "prediction": 2,
+        "trustscore": 2,
+        "analysis": {
+          "primary_cause": "content_model_confusion",
+          "secondary_causes": [
+            "explanation_framing",
+            "performance_baseline"
+          ],
+          "factors": [
+            {
+              "explanation": "Model/task framed as 'polarization True', not claim truth assessment",
+              "reference": "confusion matrix layman: 'True' = polarizing/harmful",
+              "associated_divergence_type": "content_model_confusion"
+            },
+            {
+              "explanation": "Layman summaries repeatedly use strong certainty ('highly polarizing')",
+              "reference": "individual feature importance + feature distribution layman",
+              "associated_divergence_type": "explanation_framing"
+            },
+            {
+              "explanation": "Performance is moderate (accuracy/F1 ≈0.65), yet framed as solid",
+              "reference": "performance metrics + layman summary",
+              "associated_divergence_type": "performance_baseline"
+            },
+            {
+              "explanation": "PDP narrative contradicts its numbers on source_quality effect",
+              "reference": "PDP layman vs values (0.4035 at 0 → 0.0737 at 2)",
+              "associated_divergence_type": "explanation_framing"
+            }
+          ],
+          "meta_comment": "The trace describes a polarization classifier, not a veracity predictor, which can misdirect the LLM’s trust target. Strong, confidence-inducing summaries and positive framing of only moderate metrics likely reinforced trust. Inconsistencies in explanations (e.g., PDP text vs numbers) further bias perception. These factors together can explain a high trustscore despite the model’s limited reliability on this instance."
+        }
+      }
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=3 (low≤1, high≥2).",
+      "analysis": null
+    }
+  ],
+  "half_true_exp_1": [
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": true,
+      "case_type": "model_wrong_llm_trusts",
+      "rationale": "Substantial label–prediction gap (|1-2|=1.00 ≥ 1) AND high trustscore (3 ≥ 2).",
+      "analysis": {
+        "case_type": "model_wrong_llm_trusts",
+        "label": 1,
+        "prediction": 2,
+        "trustscore": 3,
+        "analysis": {
+          "primary_cause": "explanation_framing",
+          "secondary_causes": [
+            "feature_interpretation_bias",
+            "content_model_confusion",
+            "overgeneralization_from_dataset_statistics"
+          ],
+          "factors": [
+            {
+              "explanation": "Performance only 0.65, yet framed as 'decent job', boosting perceived reliability.",
+              "reference": "performance metrics laymans_summary",
+              "associated_divergence_type": "explanation_framing"
+            },
+            {
+              "explanation": "Confusion matrix called 'moderate to strong' despite ~64–66% per-class accuracy.",
+              "reference": "confusion matrix summary",
+              "associated_divergence_type": "explanation_framing"
+            },
+            {
+              "explanation": "2D feature chart claims a strong correlation, explicitly supporting the prediction.",
+              "reference": "feature distribution 2D summary",
+              "associated_divergence_type": "explanation_framing"
+            },
+            {
+              "explanation": "'Exaggerated_uncertainty' is described as absolute certainty, muddling feature meaning.",
+              "reference": "individual feature importance laymans_summary",
+              "associated_divergence_type": "feature_interpretation_bias"
+            },
+            {
+              "explanation": "Mixed task terms: polarizing vs True/False vs harmful content can mislead trust.",
+              "reference": "partial dependence plot summary",
+              "associated_divergence_type": "content_model_confusion"
+            }
+          ],
+          "meta_comment": "The explanation tone repeatedly framed the model as reliable and its evidence as supportive, which can inflate trust despite moderate performance. Misdescriptions of feature semantics further reduced skepticism about the specific prediction. Additionally, inconsistent task labels and references (polarizing vs harmful/True) could confuse evaluation criteria. Together, these factors plausibly led the LLM to over-trust a misprediction."
+        }
+      }
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    }
+  ],
+  "half_true_exp_4": [
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=3 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=3 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": true,
+      "case_type": "model_wrong_llm_trusts",
+      "rationale": "Substantial label–prediction gap (|1-2|=1.00 ≥ 1) AND high trustscore (3 ≥ 2).",
+      "analysis": {
+        "case_type": "model_wrong_llm_trusts",
+        "label": 1,
+        "prediction": 2,
+        "trustscore": 3,
+        "analysis": {
+          "primary_cause": "explanation_framing",
+          "secondary_causes": [
+            "content_model_confusion",
+            "performance_baseline",
+            "feature_interpretation_bias"
+          ],
+          "factors": [
+            {
+              "explanation": "Confident framing: “The model prediction is True…” with detailed causal rationale.",
+              "reference": "individual feature importance.summary",
+              "associated_divergence_type": "explanation_framing"
+            },
+            {
+              "explanation": "Perf text says “correctly predicted the outcome” despite only 0.65 accuracy.",
+              "reference": "performance metrics.laymans_summary + accuracy=0.65",
+              "associated_divergence_type": "explanation_framing"
+            },
+            {
+              "explanation": "‘True’ is described as high polarization/harmful, blurring label semantics.",
+              "reference": "confusion matrix.summary (‘True’=polarizing/harmful)",
+              "associated_divergence_type": "content_model_confusion"
+            },
+            {
+              "explanation": "Diagnostic inconsistency: PDP vs 2D summary on source_quality trend conflict.",
+              "reference": "partial dependence plot.summary vs feature distribution 2D.summary",
+              "associated_divergence_type": "other"
+            },
+            {
+              "explanation": "Global FI elevates a few features as decisive, signaling a confident decision.",
+              "reference": "global feature importance.summary",
+              "associated_divergence_type": "feature_interpretation_bias"
+            }
+          ],
+          "meta_comment": "Explanations present the prediction as decisive and well-justified, while the performance text subtly implies correctness despite moderate metrics. The label ‘True’ is framed as polarization/harmfulness, which can confuse task semantics. Conflicting diagnostic messages further obscure reliability. Together, this framing likely led the LLM to assign high trust despite the model’s only moderate performance."
+        }
+      }
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    }
+  ],
+  "half_true_exp_5": [
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": true,
+      "case_type": "model_right_llm_distrusts",
+      "rationale": "Close label–prediction alignment (|1-1|=0.00 ≤ 0) AND low trustscore (1 ≤ 1).",
+      "analysis": {
+        "case_type": "model_right_llm_distrusts",
+        "label": 1,
+        "prediction": 1,
+        "trustscore": 1,
+        "analysis": {
+          "primary_cause": "explanation_framing",
+          "secondary_causes": [
+            "meta_performance_overweighting",
+            "feature_interpretation_bias",
+            "content_model_confusion"
+          ],
+          "factors": [
+            {
+              "explanation": "Text says 'strong signals of misrepresentation' yet final label 'Neither', stressing ambiguity.",
+              "reference": "individual feature importance.summary",
+              "associated_divergence_type": "explanation_framing"
+            },
+            {
+              "explanation": "Layman summary claims 'not misleading' while model label is 'Neither'.",
+              "reference": "individual feature importance.laymans_summary",
+              "associated_divergence_type": "content_model_confusion"
+            },
+            {
+              "explanation": "Instance shows high polarization (0.8), vague sources (1.0), victim-villain (1.0), priming distrust.",
+              "reference": "individual feature importance.values",
+              "associated_divergence_type": "feature_interpretation_bias"
+            },
+            {
+              "explanation": "Model accuracy 0.65 and F1 0.648 indicate moderate reliability, inviting lower trust.",
+              "reference": "performance metrics",
+              "associated_divergence_type": "meta_performance_overweighting"
+            }
+          ],
+          "meta_comment": "The explanation emphasizes misrepresentation signals while still concluding 'Neither', creating an ambiguous framing. A conflicting lay summary saying 'not misleading' adds confusion. With only moderate performance metrics, the LLM had additional reason to be cautious. The highly polarizing, weakly sourced features in this instance further biased the trust downward."
+        }
+      }
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=3 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": true,
+      "case_type": "model_wrong_llm_trusts",
+      "rationale": "Substantial label–prediction gap (|1-2|=1.00 ≥ 1) AND high trustscore (2 ≥ 2).",
+      "analysis": {
+        "case_type": "model_wrong_llm_trusts",
+        "label": 1,
+        "prediction": 2,
+        "trustscore": 2,
+        "analysis": {
+          "primary_cause": "explanation_framing",
+          "secondary_causes": [
+            "meta_performance_overweighting",
+            "content_model_confusion",
+            "overgeneralization_from_dataset_statistics"
+          ],
+          "factors": [
+            {
+              "explanation": "IFI highlights 'specific evidence' and neutral tone, implying a credible prediction",
+              "reference": "individual feature importance: laymans_summary",
+              "associated_divergence_type": "explanation_framing"
+            },
+            {
+              "explanation": "Feature distribution says doc is in an 'evidence-based, less polarizing' cluster",
+              "reference": "feature distribution: summary",
+              "associated_divergence_type": "overgeneralization_from_dataset_statistics"
+            },
+            {
+              "explanation": "Metrics framed as 'moderate' (acc=0.65, F1=0.648), suggesting acceptable reliability",
+              "reference": "performance metrics: summary",
+              "associated_divergence_type": "meta_performance_overweighting"
+            },
+            {
+              "explanation": "Confusion matrix stresses 65% TP for 'True', boosting perceived class trustworthiness",
+              "reference": "confusion matrix: summary",
+              "associated_divergence_type": "meta_performance_overweighting"
+            },
+            {
+              "explanation": "Explanations conflate truth with polarization/‘extreme’/‘misleading’, blurring label meaning",
+              "reference": "partial dependence plot: laymans_summary",
+              "associated_divergence_type": "content_model_confusion"
+            }
+          ],
+          "meta_comment": "The explanations consistently portrayed the instance as evidence-backed, neutral, and belonging to an evidence-based cluster, which can raise trust. This favorable framing, combined with moderate overall metrics and emphasis on solid 'True' performance, likely nudged the LLM toward a higher trustscore. The mixed terminology around truth, polarization, and misleading content adds label confusion. Together, these cues plausibly produced a high trustscore despite this case’s ground-truth divergence."
+        }
+      }
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    }
+  ],
+  "half_true_exp_6": [
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": true,
+      "case_type": "model_wrong_llm_trusts",
+      "rationale": "Substantial label–prediction gap (|1-2|=1.00 ≥ 1) AND high trustscore (2 ≥ 2).",
+      "analysis": {
+        "case_type": "model_wrong_llm_trusts",
+        "label": 1,
+        "prediction": 2,
+        "trustscore": 2,
+        "analysis": {
+          "primary_cause": "explanation_framing",
+          "secondary_causes": [
+            "meta_performance_overweighting",
+            "feature_interpretation_bias"
+          ],
+          "factors": [
+            {
+              "explanation": "65% accuracy framed as “decent” and “reasonable reliability,” boosting perceived trust.",
+              "reference": "performance metrics laymans_summary",
+              "associated_divergence_type": "explanation_framing"
+            },
+            {
+              "explanation": "Confusion matrix described as “strong accuracy/robust,” despite notable off-diagonals.",
+              "reference": "confusion matrix summary",
+              "associated_divergence_type": "explanation_framing"
+            },
+            {
+              "explanation": "Source_quality 0.0 called “lack of evidence,” contradicting PDP where 0=strong evidence.",
+              "reference": "IFI laymans_summary vs PDP laymans_summary",
+              "associated_divergence_type": "feature_interpretation_bias"
+            },
+            {
+              "explanation": "Instance summary asserts confident, clear drivers (e.g., exaggerated_uncertainty=1.0).",
+              "reference": "individual feature importance summary",
+              "associated_divergence_type": "explanation_framing"
+            },
+            {
+              "explanation": "True class only 0.65 correct; positive spin may have led to overtrust of this True prediction.",
+              "reference": "confusion matrix (True=0.65)",
+              "associated_divergence_type": "meta_performance_overweighting"
+            }
+          ],
+          "meta_comment": "The explanations present moderate metrics as strong and emphasize clear feature drivers, which can inflate trust. Confusion matrix performance for the True class is only 0.65, yet it is framed positively. Additionally, a misinterpretation of the source_quality scale contradicts the PDP, adding misleading cues. Together, these factors likely led the LLM to overtrust a wrong prediction."
+        }
+      }
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=3 (low≤1, high≥2).",
+      "analysis": null
+    }
+  ],
+  "half_true_exp_7": [
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=3 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": true,
+      "case_type": "model_wrong_llm_trusts",
+      "rationale": "Substantial label–prediction gap (|1-2|=1.00 ≥ 1) AND high trustscore (2 ≥ 2).",
+      "analysis": {
+        "case_type": "model_wrong_llm_trusts",
+        "label": 1,
+        "prediction": 2,
+        "trustscore": 2,
+        "analysis": {
+          "primary_cause": "explanation_framing",
+          "secondary_causes": [
+            "meta_performance_overweighting",
+            "content_model_confusion"
+          ],
+          "factors": [
+            {
+              "explanation": "65% accuracy is described as 'reasonably reliable,' likely boosting trust",
+              "reference": "performance metrics.laymans_summary",
+              "associated_divergence_type": "explanation_framing"
+            },
+            {
+              "explanation": "Confusion matrix framed as 'strong performance' and 'most confident' on True",
+              "reference": "confusion matrix.summary/laymans_summary",
+              "associated_divergence_type": "explanation_framing"
+            },
+            {
+              "explanation": "'True' equated with 'highly polarizing or misleading'—semantic mismatch",
+              "reference": "confusion matrix.laymans_summary",
+              "associated_divergence_type": "content_model_confusion"
+            },
+            {
+              "explanation": "Source_quality=0 called 'no evidence' but PDP says 0 = 'specific evidence'",
+              "reference": "individual feature importance.summary vs partial dependence plot.summary",
+              "associated_divergence_type": "content_model_confusion"
+            }
+          ],
+          "meta_comment": "Positive, confidence-boosting wording around moderate metrics likely led the LLM to over-trust the model on this case. The LLM may also have overweighted global performance signals when scoring trust. Inconsistent terminology and feature semantics (‘True’ meaning, source_quality coding) add confusion that could further inflate perceived reliability."
+        }
+      }
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=3 (low≤1, high≥2).",
+      "analysis": null
+    }
+  ],
+  "mostly_true_exp_1": [
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=3 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=3 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    }
+  ],
+  "mostly_true_exp_4": [
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=3 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=3 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=3 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    }
+  ],
+  "mostly_true_exp_5": [
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=3 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=3 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    }
+  ],
+  "mostly_true_exp_6": [
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=3 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=3 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    }
+  ],
+  "mostly_true_exp_7": [
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=3 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": true,
+      "case_type": "model_right_llm_distrusts",
+      "rationale": "Close label–prediction alignment (|2-2|=0.00 ≤ 0) AND low trustscore (1 ≤ 1).",
+      "analysis": {
+        "case_type": "model_right_llm_distrusts",
+        "label": 2,
+        "prediction": 2,
+        "trustscore": 1,
+        "analysis": {
+          "primary_cause": "content_model_confusion",
+          "secondary_causes": [
+            "explanation_framing",
+            "meta_performance_overweighting"
+          ],
+          "factors": [
+            {
+              "explanation": "XAI frames task as 'inflammatory (True)' vs. 0–5 truth scale—domain mismatch",
+              "reference": "performance metrics/confusion matrix summaries",
+              "associated_divergence_type": "content_model_confusion"
+            },
+            {
+              "explanation": "Claims 'high us-vs-them language (0.0)'—self-contradictory wording",
+              "reference": "performance metrics summary",
+              "associated_divergence_type": "explanation_framing"
+            },
+            {
+              "explanation": "PDP: higher polarization lowers 'True' prob; SHAP ranks polarization as top driver",
+              "reference": "partial dependence vs individual feature importance",
+              "associated_divergence_type": "explanation_framing"
+            },
+            {
+              "explanation": "Distribution says neutral/mild, yet narrative calls post 'highly inflammatory'",
+              "reference": "feature distribution vs metrics layman summaries",
+              "associated_divergence_type": "explanation_framing"
+            },
+            {
+              "explanation": "Moderate accuracy (0.65) and ~0.65 TPR could depress trust",
+              "reference": "performance metrics and confusion matrix",
+              "associated_divergence_type": "meta_performance_overweighting"
+            }
+          ],
+          "meta_comment": "The trace explains a different task (inflammatory True/False) than the 0–5 truthfulness label, likely confusing the LLM and lowering trust. Multiple contradictory explanations (feature values vs narrative, PDP vs SHAP) further undermine confidence. Additionally, the reported performance is only moderate (~0.65), which the LLM may have overweighted. Together, these factors plausibly caused a low trustscore despite a correct prediction."
+        }
+      }
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=3 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    }
+  ],
+  "true_exp_1": [
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": true,
+      "case_type": "model_wrong_llm_trusts",
+      "rationale": "Substantial label–prediction gap (|2-1|=1.00 ≥ 1) AND high trustscore (2 ≥ 2).",
+      "analysis": {
+        "case_type": "model_wrong_llm_trusts",
+        "label": 2,
+        "prediction": 1,
+        "trustscore": 2,
+        "analysis": {
+          "primary_cause": "explanation_framing",
+          "secondary_causes": [
+            "content_model_confusion",
+            "performance_baseline",
+            "overgeneralization_from_dataset_statistics"
+          ],
+          "factors": [
+            {
+              "explanation": "Layman summary says 'not highly polarizing' despite polarization=0.8",
+              "reference": "IFI laymans_summary; GFI laymans_summary (polarization 0.8)",
+              "associated_divergence_type": "explanation_framing"
+            },
+            {
+              "explanation": "PDP shows 'Neither' prob drops to 32.9% at 0.8 but framed as still balanced",
+              "reference": "PDP summary",
+              "associated_divergence_type": "explanation_framing"
+            },
+            {
+              "explanation": "Polarization feature distribution text references sentiment, creating confusion",
+              "reference": "Feature distribution summary (polarization label)",
+              "associated_divergence_type": "content_model_confusion"
+            },
+            {
+              "explanation": "Model accuracy/F1 ≈0.65, yet LLM assigned high trustscore=2",
+              "reference": "Performance metrics",
+              "associated_divergence_type": "performance_baseline"
+            },
+            {
+              "explanation": "Distribution framed as 'supports the prediction', overgeneralizing dataset trends",
+              "reference": "Feature distribution summary",
+              "associated_divergence_type": "overgeneralization_from_dataset_statistics"
+            }
+          ],
+          "meta_comment": "The assistant likely relied on narrative framing that portrayed the decision as balanced, even though the instance had high polarization and the PDP indicated reduced probability at that level. Confusing explanations (e.g., mixing sentiment with polarization) obscured contradictions. Dataset-level statements that the distribution \"supports the prediction\" may have encouraged trust. This happened despite only moderate overall model performance (~0.65)."
+        }
+      }
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    }
+  ],
+  "true_exp_4": [
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": true,
+      "case_type": "model_wrong_llm_trusts",
+      "rationale": "Substantial label–prediction gap (|2-1|=1.00 ≥ 1) AND high trustscore (2 ≥ 2).",
+      "analysis": {
+        "case_type": "model_wrong_llm_trusts",
+        "label": 2,
+        "prediction": 1,
+        "trustscore": 2,
+        "analysis": {
+          "primary_cause": "explanation_framing",
+          "secondary_causes": [
+            "performance_baseline",
+            "overgeneralization_from_dataset_statistics",
+            "feature_interpretation_bias"
+          ],
+          "factors": [
+            {
+              "explanation": "Confusion matrix summary claims highest precision for 'Neither', implying reliability",
+              "reference": "confusion matrix: summary",
+              "associated_divergence_type": "explanation_framing"
+            },
+            {
+              "explanation": "Model accuracy/F1 ~0.65, yet LLM assigned a high trustscore (2)",
+              "reference": "performance metrics: accuracy 0.65; case: Trustscore 2",
+              "associated_divergence_type": "performance_baseline"
+            },
+            {
+              "explanation": "Layman summaries assert 'not polarizing' and a 'neutral classification' tone",
+              "reference": "individual/global feature importance: laymans_summary",
+              "associated_divergence_type": "explanation_framing"
+            },
+            {
+              "explanation": "2D distribution shows 47 high polar+victim cases within 'Neither', reinforcing class fit",
+              "reference": "feature distribution 2D: summary",
+              "associated_divergence_type": "overgeneralization_from_dataset_statistics"
+            },
+            {
+              "explanation": "PDP shows 'Neither' prob ~0.329 at polarization 0.8, lower than peak, but downplayed",
+              "reference": "partial dependence plot: summary",
+              "associated_divergence_type": "feature_interpretation_bias"
+            }
+          ],
+          "meta_comment": "The explanations framed the model as reliable for the 'Neither' class, including a claim of highest precision for that class, which can encourage higher trust. Despite only moderate overall performance (~0.65), the LLM likely overweighted these reassuring summaries. The 2D distribution highlighting many 'Neither' examples with similar features and the attribution narrative further reinforced confidence. This overshadowed the PDP’s indication of lower probability at the instance’s polarization level, yielding an overly high trustscore."
+        }
+      }
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=3 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": true,
+      "case_type": "model_right_llm_distrusts",
+      "rationale": "Close label–prediction alignment (|2-2|=0.00 ≤ 0) AND low trustscore (1 ≤ 1).",
+      "analysis": {
+        "case_type": "model_right_llm_distrusts",
+        "label": 2,
+        "prediction": 2,
+        "trustscore": 1,
+        "analysis": {
+          "primary_cause": "content_model_confusion",
+          "secondary_causes": [
+            "explanation_framing",
+            "feature_interpretation_bias",
+            "meta_performance_overweighting"
+          ],
+          "factors": [
+            {
+              "explanation": "Prediction uses 0–5 truth scale (2), but explanations switch to 'True' harmful-content class.",
+              "reference": "prediction: 2; multiple summaries: 'model prediction is True' / 'label: True'",
+              "associated_divergence_type": "content_model_confusion"
+            },
+            {
+              "explanation": "Layman summary claims 'absolute certainty' for feature named 'exaggerated_uncertainty'.",
+              "reference": "individual feature importance laymans_summary",
+              "associated_divergence_type": "feature_interpretation_bias"
+            },
+            {
+              "explanation": "PDP: higher polarization lowers 'True' prob, yet instance SHAP highlights polarization as key driver.",
+              "reference": "PDP polarization trend vs SHAP value 0.1387",
+              "associated_divergence_type": "explanation_framing"
+            },
+            {
+              "explanation": "Moderate performance (accuracy≈0.65) can lower perceived reliability.",
+              "reference": "performance metrics accuracy: 0.65",
+              "associated_divergence_type": "meta_performance_overweighting"
+            }
+          ],
+          "meta_comment": "The trace mixes a 0–5 truthfulness prediction (2) with a separate True/Neither/False harmful-content task, creating label/task confusion. Inconsistent feature narration (e.g., exaggerated_uncertainty described as certainty) and conflicting signals between PDP and per-instance SHAP further muddy interpretation. Given these mixed cues, the assistant likely discounted the correct prediction. The model’s only-moderate accuracy may have additionally pushed the trust score down."
+        }
+      }
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=3 (low≤1, high≥2).",
+      "analysis": null
+    }
+  ],
+  "true_exp_5": [
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": true,
+      "case_type": "model_wrong_llm_trusts",
+      "rationale": "Substantial label–prediction gap (|2-1|=1.00 ≥ 1) AND high trustscore (2 ≥ 2).",
+      "analysis": {
+        "case_type": "model_wrong_llm_trusts",
+        "label": 2,
+        "prediction": 1,
+        "trustscore": 2,
+        "analysis": {
+          "primary_cause": "explanation_framing",
+          "secondary_causes": [
+            "performance_baseline",
+            "overgeneralization_from_dataset_statistics",
+            "feature_interpretation_bias"
+          ],
+          "factors": [
+            {
+              "explanation": "Explanations say the 'Neither' prediction is supported by moderate feature values.",
+              "reference": "feature distribution summary",
+              "associated_divergence_type": "explanation_framing"
+            },
+            {
+              "explanation": "Model performance is moderate (accuracy 0.65, F1 0.648), not warranting high trust.",
+              "reference": "performance metrics: accuracy 0.65, F1 0.6482",
+              "associated_divergence_type": "performance_baseline"
+            },
+            {
+              "explanation": "2D stats emphasize 47 high polarization+villain cases labeled 'Neither'.",
+              "reference": "feature distribution 2D: 47 in 0.80–1.00 x 0.50–1.00 cell",
+              "associated_divergence_type": "overgeneralization_from_dataset_statistics"
+            },
+            {
+              "explanation": "PDP shows only 32.9% 'Neither' at polarization 0.8, indicating weak class support.",
+              "reference": "partial dependence plot: 0.8 -> 0.329",
+              "associated_divergence_type": "feature_interpretation_bias"
+            },
+            {
+              "explanation": "Layman summary claims 'isn't highly polarizing (0.8)', downplaying a high value.",
+              "reference": "feature distribution laymans_summary",
+              "associated_divergence_type": "explanation_framing"
+            }
+          ],
+          "meta_comment": "The trace repeatedly frames the prediction as well-supported by “moderate” features and dataset co-occurrences, which can elevate perceived reliability. However, overall performance is only about 65%, and the PDP indicates limited probability for 'Neither' at the observed polarization level. The layman summaries even downplay high polarization, reinforcing a sense of support. This framing helps explain why the LLM issued a relatively high trustscore despite modest performance signals."
+        }
+      }
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=3 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": true,
+      "case_type": "model_right_llm_distrusts",
+      "rationale": "Close label–prediction alignment (|2-2|=0.00 ≤ 0) AND low trustscore (1 ≤ 1).",
+      "analysis": {
+        "case_type": "model_right_llm_distrusts",
+        "label": 2,
+        "prediction": 2,
+        "trustscore": 1,
+        "analysis": {
+          "primary_cause": "content_model_confusion",
+          "secondary_causes": [
+            "explanation_framing",
+            "feature_interpretation_bias",
+            "meta_performance_overweighting"
+          ],
+          "factors": [
+            {
+              "explanation": "XAI frames outputs as class 'True' despite task using 0–5 truth labels",
+              "reference": "individual feature importance: summary 'model's prediction of True'",
+              "associated_divergence_type": "content_model_confusion"
+            },
+            {
+              "explanation": "'True' is described as harmful/extreme, not factual truthfulness",
+              "reference": "confusion matrix: layman's summary equates 'True' to harmful/extreme",
+              "associated_divergence_type": "content_model_confusion"
+            },
+            {
+              "explanation": "Low values (polarization 0.1, emotionality 0.1) called 'high' in summary",
+              "reference": "individual feature importance: summary mislabels 0.1 as high",
+              "associated_divergence_type": "feature_interpretation_bias"
+            },
+            {
+              "explanation": "Contradictory framing: 'calm and balanced' yet 'True' aligns with it",
+              "reference": "feature distribution: summary vs layman's summary inconsistency",
+              "associated_divergence_type": "explanation_framing"
+            },
+            {
+              "explanation": "Moderate performance (acc 0.65, F1 0.648) may depress trust",
+              "reference": "performance metrics: accuracy 0.65, F1 0.6482",
+              "associated_divergence_type": "meta_performance_overweighting"
+            }
+          ],
+          "meta_comment": "The trace mixes a tri-class 'True/Neither/False' scheme with harmfulness language, while the case uses a 0–5 truth scale. This mismatched labeling and the claim that 'True' means harmful likely confused the LLM about what the model predicted. Inconsistent summaries further misread low feature values as high and contradict whether content is calm or problematic. Given only moderate metrics, the LLM plausibly downgraded trust despite the correct prediction."
+        }
+      }
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=3 (low≤1, high≥2).",
+      "analysis": null
+    }
+  ],
+  "true_exp_6": [
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": true,
+      "case_type": "model_wrong_llm_trusts",
+      "rationale": "Substantial label–prediction gap (|2-1|=1.00 ≥ 1) AND high trustscore (2 ≥ 2).",
+      "analysis": {
+        "case_type": "model_wrong_llm_trusts",
+        "label": 2,
+        "prediction": 1,
+        "trustscore": 2,
+        "analysis": {
+          "primary_cause": "explanation_framing",
+          "secondary_causes": [
+            "feature_interpretation_bias",
+            "meta_performance_overweighting",
+            "overgeneralization_from_dataset_statistics"
+          ],
+          "factors": [
+            {
+              "explanation": "Narratives describe the text as 'not highly polarizing' despite high polarization=0.8",
+              "reference": "individual feature importance: summary; values.polarization=0.8",
+              "associated_divergence_type": "explanation_framing"
+            },
+            {
+              "explanation": "Layman summary says it 'lacks ... dehumanization' though dehumanization feature=1.0",
+              "reference": "individual feature importance: laymans_summary; values.dehumanization=1.0",
+              "associated_divergence_type": "feature_interpretation_bias"
+            },
+            {
+              "explanation": "Feature distribution claims alignment with 'Neither', stressing a balanced profile",
+              "reference": "feature distribution: summary",
+              "associated_divergence_type": "overgeneralization_from_dataset_statistics"
+            },
+            {
+              "explanation": "PDP shows higher polarization lowers 'Neither' prob, yet instance has polarization=0.8",
+              "reference": "partial dependence plot (polarization); IFI values.polarization=0.8",
+              "associated_divergence_type": "feature_interpretation_bias"
+            },
+            {
+              "explanation": "Moderate performance (accuracy=0.65) but trust remained high (trustscore=2)",
+              "reference": "performance metrics; Trustscore=2",
+              "associated_divergence_type": "meta_performance_overweighting"
+            }
+          ],
+          "meta_comment": "The explanations repeatedly frame the instance as moderate and aligned with a 'Neither' profile, encouraging confidence. This framing conflicts with the instance’s high polarization and the PDP trend, and even misstates dehumanization presence. Aggregate distribution talk further normalizes the prediction. Despite only moderate model performance, the LLM still issued a high trust score."
+        }
+      }
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=3 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    }
+  ],
+  "true_exp_7": [
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=3 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=3 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": true,
+      "case_type": "model_wrong_llm_trusts",
+      "rationale": "Substantial label–prediction gap (|2-1|=1.00 ≥ 1) AND high trustscore (2 ≥ 2).",
+      "analysis": {
+        "case_type": "model_wrong_llm_trusts",
+        "label": 2,
+        "prediction": 1,
+        "trustscore": 2,
+        "analysis": {
+          "primary_cause": "feature_interpretation_bias",
+          "secondary_causes": [
+            "overgeneralization_from_dataset_statistics",
+            "explanation_framing",
+            "performance_baseline",
+            "content_model_confusion"
+          ],
+          "factors": [
+            {
+              "explanation": "IFI summary frames polarizing + victim-villain as balanced toward 'Neither'.",
+              "reference": "individual feature importance → summary",
+              "associated_divergence_type": "feature_interpretation_bias"
+            },
+            {
+              "explanation": "2D distribution shows 47 high polarization+victim-villain cases within 'Neither'.",
+              "reference": "feature distribution 2D → table (Neither)",
+              "associated_divergence_type": "overgeneralization_from_dataset_statistics"
+            },
+            {
+              "explanation": "Model accuracy only 0.65; 'Neither' correct 66% with notable confusions.",
+              "reference": "performance metrics + confusion matrix",
+              "associated_divergence_type": "performance_baseline"
+            },
+            {
+              "explanation": "PDP: high polarization lowers 'Neither' prob (~33% at 0.8–1.0), signaling uncertainty.",
+              "reference": "partial dependence plot (polarization, Neither)",
+              "associated_divergence_type": "content_model_confusion"
+            },
+            {
+              "explanation": "Layman summaries stress 'balanced' and 'reducing extremity', implying reliability.",
+              "reference": "laymans_summary (IFI)",
+              "associated_divergence_type": "explanation_framing"
+            }
+          ],
+          "meta_comment": "The LLM likely over-trusted the prediction because the feature-level narrative and the 2D distribution made the 'Neither' label appear well-supported. However, overall performance is only moderate and the 'Neither' class has notable confusion, suggesting caution. The PDP indicates lower likelihood for 'Neither' at high polarization, but this nuance was overshadowed. Positive, balancing framing in the summaries further encouraged confidence beyond what performance warrants."
+        }
+      }
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    },
+    {
+      "should_investigate": false,
+      "case_type": null,
+      "rationale": "No trigger: gap=0.00 (thr align≤0, diverge≥1), trust=2 (low≤1, high≥2).",
+      "analysis": null
+    }
+  ]
+}

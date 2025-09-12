@@ -23,15 +23,20 @@ from dotenv import load_dotenv
 from operations.utils.retrieve_datapoint import retrieve_datapoint
 
 MODEL_NAME = os.getenv("MODEL_NAME")
+MODEL_NAME_2 = os.getenv("MODEL_NAME_2")
 NO_THINKING = os.getenv("NO_THINKING")
+OLLAMA_ENDPOINT = os.getenv("OLLAMA_ENDPOINT")
 
-ds_version = "old_6"
-experiment_version = f"v1.3-{MODEL_NAME}-{'thinking' if NO_THINKING == 'False' else 'no_thinking'}"
+
+experiment_version = (
+    f"v1.3-{MODEL_NAME}-{'thinking' if NO_THINKING == 'False' else 'no_thinking'}"
+)
 
 load_dotenv(override=True)
 
 open_ai_key = os.getenv("API_KEY")
-eval_model = OpenAIModel(model="gpt-4o-mini", api_key=open_ai_key)
+# eval_model = OpenAIModel(model="gpt-4o-mini", api_key=open_ai_key)
+eval_model = OpenAIModel(model=MODEL_NAME_2, api_key="ollama", base_url=OLLAMA_ENDPOINT)
 full_df = pd.read_csv("data/full_df.csv")
 
 
@@ -79,11 +84,14 @@ def short_assessment_truthfulness(output: str) -> bool:
 
     return response["label"] == "truthful"
 
+
 def focus_quality(output: str) -> float:
     trace = output.get("trace")
     conclusion = output.get("conclusion")
     relevant_modules = conclusion.get("most_relevant_modules")
-    summaries = [elem["summary"] for elem in trace if elem.get("module_name") in relevant_modules]
+    summaries = [
+        elem["summary"] for elem in trace if elem.get("module_name") in relevant_modules
+    ]
     if len(summaries) == 0:
         return False
     df = pd.DataFrame(
@@ -102,6 +110,7 @@ def focus_quality(output: str) -> float:
 
     # output the percentual amount of clear statements
     return response["label"] == "strongly contributes"
+
 
 def label_correlation(input: str, output: str) -> float:
     dp_id = input.get("dp_id")
@@ -189,6 +198,126 @@ def technical_assessment_clarity(output: str) -> float:
 
 
 def main():
+    test_dataset = {
+        "pof": [
+            {
+                "dp_id": 30,
+            },
+            {
+                "dp_id": 31,
+            },
+            {
+                "dp_id": 32,
+            },
+            {
+                "dp_id": 33,
+            },
+            {
+                "dp_id": 34,
+            },
+            {
+                "dp_id": 35,
+            },
+        ],
+        "false": [
+            {
+                "dp_id": 65,
+            },
+            {
+                "dp_id": 66,
+            },
+            {
+                "dp_id": 67,
+            },
+            {
+                "dp_id": 68,
+            },
+            {
+                "dp_id": 69,
+            },
+            {"dp_id": 70},
+        ],
+        "mostly_false": [
+            {
+                "dp_id": 102,
+            },
+            {
+                "dp_id": 103,
+            },
+            {
+                "dp_id": 104,
+            },
+            {
+                "dp_id": 105,
+            },
+            {
+                "dp_id": 106,
+            },
+            {
+                "dp_id": 107,
+            },
+        ],
+        "half_true": [
+            {
+                "dp_id": 146,
+            },
+            {
+                "dp_id": 147,
+            },
+            {
+                "dp_id": 148,
+            },
+            {
+                "dp_id": 149,
+            },
+            {
+                "dp_id": 150,
+            },
+            {
+                "dp_id": 151,
+            },
+        ],
+        "mostly_true": [
+            {
+                "dp_id": 197,
+            },
+            {
+                "dp_id": 198,
+            },
+            {
+                "dp_id": 199,
+            },
+            {
+                "dp_id": 200,
+            },
+            {
+                "dp_id": 201,
+            },
+            {
+                "dp_id": 202,
+            },
+        ],
+        "true": [
+            {
+                "dp_id": 255,
+            },
+            {
+                "dp_id": 256,
+            },
+            {
+                "dp_id": 257,
+            },
+            {
+                "dp_id": 258,
+            },
+            {
+                "dp_id": 259,
+            },
+            {
+                "dp_id": 260,
+            },
+        ],
+    }
     px_client = px.Client()
     # test_dataset = [
     #     {
@@ -210,26 +339,30 @@ def main():
     #         "dp_id": 256,
     #     },
     # ]
-    # overall_experiment_df = pd.DataFrame(test_dataset)
-    # dataset = px_client.upload_dataset(dataframe=overall_experiment_df,
-    #                                dataset_name=f"structured_experiment_inputs_{ds_version}",
-    #                                input_keys=["dp_id"])
-    dataset = px_client.get_dataset(name=f"structured_experiment_inputs_{ds_version}")
-    experiment = run_experiment(
-        dataset,
-        run_agent_task,
-        evaluators=[
-            xai_description_truthfulness,
-            layman_xai_truthfulness,
-            short_assessment_truthfulness,
-            focus_quality,
-            label_correlation,
-            technical_xai_clarity,
-            technical_assessment_clarity,
-        ],
-        experiment_name=f"Structured Experiment {experiment_version}",
-        experiment_description="Evaluating the structured experiment",
-    )
+    
+    for i in range(1, 5):
+        for key, value in test_dataset.items():
+            ds_version = f"patterns_{key}_v1"
+            # overall_experiment_df = pd.DataFrame(value)
+            # dataset = px_client.upload_dataset(dataframe=overall_experiment_df,
+            #                             dataset_name=f"structured_experiment_inputs_{ds_version}",
+            #                             input_keys=["dp_id"])
+            dataset = px_client.get_dataset(name=f"structured_experiment_inputs_{ds_version}")
+            experiment = run_experiment(
+                dataset,
+                run_agent_task,
+                evaluators=[
+                    xai_description_truthfulness,
+                    layman_xai_truthfulness,
+                    short_assessment_truthfulness,
+                    focus_quality,
+                    label_correlation,
+                    technical_xai_clarity,
+                    technical_assessment_clarity,
+                ],
+                experiment_name=f"Structured Experiment {experiment_version}",
+                experiment_description="Evaluating the structured experiment",
+            )
 
 
 if __name__ == "__main__":
