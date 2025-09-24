@@ -4,6 +4,7 @@ import os
 import sys
 from typing import Dict, List, Any, Set
 
+version = "_v1-1"
 
 def ensure_project_on_path() -> None:
     """Ensure the project root (this file's directory) is on sys.path for imports."""
@@ -19,12 +20,12 @@ def load_metric_from_set(set_number: int, metric: str) -> Dict[str, List[float]]
     observations.statistics.set_5.label_correlation and returns the value of
     variable `label_correlation`.
     """
-    module_path = f"observations.statistics.set_{set_number}.{metric}"
+    module_path = f"observations.statistics{version}.set_{set_number}.{metric}"
     try:
         module = importlib.import_module(module_path)
     except ModuleNotFoundError as exc:
         raise ModuleNotFoundError(
-            f"Could not import module '{module_path}'. Ensure file 'observations/statistics/set_{set_number}/{metric}.py' exists."
+            f"Could not import module '{module_path}'. Ensure file 'observations/statistics{version}/set_{set_number}/{metric}.py' exists."
         ) from exc
 
     if not hasattr(module, metric):
@@ -78,7 +79,7 @@ def parse_args() -> argparse.Namespace:
         description=(
             "Combine per-set statistics into a single file. Example:\n\n"
             "  python combine_statistics_sets.py --metric label_correlation --sets 5 8 11 \n\n"
-            "This will import from 'observations/statistics/set_{N}/label_correlation.py' and write a combined assignment.\n\n"
+            "This will import from 'observations/statistics{version}/set_{N}/label_correlation.py' and write a combined assignment.\n\n"
             "Automated mode to combine ALL metrics common to the sets and save under a group id:\n\n"
             "  python combine_statistics_sets.py --auto-all --id 4b --sets 5 8 11\n"
         )
@@ -109,7 +110,7 @@ def parse_args() -> argparse.Namespace:
         "--output",
         default=None,
         help=(
-            "Output file path. Defaults to 'observations/statistics/combined/<metric>_combined.py'. "
+            "Output file path. Defaults to 'observations/statistics{version}/combined/<metric>_combined.py'. "
             "Use '-' to print to stdout."
         ),
     )
@@ -121,7 +122,7 @@ def parse_args() -> argparse.Namespace:
 
 def list_metric_files_for_set(set_number: int) -> Set[str]:
     """List metric module base names available in a given set directory."""
-    set_dir = os.path.join("observations", "statistics", f"set_{set_number}")
+    set_dir = os.path.join("observations", f"statistics{version}", f"set_{set_number}")
     if not os.path.isdir(set_dir):
         raise FileNotFoundError(f"Set directory not found: {set_dir}")
     metrics: Set[str] = set()
@@ -163,7 +164,7 @@ def aggregate_all_metrics(sets: List[int], group_id: str) -> List[str]:
     metrics = find_common_metrics(sets)
     if not metrics:
         raise RuntimeError("No common metrics found across specified sets.")
-    out_dir = os.path.join("observations", "statistics", "combined", f"set-{group_id}")
+    out_dir = os.path.join("observations", f"statistics{version}", "combined", f"set-{group_id}")
     written: List[str] = []
     for metric in metrics:
         combined = combine_metric(sets, metric)
@@ -198,7 +199,7 @@ def main() -> None:
     rendered = render_python_assignment(metric, combined)
 
     if output_path is None:
-        output_dir = os.path.join("observations", "statistics", "combined")
+        output_dir = os.path.join("observations", f"statistics{version}", "combined")
         os.makedirs(output_dir, exist_ok=True)
         output_path = os.path.join(output_dir, f"{metric}_combined.py")
 

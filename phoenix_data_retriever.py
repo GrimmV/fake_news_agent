@@ -13,6 +13,8 @@ from typing import List, Dict, Any
 from collections import defaultdict
 import logging
 
+version = "v1.1"
+
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
@@ -36,12 +38,12 @@ class PhoenixDataRetriever:
             logger.error(f"Failed to retrieve datasets: {e}")
             return []
     
-    def filter_datasets_by_pattern(self, datasets: List[Dict[str, Any]], pattern: str) -> List[Dict[str, Any]]:
+    def filter_datasets_by_pattern(self, datasets: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
         """Filter datasets by name pattern and extract label."""
         filtered_datasets = []
         # Create a more specific regex that captures everything between the pattern parts
         # This handles labels with underscores by matching everything between "patterns_" and "_v1"
-        pattern_regex = re.compile(r'structured_experiment_inputs_patterns_(.+)_v1')
+        pattern_regex = re.compile(fr'structured_experiment_inputs_patterns_(.+)_{version}')
         
         for dataset in datasets["data"]:
             name = dataset.get('name', '')
@@ -76,7 +78,7 @@ class PhoenixDataRetriever:
     
     def create_label_directory(self, label: str) -> Path:
         """Create directory for the label if it doesn't exist."""
-        label_dir = Path("observations/experiments_raw") / label
+        label_dir = Path(f"observations/experiments_raw_{version}") / label
         label_dir.mkdir(parents=True, exist_ok=True)
         return label_dir
     
@@ -123,9 +125,11 @@ class PhoenixDataRetriever:
             logger.error(f"Failed to save experiment to {filepath}: {e}")
             return ""
     
-    def retrieve_all_experiments(self, pattern: str = "structured_experiment_inputs_patterns_{label}_v1"):
+    def retrieve_all_experiments(self, pattern: str = "structured_experiment_inputs_patterns_{label}_"):
         """Main method to retrieve and organize all experiments."""
         logger.info("Starting experiment retrieval process...")
+        
+        pattern = pattern + version
         
         # Step 1: Get all datasets
         logger.info("Retrieving datasets...")
@@ -138,7 +142,7 @@ class PhoenixDataRetriever:
         
         # Step 2: Filter datasets by pattern
         logger.info(f"Filtering datasets by pattern: {pattern}")
-        filtered_datasets = self.filter_datasets_by_pattern(datasets, pattern)
+        filtered_datasets = self.filter_datasets_by_pattern(datasets)
         
         if not filtered_datasets:
             logger.warning(f"No datasets found matching pattern: {pattern}")

@@ -11,12 +11,15 @@ from typing import Dict, List, Any
 from collections import defaultdict
 import logging
 
+version = "_v1.1"
+version_out = "_v1-1"
+
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
 class SetFileGenerator:
-    def __init__(self, experiments_dir: str = "observations/experiments_raw"):
+    def __init__(self, experiments_dir: str = f"observations/experiments_raw{version}"):
         self.experiments_dir = Path(experiments_dir)
         # Structure: {experiment_id: {annotation_name: {label: [scores]}}}
         self.experiments_data = defaultdict(lambda: defaultdict(lambda: defaultdict(list)))
@@ -127,7 +130,7 @@ class SetFileGenerator:
             annotation_types.update(exp_data.keys())
         return annotation_types
     
-    def save_set_file(self, annotation_name: str, content: str, experiment_id: str, output_dir: str = "observations/statistics"):
+    def save_set_file(self, annotation_name: str, content: str, experiment_id: str, output_dir: str = f"observations/statistics{version_out}"):
         """Save a set file to the specified directory."""
         # Create experiment-specific directory
         exp_output_dir = Path(output_dir) / f"set_{experiment_id}"
@@ -142,7 +145,7 @@ class SetFileGenerator:
         except Exception as e:
             logger.error(f"Failed to save set file {file_path}: {e}")
     
-    def generate_all_set_files(self, output_dir: str = "observations/statistics"):
+    def generate_all_set_files(self, output_dir: str = f"observations/statistics{version_out}"):
         """Generate all set files for each experiment and annotation type."""
         logger.info("Generating set files...")
         
@@ -189,7 +192,7 @@ class SetFileGenerator:
                 for label, scores in data.items():
                     logger.info(f"    {label}: {len(scores)} scores")
     
-    def run(self, output_dir: str = "observations/statistics"):
+    def run(self, output_dir: str = f"observations/statistics{version_out}"):
         """Main method to run the complete set file generation process."""
         logger.info("Starting set file generation process...")
         

@@ -191,19 +191,21 @@ def create_summary_dataframe(stats):
 if __name__ == "__main__":
     print("Analyzing cause statistics from experiment results...")
     
+    result_id = "improved"
+    
     # Analyze the statistics
-    stats = analyze_cause_statistics()
+    stats = analyze_cause_statistics(f"experiment_results-{result_id}.json")
     
     # Generate and print summary report
     report = generate_summary_report(stats)
     print(report)
     
     # Save detailed statistics
-    save_detailed_statistics(stats)
+    save_detailed_statistics(stats, f"cause_statistics-{result_id}.json")
     
     # Create and save summary DataFrame
     df = create_summary_dataframe(stats)
-    df.to_csv("cause_statistics_summary.csv", index=False)
+    df.to_csv(f"cause_statistics_summary-{result_id}.csv", index=False)
     print("Summary DataFrame saved to cause_statistics_summary.csv")
     
     # Print overall summary

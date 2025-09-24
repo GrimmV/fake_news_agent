@@ -8,6 +8,7 @@ import numpy as np
 
 import matplotlib.pyplot as plt
 
+version = "_v1-1"
 
 def load_combined_variable(file_path: str, var_name: str) -> Dict[str, List[List[float]]]:
     """Load a python file from an arbitrary path and return the variable named var_name.
@@ -140,14 +141,9 @@ def plot_subplots_for_directory(dir_path: str, title: str | None, save_path: str
 def compute_label_stats(values: List[float]) -> Dict[str, float]:
     arr = np.array(values, dtype=float)
     return {
-        "count": int(arr.size),
         "mean": float(np.mean(arr)) if arr.size else float("nan"),
         "median": float(np.median(arr)) if arr.size else float("nan"),
         "std": float(np.std(arr, ddof=1)) if arr.size > 1 else float("nan"),
-        "min": float(np.min(arr)) if arr.size else float("nan"),
-        "max": float(np.max(arr)) if arr.size else float("nan"),
-        "p25": float(np.percentile(arr, 25)) if arr.size else float("nan"),
-        "p75": float(np.percentile(arr, 75)) if arr.size else float("nan"),
     }
 
 
@@ -157,14 +153,9 @@ def write_summary_csv(rows: List[Dict[str, str | int | float]], output_path: str
     fieldnames = [
         "metric",
         "label",
-        "count",
         "mean",
         "median",
         "std",
-        "min",
-        "max",
-        "p25",
-        "p75",
     ]
 
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
@@ -198,7 +189,7 @@ def summarize_directory(dir_path: str, output_path: str | None = None) -> str:
             })
 
     if output_path is None:
-        plots_dir = os.path.join("observations", "statistics", "combined", "plots")
+        plots_dir = os.path.join("observations", f"statistics{version}", "combined", "plots")
         os.makedirs(plots_dir, exist_ok=True)
         dir_name = os.path.basename(os.path.normpath(dir_path))
         output_path = os.path.join(plots_dir, f"{dir_name}_summary.csv")
@@ -211,21 +202,21 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description=(
             "Visualize a combined statistics file. Example:\n\n"
-            "  python visualize_combined_statistics.py --combined observations/statistics/combined/label_correlation_combined.py --metric label_correlation\n\n"
+            f"  python visualize_combined_statistics.py --combined observations/statistics{version}/combined/label_correlation_combined.py --metric label_correlation\n\n"
             "Produces a boxplot of metric values (y) grouped by labels (x).\n\n"
             "Directory mode to plot all metrics in a combined set folder as subplots and also write a CSV summary:\n\n"
-            "  python visualize_combined_statistics.py --combined-dir observations/statistics/combined/set-4b\n"
+            f"  python visualize_combined_statistics.py --combined-dir observations/statistics{version}/combined/set-4b\n"
         )
     )
     parser.add_argument(
         "--combined",
         required=False,
-        help="Path to the combined python file (e.g., observations/statistics/combined/label_correlation_combined.py)",
+        help=f"Path to the combined python file (e.g., observations/statistics{version}/combined/label_correlation_combined.py)",
     )
     parser.add_argument(
         "--combined-dir",
         required=False,
-        help="Path to a combined set directory (e.g., observations/statistics/combined/set-4b)",
+        help=f"Path to a combined set directory (e.g., observations/statistics{version}/combined/set-4b)",
     )
     parser.add_argument(
         "--metric",
@@ -236,7 +227,7 @@ def parse_args() -> argparse.Namespace:
         "--output",
         default=None,
         help=(
-            "Optional path to save the plot (e.g., observations/statistics/combined/plots/label_correlation.png). "
+            f"Optional path to save the plot (e.g., observations/statistics{version}/combined/plots/label_correlation.png). "
             "If omitted, the plot will be shown."
         ),
     )
@@ -268,7 +259,7 @@ def main() -> None:
         # Default output path for directory mode
         output_path = args.output
         if output_path is None:
-            plots_dir = os.path.join("observations", "statistics", "combined", "plots")
+            plots_dir = os.path.join("observations", f"statistics{version}", "combined", "plots")
             os.makedirs(plots_dir, exist_ok=True)
             dir_name = os.path.basename(os.path.normpath(dir_path))
             output_path = os.path.join(plots_dir, f"{dir_name}.png")
@@ -288,7 +279,7 @@ def main() -> None:
 
     # Default output path if not provided
     if output_path is None:
-        base_dir = os.path.join("observations", "statistics", "combined", "plots")
+        base_dir = os.path.join("observations", f"statistics{version}", "combined", "plots")
         os.makedirs(base_dir, exist_ok=True)
         base_name = os.path.splitext(os.path.basename(combined_path))[0]
         output_path = os.path.join(base_dir, f"{base_name}_{metric}.png")

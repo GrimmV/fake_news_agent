@@ -112,9 +112,19 @@ def agentic_assessment(
         feature_name_for_action=feature1,
         predicted_label_for_action=predicted_label, 
     )
+    
+    def remove_module_output(elem):
+        # generate copy of elem
+        elem_copy = elem.copy()
+        elem_copy.pop("module_output")
+        elem_copy.pop("laymans_summary")
+        return elem_copy
+    
+    # calculate an adapted trace that is removing "module_output" from each element in the trace
+    adapted_trace = [remove_module_output(elem) for elem in trace]
 
     # Step 8: Final Summary (Condensed)
-    conclusion = agent_handler_2.trust_assessment(trace, statement)
+    conclusion = agent_handler_2.trust_assessment(adapted_trace, statement)
     # conclusion2 = agent_handler_2.trust_assessment2(trace, statement)
 
     return {"trace": trace, "conclusion": conclusion}

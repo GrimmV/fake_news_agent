@@ -1,0 +1,1944 @@
+[
+  {
+    "example_id": "RGF0YXNldEV4YW1wbGU6MTkz",
+    "repetition_number": 1,
+    "input": {
+      "dp_id": 255
+    },
+    "reference_output": {},
+    "output": {
+      "trace": [
+        {
+          "module_output": {
+            "id": 255,
+            "prediction": 2,
+            "statement": "“Marijuana is currently classified in the same category of drugs as heroin and a more dangerous category than fentanyl or cocaine.”",
+            "values": {
+              "us_vs_them_lang": {
+                "shap_value": 0.0401,
+                "feature_value": 0.0
+              },
+              "exaggerated_uncertainty": {
+                "shap_value": 0.0338,
+                "feature_value": 0.5
+              },
+              "source_quality": {
+                "shap_value": 0.197,
+                "feature_value": 0.0
+              },
+              "victim_villain_language": {
+                "shap_value": 0.0143,
+                "feature_value": 0.0
+              },
+              "black_and_white_language": {
+                "shap_value": 0.0212,
+                "feature_value": 1.0
+              },
+              "dehumanization": {
+                "shap_value": 0.0101,
+                "feature_value": 0.0
+              },
+              "emotionality": {
+                "shap_value": 0.0025,
+                "feature_value": 0.0
+              },
+              "reading_difficulty": {
+                "shap_value": -0.0111,
+                "feature_value": 0.2
+              },
+              "sentiment": {
+                "shap_value": 0.0454,
+                "feature_value": 0.0
+              },
+              "polarization": {
+                "shap_value": 0.0904,
+                "feature_value": 0.5
+              }
+            },
+            "top_features": [
+              "source_quality",
+              "polarization",
+              "sentiment",
+              "us_vs_them_lang",
+              "exaggerated_uncertainty",
+              "black_and_white_language",
+              "victim_villain_language",
+              "reading_difficulty",
+              "dehumanization",
+              "emotionality"
+            ]
+          },
+          "action": "individual feature importance",
+          "summary": "The model's prediction of 'True' (indicating a potentially harmful or polarizing statement) is most strongly influenced by high feature importance in 'source_quality' (SHAP value: 0.197, feature value: 0.0), which indicates a lack of verifiable evidence, and 'polarization' (SHAP value: 0.0904, feature value: 0.5), reflecting a moderately polarizing framing. Additional significant contributors include 'sentiment' (SHAP value: 0.0454, feature value: 0.0), 'us_vs_them_lang' (SHAP value: 0.0401, feature value: 0.0), and 'exaggerated_uncertainty' (SHAP value: 0.0338, feature value: 0.5), suggesting a confident but potentially misleading tone. The presence of 'black_and_white_language' (SHAP value: 0.0212, feature value: 1.0) further supports a binary framing. While 'reading_difficulty' (SHAP value: -0.0111) slightly reduces the prediction, likely due to its simplicity, overall the statement appears to combine low evidence, high polarization, and binary framing, which together tend to increase the likelihood of the model flagging it as problematic.",
+          "laymans_summary": "The model predicts that the statement is likely problematic, mainly because it presents claims without specific evidence and frames the issue in a very black-and-white way. The way the information is shared suggests strong bias and high polarization, even though the tone is neutral and the language is easy to understand.",
+          "module_name": "individual feature importance",
+          "module_params": {}
+        },
+        {
+          "module_output": {
+            "counts": [
+              65,
+              115,
+              4
+            ],
+            "edges": [
+              0.0,
+              0.6666666666666666,
+              1.3333333333333333,
+              2.0
+            ]
+          },
+          "action": "feature distribution for source_quality (label: True)",
+          "summary": "The feature distribution indicates that the majority of posts (65) fall below 0.67, while a significant portion (115) are in the range [0.67, 1.33), and only 4 posts exceed 1.33. This suggests that extreme values in the analyzed features are relatively rare and that the typical post exhibits moderate levels of polarization, sentiment, and other measured characteristics. The model prediction of 'True' is therefore likely associated with posts leaning toward moderate, rather than extreme, expressions across the evaluated dimensions.",
+          "laymans_summary": "The data shows that most posts are in the lower range of the feature distribution, with 65 falling below 0.67, 115 between 0.67 and 1.33, and only 4 above 1.33. This suggests a general trend toward moderate levels of the evaluated features, with very few posts showing extreme values.",
+          "module_name": "feature distribution",
+          "module_params": {
+            "feature_name": "source_quality",
+            "label": "True"
+          }
+        },
+        {
+          "module_output": "| source_quality ↓ \\ polarization → | 0.00–0.18 | 0.18–0.36 | 0.36–0.54 | 0.54–0.72 | 0.72–0.90 |\n| --- | --- | --- | --- | --- | --- |\n| 0.00–0.67 | 53 | 8 | 2 | 2 | 0 |\n| 0.67–1.33 | 36 | 33 | 7 | 19 | 20 |\n| 1.33–2.00 | 3 | 0 | 0 | 0 | 1 |",
+          "action": "feature distribution 2D for source_quality, polarization (label: True)",
+          "summary": "The 2D feature distribution indicates that texts with low source quality (0.67–1.33 and 1.33–2.00) are more likely to exhibit higher polarization (0.72–0.90), with 20 and 1 instances respectively. In contrast, texts with higher source quality (0.00–0.67) tend to be less polarizing, particularly in the lower polarization range (0.00–0.18), where 53 instances were observed. This suggests a positive correlation between low source quality and increased polarization, though the relationship is not deterministic.",
+          "laymans_summary": "The chart shows how different levels of source quality relate to how polarizing the text is. Most texts with good sources (0.00–0.67) are not very polarizing (0.00–0.18), but some become more polarizing as source quality drops. Texts with average or poor sources (0.67–2.00) are more likely to be highly polarizing (0.72–0.90), especially those with weak or no evidence. This suggests that low source quality may contribute to polarization.",
+          "module_name": "feature distribution 2D",
+          "module_params": {
+            "feature_name_1": "source_quality",
+            "feature_name_2": "polarization",
+            "label": "True"
+          }
+        },
+        {
+          "module_output": {
+            "accuracy": 0.65,
+            "f1_score": 0.6482,
+            "precision": 0.6531,
+            "recall": 0.65
+          },
+          "action": "performance metrics",
+          "summary": "The model's prediction is 'True', indicating a likely polarizing nature of the post, supported by high values in black_and_white_language (1.0) and polarization (0.5), along with low values in source_quality (0.0) and victim_villain_language (0.0). The model's performance metrics show moderate efficacy, with an accuracy of 0.65, F1-score of 0.6482, precision of 0.6531, and recall of 0.65. These figures suggest the model is somewhat reliable but not highly accurate in detecting such posts.",
+          "laymans_summary": "The model predicts that the post is likely to be polarizing, based on strong language that simplifies issues, frames opponents negatively, and lacks nuance. The performance of the model on this type of prediction is moderate, with an accuracy of 65% and a similar F1 score of about 64.8%, meaning it correctly identifies such posts a little more than half the time.",
+          "module_name": "performance metrics",
+          "module_params": {}
+        },
+        {
+          "module_output": {
+            "confusion": [
+              [
+                0.64,
+                0.21,
+                0.15
+              ],
+              [
+                0.18,
+                0.66,
+                0.16
+              ],
+              [
+                0.23,
+                0.12,
+                0.65
+              ]
+            ],
+            "note": "First column/row  is the False label, second column/row is the Neither label and third column/row is the True label."
+          },
+          "action": "confusion matrix",
+          "summary": "The model's confusion matrix indicates a 65% true positive rate for 'True' predictions (third row, third column), meaning it correctly identifies 'True' cases in 65% of instances. However, it also misclassifies 23% of actual 'False' cases as 'True' (third row, first column), suggesting moderate false positive risk. The model performs best on 'Neither' predictions (66% accuracy, second row, second column), with lower performance on 'False' predictions (64% accuracy, first row, first column). Overall, the model appears moderately reliable in distinguishing 'True' content but shows notable uncertainty, particularly in avoiding false positives.",
+          "laymans_summary": "The model is somewhat confident in predicting 'True' for this data point, but there's noticeable uncertainty. The confusion matrix shows that when the true label is 'True', the model correctly identifies it about 65% of the time, but it also incorrectly labels some 'False' instances as 'True' about 23% of the time. This suggests some risk of false positives. The model's performance is strongest when predicting 'Neither', with 66% accuracy, indicating it's particularly good at identifying neutral or balanced content.",
+          "module_name": "confusion matrix",
+          "module_params": {}
+        },
+        {
+          "module_output": {
+            "label": 2,
+            "values": {
+              "us_vs_them_lang": 0.04,
+              "exaggerated_uncertainty": 0.2,
+              "source_quality": 0.18,
+              "victim_villain_language": 0.04,
+              "black_and_white_language": 0.06,
+              "dehumanization": 0.03,
+              "emotionality": 0.12,
+              "reading_difficulty": 0.09,
+              "sentiment": 0.05,
+              "polarization": 0.18
+            },
+            "top_features": [
+              "exaggerated_uncertainty",
+              "source_quality",
+              "polarization"
+            ]
+          },
+          "action": "global feature importance (label: True)",
+          "summary": "The model prediction of 'True' is most strongly influenced by exaggerated_uncertainty (0.2), source_quality (0.18), and polarization (0.18), indicating that posts with high certainty in claims, weak or absent sourcing, and strong polarization tend to be classified as such. The feature importance values suggest these factors are likely significant contributors to the model's decision, with exaggerated_uncertainty and source_quality being particularly impactful.",
+          "laymans_summary": "The model predicts that the post is likely to be polarizing. The most important factors influencing this prediction are how certain the claims are (exaggerated_uncertainty, score 0.2), how strong the evidence is (source_quality, score 0.18), and how polarizing the content is (polarization, score 0.18). These three features are the most influential in determining the outcome.",
+          "module_name": "global feature importance",
+          "module_params": {
+            "label": "True"
+          }
+        },
+        {
+          "module_output": {
+            "feature": "source_quality",
+            "class": "True",
+            "grid_values": [
+              0,
+              1,
+              2
+            ],
+            "average": [
+              0.403529136321328,
+              0.3459665205989715,
+              0.07367355304022247
+            ]
+          },
+          "action": "partial dependence plot for source_quality (label: True)",
+          "summary": "The partial dependence plot for source_quality indicates that as source quality decreases from 0 (specific evidence) to 2 (no evidence), the predicted probability of the label 'True' decreases significantly. At source_quality = 0, the average prediction is 0.404; at source_quality = 1, it drops to 0.346; and at source_quality = 2, it further declines to 0.074. This demonstrates that lower source quality strongly correlates with reduced likelihood of a 'True' prediction, suggesting that verifiability plays a key role in the model’s decision-making process.",
+          "laymans_summary": "The model shows that when there's no evidence provided (source quality = 2), the post is much less likely to be labeled as 'True' (predicted probability drops to about 7.4%). When evidence is specific (source quality = 0), the likelihood is higher (around 40.4%). The middle level (vague sourcing, source quality = 1) falls in between, with a predicted probability of about 34.6%. This suggests that clear, verifiable sources make a post more likely to be classified as 'True'.",
+          "module_name": "partial dependence plot",
+          "module_params": {
+            "feature_name": "source_quality",
+            "label": "True"
+          }
+        }
+      ],
+      "conclusion": {
+        "judgement_rating": 1,
+        "judgement_reason": "The model's prediction of 'True' (indicating a problematic, polarizing statement) is contradicted by the partial dependence plot, which shows that low source quality (0.0) strongly reduces the probability of a 'True' prediction. However, the model assigns high feature importance to 'source_quality' (SHAP value: 0.197) despite the statement being supported by a public figure and factual context, suggesting a misinterpretation of the feature. This inconsistency between the model's local explanation (high source_quality impact) and the global trend (low source quality correlates with low 'True' probability) undermines trust. Additionally, the 'exaggerated_uncertainty' (0.5) and 'black_and_white_language' (1.0) features are highly influential, but in this case, statements by public officials on policy are not inherently 'exaggerated' or 'black-and-white'—this reflects a possible bias in the model’s training data. The confusion matrix further shows a high false positive rate (23% of 'False' cases mislabeled as 'True'), reducing reliability. Overall, the model shows moderate performance (F1: 0.648), but its behavior is inconsistent and contextually inappropriate for a factual political statement.",
+        "judgement_reason_short": "The model wrongly flags a factual statement due to conflicting feature importance and poor alignment with real-world context.",
+        "most_relevant_modules": [
+          "partial dependence plot",
+          "individual feature importance"
+        ]
+      }
+    },
+    "error": null,
+    "latency_ms": 28689.959000000003,
+    "start_time": "2025-09-12T20:55:13.072028+00:00",
+    "end_time": "2025-09-12T20:55:41.761987+00:00",
+    "trace_id": "7a7cf960ffaef630d1f4bd6e86691c77",
+    "prompt_token_count": null,
+    "completion_token_count": null,
+    "annotations": [
+      {
+        "name": "xai_description_truthfulness",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 0.42857142857142855,
+        "explanation": null,
+        "trace_id": "c484080aab7a5484ed295274b38ea6dd",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-12T20:58:15.052201+00:00",
+        "end_time": "2025-09-12T20:59:08.094493+00:00"
+      },
+      {
+        "name": "layman_xai_truthfulness",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 0.7142857142857143,
+        "explanation": null,
+        "trace_id": "3c48307f841191dc8971b68ff3550511",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-12T20:59:08.101675+00:00",
+        "end_time": "2025-09-12T20:59:48.392799+00:00"
+      },
+      {
+        "name": "short_assessment_truthfulness",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 1.0,
+        "explanation": null,
+        "trace_id": "95e9949ccde0b261aeea4b7fa06a788c",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-12T20:59:48.401612+00:00",
+        "end_time": "2025-09-12T20:59:53.851249+00:00"
+      },
+      {
+        "name": "focus_quality",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 1.0,
+        "explanation": null,
+        "trace_id": "5c889c732663096c7681fcb942eb40e9",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-12T20:59:53.868156+00:00",
+        "end_time": "2025-09-12T20:59:59.954480+00:00"
+      },
+      {
+        "name": "label_correlation",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 0.33333333333333337,
+        "explanation": null,
+        "trace_id": "1d246cebdf60617e8476e7c4479f6ed4",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-12T20:59:59.963993+00:00",
+        "end_time": "2025-09-12T20:59:59.965504+00:00"
+      },
+      {
+        "name": "technical_xai_clarity",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 0.2857142857142857,
+        "explanation": null,
+        "trace_id": "be2454eac5aa59b08f5640ae616409f6",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-12T21:00:00.019910+00:00",
+        "end_time": "2025-09-12T21:00:39.055943+00:00"
+      },
+      {
+        "name": "technical_assessment_clarity",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 0.0,
+        "explanation": null,
+        "trace_id": "d235b03e0b058ddc68e904423e77ee2e",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-12T21:00:39.062140+00:00",
+        "end_time": "2025-09-12T21:00:47.796385+00:00"
+      }
+    ]
+  },
+  {
+    "example_id": "RGF0YXNldEV4YW1wbGU6MTk0",
+    "repetition_number": 1,
+    "input": {
+      "dp_id": 256
+    },
+    "reference_output": {},
+    "output": {
+      "trace": [
+        {
+          "module_output": {
+            "id": 256,
+            "prediction": 2,
+            "statement": "“The most recent State Budget increased funding for the Department of Tourism by 98 percent.”",
+            "values": {
+              "us_vs_them_lang": {
+                "shap_value": 0.0127,
+                "feature_value": 0.0
+              },
+              "exaggerated_uncertainty": {
+                "shap_value": 0.0826,
+                "feature_value": 1.0
+              },
+              "source_quality": {
+                "shap_value": 0.1079,
+                "feature_value": 0.0
+              },
+              "victim_villain_language": {
+                "shap_value": -0.0046,
+                "feature_value": 0.0
+              },
+              "black_and_white_language": {
+                "shap_value": 0.0247,
+                "feature_value": 0.0
+              },
+              "dehumanization": {
+                "shap_value": 0.0112,
+                "feature_value": 0.0
+              },
+              "emotionality": {
+                "shap_value": -0.0297,
+                "feature_value": 0.0
+              },
+              "reading_difficulty": {
+                "shap_value": 0.0877,
+                "feature_value": 0.0
+              },
+              "sentiment": {
+                "shap_value": 0.0225,
+                "feature_value": 1.0
+              },
+              "polarization": {
+                "shap_value": 0.0998,
+                "feature_value": 0.0
+              }
+            },
+            "top_features": [
+              "source_quality",
+              "polarization",
+              "reading_difficulty",
+              "exaggerated_uncertainty",
+              "emotionality",
+              "black_and_white_language",
+              "sentiment",
+              "us_vs_them_lang",
+              "dehumanization",
+              "victim_villain_language"
+            ]
+          },
+          "action": "individual feature importance",
+          "summary": "The model prediction of 'True' (indicating a high likelihood of polarization) is most strongly influenced by high SHAP values for 'source_quality' (0.1079), 'polarization' (0.0998), and 'reading_difficulty' (0.0877), along with 'exaggerated_uncertainty' (0.0826). The statement's lack of verifiable sourcing (source_quality = 0.0), presentation of claims with absolute certainty (exaggerated_uncertainty = 1.0), and elevated reading difficulty (reading_difficulty = 0.0) collectively suggest a tendency toward high polarization. The positive sentiment (1.0) and neutral emotionality (0.0) also contribute, though to a lesser extent. While other features show lower influence, the overall pattern leans toward polarizing content, particularly due to the absence of evidence and strong framing.",
+          "laymans_summary": "The model predicts that the statement is likely to be polarizing, mainly because it presents claims with absolute certainty (exaggerated_uncertainty = 1.0), lacks verifiable evidence (source_quality = 0.0), and uses difficult language (reading_difficulty = 0.0). The high polarization score (0.0) also suggests the statement avoids nuance. These factors together make the statement more likely to be seen as extreme or divisive by the model.",
+          "module_name": "individual feature importance",
+          "module_params": {}
+        },
+        {
+          "module_output": {
+            "counts": [
+              65,
+              115,
+              4
+            ],
+            "edges": [
+              0.0,
+              0.6666666666666666,
+              1.3333333333333333,
+              2.0
+            ]
+          },
+          "action": "feature distribution for source_quality (label: True)",
+          "summary": "The feature distribution indicates that 65 data points fall below 0.67, 115 fall between 0.67 and 1.33, and 4 fall at or above 1.33. This suggests that while most instances lean toward moderate levels of polarization and emotional intensity, a small number exhibit extreme traits. Given the model prediction of 'True', the text likely exhibits characteristics that are consistent with higher polarization, moderate to high certainty in claims, and a tendency toward emotionally charged expressions—though such extreme features are present in only a small fraction of cases.",
+          "laymans_summary": "The model prediction suggests that the text is likely to be classified as extreme or polarizing, based on how it presents information and frames its content. This is supported by the feature distribution, which shows that 65 instances are in the lower range, 115 are in the middle, and only 4 are in the highest range. The pattern indicates that most examples fall in the moderate to higher levels of features like emotional intensity and polarization, but few reach the extreme level.",
+          "module_name": "feature distribution",
+          "module_params": {
+            "feature_name": "source_quality",
+            "label": "True"
+          }
+        },
+        {
+          "module_output": "| source_quality ↓ \\ polarization → | 0.00–0.18 | 0.18–0.36 | 0.36–0.54 | 0.54–0.72 | 0.72–0.90 |\n| --- | --- | --- | --- | --- | --- |\n| 0.00–0.67 | 53 | 8 | 2 | 2 | 0 |\n| 0.67–1.33 | 36 | 33 | 7 | 19 | 20 |\n| 1.33–2.00 | 3 | 0 | 0 | 0 | 1 |",
+          "action": "feature distribution 2D for source_quality, polarization (label: True)",
+          "summary": "Low source quality (0.00–0.67) is predominantly linked to low polarization (0.00–0.36), with 53 instances in the lowest polarization range. As source quality increases (0.67–2.00), polarization rises, especially in the 0.54–0.90 range, where 20 instances occur at the highest source quality level. This suggests a tendency for higher source quality to co-occur with increased polarization, although the relationship is not deterministic. Overall, the data indicates a moderate correlation between improved source quality and heightened polarization, particularly in the upper end of the spectrum.",
+          "laymans_summary": "The chart shows how the quality of sources in a post relates to how polarized the content is. Posts with low-quality sources (no evidence or vague sourcing) tend to be less polarized, especially when combined with low polarization scores. However, when the source quality is moderate to high (0.67 to 2.00 on the scale), there's a higher likelihood of increased polarization, particularly in the mid-to-high polarization ranges (0.54–0.90). There are few cases of high polarization with low source quality, but moderate to high source quality is more commonly associated with higher polarization. This suggests that even when sources are credible, the way they're used may increase divisiveness.",
+          "module_name": "feature distribution 2D",
+          "module_params": {
+            "feature_name_1": "source_quality",
+            "feature_name_2": "polarization",
+            "label": "True"
+          }
+        },
+        {
+          "module_output": {
+            "accuracy": 0.65,
+            "f1_score": 0.6482,
+            "precision": 0.6531,
+            "recall": 0.65
+          },
+          "action": "performance metrics",
+          "summary": "The model's performance is moderately robust, with an accuracy of 0.65, precision of 0.6531, recall of 0.65, and an F1 score of 0.6482, indicating consistent but not highly confident predictive capability.",
+          "laymans_summary": "The model is moderately accurate in predicting the given outcomes, with an accuracy of about 65%. It performs similarly in detecting true positives and negatives, showing a balanced but not excellent performance.",
+          "module_name": "performance metrics",
+          "module_params": {}
+        },
+        {
+          "module_output": {
+            "confusion": [
+              [
+                0.64,
+                0.21,
+                0.15
+              ],
+              [
+                0.18,
+                0.66,
+                0.16
+              ],
+              [
+                0.23,
+                0.12,
+                0.65
+              ]
+            ],
+            "note": "First column/row  is the False label, second column/row is the Neither label and third column/row is the True label."
+          },
+          "action": "confusion matrix",
+          "summary": "The model's confusion matrix indicates a high accuracy rate of 0.65 for predicting 'True' instances, with 64% of actual 'False' cases correctly identified as False. However, there is notable confusion between 'False' and 'Neither' predictions (18% and 21% misclassification, respectively), suggesting the model struggles to disambiguate moderate or neutral content from clearly false claims. The predicted 'True' label is supported by a moderate level of confidence (65% agreement in correct classification), though uncertainty remains, particularly for borderline cases. This reflects a tendency toward reliable detection of extreme cases but less consistency in nuanced or ambiguous contexts.",
+          "laymans_summary": "The model is fairly confident in its prediction of 'True,' but there is some uncertainty, especially in distinguishing between 'False' and 'Neither' labels. The confusion matrix shows the model is most accurate when predicting 'True' (65% of the time), while it often confuses 'False' and 'Neither' cases.",
+          "module_name": "confusion matrix",
+          "module_params": {}
+        },
+        {
+          "module_output": {
+            "label": 2,
+            "values": {
+              "us_vs_them_lang": 0.04,
+              "exaggerated_uncertainty": 0.2,
+              "source_quality": 0.18,
+              "victim_villain_language": 0.04,
+              "black_and_white_language": 0.06,
+              "dehumanization": 0.03,
+              "emotionality": 0.12,
+              "reading_difficulty": 0.09,
+              "sentiment": 0.05,
+              "polarization": 0.18
+            },
+            "top_features": [
+              "exaggerated_uncertainty",
+              "source_quality",
+              "polarization"
+            ]
+          },
+          "action": "global feature importance (label: True)",
+          "summary": "The global feature importance analysis indicates that the model's prediction of a 'True' label (likely polarizing/inflammatory) is most strongly influenced by exaggerated certainty (importance: 0.2), source quality (0.18), and polarization (0.18), which together form the top three contributing features. Exaggerated uncertainty, in particular, tends to significantly increase the likelihood of such a classification, while dehumanization and 'us vs. them' language play a lesser role. The overall pattern suggests that definitive claims, poor sourcing, and high polarization are key drivers in the model's decision-making process.",
+          "laymans_summary": "The model predicts that the post is likely to be inflammatory or polarizing. The most important factors in this prediction are how certain the claims are, the quality of the sources cited, and how polarizing the language is. Posts that present ideas with extreme certainty, lack good evidence, or frame issues as black-and-white tend to score higher on this measure.",
+          "module_name": "global feature importance",
+          "module_params": {
+            "label": "True"
+          }
+        },
+        {
+          "module_output": {
+            "feature": "source_quality",
+            "class": "True",
+            "grid_values": [
+              0,
+              1,
+              2
+            ],
+            "average": [
+              0.403529136321328,
+              0.3459665205989715,
+              0.07367355304022247
+            ]
+          },
+          "action": "partial dependence plot for source_quality (label: True)",
+          "summary": "The partial dependence plot indicates that source_quality has a clear inverse relationship with the prediction of 'True': as source_quality increases from 0 (specific evidence) to 2 (no evidence), the average predicted probability of 'True' decreases from 0.404 to 0.074. This suggests the model is less likely to predict 'True' when evidence is absent, and more likely when sources are specific. The trend is consistent, with probabilities dropping significantly when no evidence is provided, indicating source quality is a strong predictor in this model.",
+          "laymans_summary": "The model shows that when the source quality is low (no evidence), the prediction of 'True' is less likely. As the source quality goes from no evidence (value 2) to vague sourcing (value 1) to specific evidence (value 0), the chance of the model predicting 'True' increases. The highest likelihood of 'True' occurs when sources are specific, while the lowest likelihood is when there's no evidence.",
+          "module_name": "partial dependence plot",
+          "module_params": {
+            "feature_name": "source_quality",
+            "label": "True"
+          }
+        }
+      ],
+      "conclusion": {
+        "judgement_rating": 2,
+        "judgement_reason": "The model's prediction of 'True' (indicating high polarization) is supported by strong local explanations from multiple modules. Key evidence includes high SHAP values for 'exaggerated_uncertainty' (0.0826), 'source_quality' (0.1079), and 'reading_difficulty' (0.0877), which align with the statement’s absolute certainty ('98 percent') and lack of verifiable sourcing. The partial dependence plot shows a clear inverse relationship: when source quality is low (no evidence, value 2), the model's probability of 'True' drops to 0.074, reinforcing that the model flags the absence of evidence as a red flag. However, the model's overall performance metrics (F1: 0.6482, accuracy: 0.65) and confusion matrix (65% correct 'True' predictions, but confusion between 'False' and 'Neither') indicate moderate reliability, especially in ambiguous cases. Despite solid local reasoning, uncertainty remains due to the model’s moderate global performance, limiting full trust.",
+        "judgement_reason_short": "The model is reasonably confident due to strong local signals like certainty and poor sourcing, but overall performance limits full trust.",
+        "most_relevant_modules": [
+          "individual feature importance",
+          "partial dependence plot"
+        ]
+      }
+    },
+    "error": null,
+    "latency_ms": 26448.236,
+    "start_time": "2025-09-12T20:55:41.772362+00:00",
+    "end_time": "2025-09-12T20:56:08.220598+00:00",
+    "trace_id": "c6f5fcf8c6cf5321b2d125534a277dc5",
+    "prompt_token_count": null,
+    "completion_token_count": null,
+    "annotations": [
+      {
+        "name": "xai_description_truthfulness",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 0.2857142857142857,
+        "explanation": null,
+        "trace_id": "4533ad70dc873cc71e73d6c28b84f769",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-12T21:00:47.817367+00:00",
+        "end_time": "2025-09-12T21:01:50.355849+00:00"
+      },
+      {
+        "name": "layman_xai_truthfulness",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 0.5714285714285714,
+        "explanation": null,
+        "trace_id": "af7807861d5205cd55b62b37415041c0",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-12T21:01:50.362178+00:00",
+        "end_time": "2025-09-12T21:02:34.315357+00:00"
+      },
+      {
+        "name": "short_assessment_truthfulness",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 1.0,
+        "explanation": null,
+        "trace_id": "549e1124ee719922c4403dc3fc6f2059",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-12T21:02:34.335570+00:00",
+        "end_time": "2025-09-12T21:02:39.434179+00:00"
+      },
+      {
+        "name": "focus_quality",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 1.0,
+        "explanation": null,
+        "trace_id": "0a94238ab98f8c81380c8bcff449d48e",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-12T21:02:39.440183+00:00",
+        "end_time": "2025-09-12T21:02:44.457682+00:00"
+      },
+      {
+        "name": "label_correlation",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 0.6666666666666667,
+        "explanation": null,
+        "trace_id": "e1f6615b2f2880264e6574753f4a92a0",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-12T21:02:44.464603+00:00",
+        "end_time": "2025-09-12T21:02:44.466777+00:00"
+      },
+      {
+        "name": "technical_xai_clarity",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 0.7142857142857143,
+        "explanation": null,
+        "trace_id": "46dc32b38e5cc4393de36354eca2de84",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-12T21:02:44.514802+00:00",
+        "end_time": "2025-09-12T21:03:24.234389+00:00"
+      },
+      {
+        "name": "technical_assessment_clarity",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 0.0,
+        "explanation": null,
+        "trace_id": "5ae33776398b0363b32d8a3d0b45c5d5",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-12T21:03:24.253342+00:00",
+        "end_time": "2025-09-12T21:03:30.151510+00:00"
+      }
+    ]
+  },
+  {
+    "example_id": "RGF0YXNldEV4YW1wbGU6MTk1",
+    "repetition_number": 1,
+    "input": {
+      "dp_id": 257
+    },
+    "reference_output": {},
+    "output": {
+      "trace": [
+        {
+          "module_output": {
+            "id": 257,
+            "prediction": 1,
+            "statement": "Eric Hovde “wants to repeal the Affordable Care Act, and kick millions off their health insurance.”",
+            "values": {
+              "us_vs_them_lang": {
+                "shap_value": 0.0111,
+                "feature_value": 1.0
+              },
+              "exaggerated_uncertainty": {
+                "shap_value": -0.0269,
+                "feature_value": 0.7
+              },
+              "source_quality": {
+                "shap_value": 0.0565,
+                "feature_value": 1.0
+              },
+              "victim_villain_language": {
+                "shap_value": 0.0665,
+                "feature_value": 1.0
+              },
+              "black_and_white_language": {
+                "shap_value": 0.0176,
+                "feature_value": 1.0
+              },
+              "dehumanization": {
+                "shap_value": -0.0623,
+                "feature_value": 1.0
+              },
+              "emotionality": {
+                "shap_value": -0.0153,
+                "feature_value": -0.5
+              },
+              "reading_difficulty": {
+                "shap_value": -0.0391,
+                "feature_value": 0.3
+              },
+              "sentiment": {
+                "shap_value": 0.0111,
+                "feature_value": -1.0
+              },
+              "polarization": {
+                "shap_value": 0.0669,
+                "feature_value": 0.8
+              }
+            },
+            "top_features": [
+              "polarization",
+              "victim_villain_language",
+              "dehumanization",
+              "source_quality",
+              "reading_difficulty",
+              "exaggerated_uncertainty",
+              "black_and_white_language",
+              "emotionality",
+              "us_vs_them_lang",
+              "sentiment"
+            ]
+          },
+          "action": "individual feature importance",
+          "summary": "The model prediction of 'Neither' suggests a moderate level of polarization, with key contributing factors being high polarization (0.8), victim-villain language (1.0), and moderate dehumanization (1.0). The top influential features include polarization (SHAP value: 0.0669), victim-villain language (0.0665), and source quality (0.0565), indicating that framing the issue as a moral struggle with weak evidence significantly impacts the model’s assessment. However, the model also accounts for moderating influences like exaggerated uncertainty (SHAP: -0.0269) and reading difficulty (SHAP: -0.0391), both of which slightly reduce the likelihood of a highly polarized classification. Overall, while the statement exhibits signs of strong framing and negativity, the model concludes it does not strongly align with extreme polarization, leading to a 'Neither' classification.",
+          "laymans_summary": "The model analyzes how extreme or divisive a statement is by looking at things like how negatively it portrays opponents, whether it oversimplifies issues, and how strong the emotions are. In this case, the statement about Eric Hovde is considered moderately polarizing and tends to frame the issue in simple 'good vs. evil' terms, with some use of negative language toward opponents and vague sources. While the tone is negative, it doesn’t seem to go as far as full dehumanization. The statement is relatively easy to read and presents claims with moderate certainty.",
+          "module_name": "individual feature importance",
+          "module_params": {}
+        },
+        {
+          "module_output": {
+            "counts": [
+              40,
+              16,
+              21,
+              11,
+              4,
+              13,
+              3,
+              21,
+              39,
+              13,
+              3
+            ],
+            "edges": [
+              0.0,
+              0.09090909090909091,
+              0.18181818181818182,
+              0.2727272727272727,
+              0.36363636363636365,
+              0.4545454545454546,
+              0.5454545454545454,
+              0.6363636363636364,
+              0.7272727272727273,
+              0.8181818181818182,
+              0.9090909090909092,
+              1.0
+            ]
+          },
+          "action": "feature distribution for polarization (label: Neither)",
+          "summary": "The feature distribution indicates that the model's prediction of 'Neither' is supported by a concentration of values in moderate to high ranges for key indicators: polarization (0.8), sentiment (-1.0), victim-villain language (1.0), black-and-white language (1.0), and dehumanization (1.0). Emotionality is strongly negative (-0.5), while reading difficulty remains low (0.3). The distribution shows a clustering near upper thresholds, especially between 0.636 and 0.818, suggesting that the text exhibits tendencies toward heightened partisanship and emotionally charged framing. Yet, the presence of lower values in some dimensions (e.g., source quality at 1.0) introduces nuance. Overall, the distribution supports the 'Neither' label as a balanced assessment, reflecting a mix of extremity and moderation across features, with no single dimension dominating decisively.",
+          "laymans_summary": "The feature distribution shows how the data points are spread across different levels of various characteristics like emotionality, polarization, and source quality. Most features lean toward moderate to high levels of polarization and negative sentiment, with many indicators falling in the upper range (e.g., polarization at 0.8 and sentiment at -1.0). However, reading difficulty remains low, suggesting the text is easy to understand. These patterns suggest the content tends to be emotionally charged and polarizing, though not universally extreme in all aspects.",
+          "module_name": "feature distribution",
+          "module_params": {
+            "feature_name": "polarization",
+            "label": "Neither"
+          }
+        },
+        {
+          "module_output": "| polarization ↓ \\ victim_villain_language → | 0.00–0.50 | 0.50–1.00 |\n| --- | --- | --- |\n| 0.00–0.20 | 56 | 0 |\n| 0.20–0.40 | 32 | 0 |\n| 0.40–0.60 | 19 | 1 |\n| 0.60–0.80 | 7 | 14 |\n| 0.80–1.00 | 8 | 47 |",
+          "action": "feature distribution 2D for polarization, victim_villain_language (label: Neither)",
+          "summary": "The 2D feature distribution reveals a strong association between high polarization (0.80–1.00) and the use of victim-villain language (0.50–1.00), with 47 instances in the top-right cell. In contrast, low polarization (0.00–0.40) is rarely paired with victim-villain language, with only 0 cases in the higher victim-villain range. This pattern suggests that texts with high polarization tend to employ moralistic framing, likely reinforcing ideological divides.",
+          "laymans_summary": "The chart shows how two language features—'polarization' and 'victim_villain language'—are distributed in the text. Most texts with low polarization (0.00–0.40) do not use victim-villain framing, but as polarization increases, especially in the 0.60–0.80 and 0.80–1.00 ranges, there's a strong tendency to use victim-villain language. In particular, 47 texts in the highest polarization range (0.80–1.00) use strong victim-villain framing (0.50–1.00), while only 8 use it in the lowest polarization range. This suggests that highly polarized texts often frame issues in moral terms of good versus evil.",
+          "module_name": "feature distribution 2D",
+          "module_params": {
+            "feature_name_1": "polarization",
+            "feature_name_2": "victim_villain_language",
+            "label": "Neither"
+          }
+        },
+        {
+          "module_output": {
+            "accuracy": 0.65,
+            "f1_score": 0.6482,
+            "precision": 0.6531,
+            "recall": 0.65
+          },
+          "action": "performance metrics",
+          "summary": "The model's performance metrics show an accuracy of 0.65, an F1 score of 0.6482, precision of 0.6531, and recall of 0.65. These values suggest moderate performance, indicating the model is neither highly accurate nor completely unreliable. The results are consistent across metrics, with no significant imbalance between precision and recall, though room for improvement remains. The prediction of 'Neither' aligns with this moderate confidence level, suggesting the model is uncertain about strong classification, likely due to the nuanced input features.",
+          "laymans_summary": "The model is moderately accurate in its predictions, correctly identifying the classification in about 65% of cases. It shows a balanced ability to detect relevant patterns, with a slight edge in precision (65.3%) and recall (65%). The performance is neither strong nor weak, indicating the model is somewhat reliable but not highly confident.",
+          "module_name": "performance metrics",
+          "module_params": {}
+        },
+        {
+          "module_output": {
+            "confusion": [
+              [
+                0.64,
+                0.21,
+                0.15
+              ],
+              [
+                0.18,
+                0.66,
+                0.16
+              ],
+              [
+                0.23,
+                0.12,
+                0.65
+              ]
+            ],
+            "note": "First column/row  is the False label, second column/row is the Neither label and third column/row is the True label."
+          },
+          "action": "confusion matrix",
+          "summary": "The confusion matrix indicates that the model predicts 'Neither' with a probability of 66%, while assigning 18% to 'False' and 16% to 'True'. The off-diagonal values suggest moderate uncertainty, with notable misclassification probabilities (e.g., 21% of 'False' cases predicted as 'Neither', 12% of 'True' cases as 'Neither'). Given the relatively high proportion of 'Neither' predictions and the spread across classes, the model's confidence in any single classification is limited, and the outcome is uncertain. The data does not strongly support a clear 'True' or 'False' label, aligning with the model's prediction of 'Neither'.",
+          "laymans_summary": "The model is uncertain about the prediction, as the results show a fairly even distribution across all categories. The highest value is for 'Neither' (66%), but there's still a significant chance it could be classified as 'False' or 'True'. This suggests that the data isn't strongly indicating any one outcome.",
+          "module_name": "confusion matrix",
+          "module_params": {}
+        },
+        {
+          "module_output": {
+            "label": 1,
+            "values": {
+              "us_vs_them_lang": 0.04,
+              "exaggerated_uncertainty": 0.13,
+              "source_quality": 0.15,
+              "victim_villain_language": 0.09,
+              "black_and_white_language": 0.04,
+              "dehumanization": 0.03,
+              "emotionality": 0.11,
+              "reading_difficulty": 0.1,
+              "sentiment": 0.1,
+              "polarization": 0.21
+            },
+            "top_features": [
+              "polarization",
+              "source_quality",
+              "exaggerated_uncertainty"
+            ]
+          },
+          "action": "global feature importance (label: Neither)",
+          "summary": "The model prediction of 'Neither' (label 1) is most strongly influenced by the top three features: polarization (0.21), source_quality (0.15), and exaggerated_uncertainty (0.13). These values indicate that the text's high polarization and lack of verifiable sourcing, combined with definitive claims, tend to drive the output. While emotionality (0.11) and reading difficulty (0.1) also contribute, their impact is lower. Overall, the high polarization and weak evidence suggest the text leans toward being polarizing rather than balanced, but the model interprets it as borderline, not strongly aligned with either extreme.",
+          "laymans_summary": "The model predicts that the text is likely neutral (score of 1), with key factors like high polarization and low source quality being the most influential. These features suggest the text may present strong, one-sided views with weak evidence, which contributes more to the prediction than other elements.",
+          "module_name": "global feature importance",
+          "module_params": {
+            "label": "Neither"
+          }
+        },
+        {
+          "module_output": {
+            "feature": "polarization",
+            "class": "Neither",
+            "grid_values": [
+              0.0,
+              0.1,
+              0.2,
+              0.3,
+              0.4,
+              0.5,
+              0.6,
+              0.7,
+              0.8,
+              0.9,
+              1.0
+            ],
+            "average": [
+              0.3115496870330339,
+              0.2743365441384729,
+              0.3213941708143009,
+              0.4263419699847853,
+              0.46425132692146187,
+              0.39031841506085097,
+              0.38892413869875103,
+              0.39263828615520535,
+              0.3291453606675924,
+              0.34434726559641005,
+              0.2929180459288766
+            ]
+          },
+          "action": "partial dependence plot for polarization (label: Neither)",
+          "summary": "The partial dependence plot for the 'Neither' prediction shows that the model's likelihood of predicting 'Neither' is highest at low polarization values (around 0.3), with a peak probability of approximately 0.426. As polarization increases to 0.8, the probability drops to about 0.329, indicating that higher polarization reduces confidence in the 'Neither' label. The model shows a moderate tendency to predict 'Neither' when polarization is in the lower to mid-range, but this likelihood decreases as polarization becomes more extreme, suggesting that polarization is a key influence on the final classification.",
+          "laymans_summary": "The model predicts the text is neither highly polarizing nor nuanced, and this prediction is influenced by how polarizing the text appears. The partial dependence plot shows that when polarization is low (around 0.3), the model is most likely to predict 'Neither'. As polarization increases, the likelihood of 'Neither' drops, reaching a minimum around 0.8, and then rises slightly again. This suggests that the model considers moderate polarization as a key factor in shifting away from the 'Neither' label.",
+          "module_name": "partial dependence plot",
+          "module_params": {
+            "feature_name": "polarization",
+            "label": "Neither"
+          }
+        }
+      ],
+      "conclusion": {
+        "judgement_rating": 2,
+        "judgement_reason": "The prediction of 'Neither' is supported by consistent yet moderate evidence across multiple local explanation modules. Key indicators include a high polarization score (0.8), strong victim-villain language (1.0), and high dehumanization (1.0), suggesting extreme framing. However, moderating factors like exaggerated uncertainty (SHAP: -0.0269) and low reading difficulty (0.3) reduce the extremity. The global feature importance shows polarization (0.21), source quality (0.15), and exaggerated uncertainty (0.13) as top contributors, reinforcing the nuanced balance. The partial dependence plot shows that 'Neither' is most likely at moderate polarization (peak at 0.3), and confidence drops at higher polarization (0.8 → ~0.329), indicating alignment with model logic. Despite internal consistency, the model's moderate performance (accuracy 0.65) and confusion matrix (66% 'Neither' but non-trivial misclassification to 'False' and 'True') suggest uncertainty. Thus, while the explanation is coherent and data-driven, the model lacks strong confidence, making the prediction trustworthy but not highly reliable.",
+        "judgement_reason_short": "The model thinks 'Neither' is likely, but isn't very confident, so it's somewhat trustworthy.",
+        "most_relevant_modules": [
+          "Polarization",
+          "Exaggerated Uncertainty"
+        ]
+      }
+    },
+    "error": null,
+    "latency_ms": 39440.352,
+    "start_time": "2025-09-12T20:56:08.226479+00:00",
+    "end_time": "2025-09-12T20:56:47.666831+00:00",
+    "trace_id": "e6f9f0057896ec351d5a982e9538c8e1",
+    "prompt_token_count": null,
+    "completion_token_count": null,
+    "annotations": [
+      {
+        "name": "xai_description_truthfulness",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 0.5714285714285714,
+        "explanation": null,
+        "trace_id": "cb7274b5fa2476fadc893015639281b2",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-12T21:03:30.160146+00:00",
+        "end_time": "2025-09-12T21:04:20.799516+00:00"
+      },
+      {
+        "name": "layman_xai_truthfulness",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 0.5714285714285714,
+        "explanation": null,
+        "trace_id": "ba30a31bae4cdf7d68c402b928d5440d",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-12T21:04:20.820434+00:00",
+        "end_time": "2025-09-12T21:05:02.237973+00:00"
+      },
+      {
+        "name": "short_assessment_truthfulness",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 1.0,
+        "explanation": null,
+        "trace_id": "c0ba774879c0fb789bb6c61eec1b69a9",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-12T21:05:02.256576+00:00",
+        "end_time": "2025-09-12T21:05:07.783842+00:00"
+      },
+      {
+        "name": "focus_quality",
+        "annotator_kind": "CODE",
+        "label": "False",
+        "score": 0.0,
+        "explanation": null,
+        "trace_id": "65999d5eda48b01754446e5f5a9b489e",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-12T21:05:07.795706+00:00",
+        "end_time": "2025-09-12T21:05:07.795706+00:00"
+      },
+      {
+        "name": "label_correlation",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 0.6666666666666667,
+        "explanation": null,
+        "trace_id": "69a47a84a3b6ce3c0b1a73c5ab36b0ac",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-12T21:05:07.842438+00:00",
+        "end_time": "2025-09-12T21:05:07.844959+00:00"
+      },
+      {
+        "name": "technical_xai_clarity",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 0.5714285714285714,
+        "explanation": null,
+        "trace_id": "796eb67d45283d3d44ca6c5e07834773",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-12T21:05:07.911541+00:00",
+        "end_time": "2025-09-12T21:05:46.626153+00:00"
+      },
+      {
+        "name": "technical_assessment_clarity",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 1.0,
+        "explanation": null,
+        "trace_id": "4604d97de9a09647541737c1b6081b03",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-12T21:05:46.637208+00:00",
+        "end_time": "2025-09-12T21:05:52.592553+00:00"
+      }
+    ]
+  },
+  {
+    "example_id": "RGF0YXNldEV4YW1wbGU6MTk2",
+    "repetition_number": 1,
+    "input": {
+      "dp_id": 258
+    },
+    "reference_output": {},
+    "output": {
+      "trace": [
+        {
+          "module_output": {
+            "id": 258,
+            "prediction": 2,
+            "statement": "“Wisconsin had over 1,400 opioid overdose deaths in 2022.”",
+            "values": {
+              "us_vs_them_lang": {
+                "shap_value": 0.0111,
+                "feature_value": 0.0
+              },
+              "exaggerated_uncertainty": {
+                "shap_value": 0.0337,
+                "feature_value": 1.0
+              },
+              "source_quality": {
+                "shap_value": 0.083,
+                "feature_value": 0.0
+              },
+              "victim_villain_language": {
+                "shap_value": -0.006,
+                "feature_value": 0.0
+              },
+              "black_and_white_language": {
+                "shap_value": 0.0191,
+                "feature_value": 0.0
+              },
+              "dehumanization": {
+                "shap_value": 0.0104,
+                "feature_value": 0.0
+              },
+              "emotionality": {
+                "shap_value": -0.0362,
+                "feature_value": 0.0
+              },
+              "reading_difficulty": {
+                "shap_value": 0.0191,
+                "feature_value": 0.0
+              },
+              "sentiment": {
+                "shap_value": -0.0112,
+                "feature_value": 0.0
+              },
+              "polarization": {
+                "shap_value": 0.071,
+                "feature_value": 0.0
+              }
+            },
+            "top_features": [
+              "source_quality",
+              "polarization",
+              "emotionality",
+              "exaggerated_uncertainty",
+              "black_and_white_language",
+              "reading_difficulty",
+              "sentiment",
+              "us_vs_them_lang",
+              "dehumanization",
+              "victim_villain_language"
+            ]
+          },
+          "action": "individual feature importance",
+          "summary": "The model prediction is influenced significantly by high 'exaggerated_uncertainty' (1.0) and 'source_quality' (0.0), indicating absolute certainty without verifiable evidence. 'Polarization' (0.0) and 'emotionality' (0.0) also contribute, with 'emotionality' having a negative SHAP value (-0.0362), suggesting neutrality in emotional tone. Despite low values in 'us_vs_them_lang' (0.0), 'dehumanization' (0.0), and 'victim_villain_language' (0.0), the combination of definitive claims and poor sourcing raises concern. The top contributing features include 'source_quality' (SHAP = 0.083), 'polarization' (0.071), 'emotionality' (-0.0362), and 'exaggerated_uncertainty' (0.0337), with 'exaggerated_uncertainty' and 'source_quality' being the strongest drivers. These factors collectively suggest that the statement, while neutral in sentiment and emotion, is likely to be interpreted as high-risk due to its definitive tone and lack of credible sourcing.",
+          "laymans_summary": "The model predicts that the statement about opioid overdose deaths in Wisconsin is likely to be classified as polarizing or problematic. This is mainly driven by how the information is presented: the claim lacks specific sources (source_quality = 0.0), feels emotionally charged but neutral in sentiment (emotionality = 0.0), and uses definitive language (exaggerated_uncertainty = 1.0). While there is no clear us-vs-them framing or dehumanization, the absence of evidence and high certainty tend to increase the model's confidence in this prediction.",
+          "module_name": "individual feature importance",
+          "module_params": {}
+        },
+        {
+          "module_output": {
+            "counts": [
+              65,
+              115,
+              4
+            ],
+            "edges": [
+              0.0,
+              0.6666666666666666,
+              1.3333333333333333,
+              2.0
+            ]
+          },
+          "action": "feature distribution for source_quality (label: True)",
+          "summary": "The feature distribution indicates that the majority of the data points (65 out of 184) fall within the lowest range (0.0 to 0.67), indicating neutral or low intensity levels across key features such as polarization, emotionality, and dehumanization. Only 4 data points fall at the highest end (1.33 to 2.0), suggesting rare instances of extreme expression. The prediction of 'True' aligns with this distribution, indicating that the post is likely not highly polarizing or extreme in expression.",
+          "laymans_summary": "The data shows that the post is likely neutral in sentiment and has a low level of polarization, with most of the features falling toward the lower end of the scale. The model predicts the post is not highly polarizing or extreme in tone.",
+          "module_name": "feature distribution",
+          "module_params": {
+            "feature_name": "source_quality",
+            "label": "True"
+          }
+        },
+        {
+          "module_output": "| source_quality ↓ \\ polarization → | 0.00–0.18 | 0.18–0.36 | 0.36–0.54 | 0.54–0.72 | 0.72–0.90 |\n| --- | --- | --- | --- | --- | --- |\n| 0.00–0.67 | 53 | 8 | 2 | 2 | 0 |\n| 0.67–1.33 | 36 | 33 | 7 | 19 | 20 |\n| 1.33–2.00 | 3 | 0 | 0 | 0 | 1 |",
+          "action": "feature distribution 2D for source_quality, polarization (label: True)",
+          "summary": "The 2D feature distribution reveals that low source quality (source_quality 1.33–2.00) is more likely to coincide with higher polarization (polarization 0.72–0.90), with 1 instance observed in this range. Conversely, higher source quality (source_quality 0.00–0.67) is associated with lower polarization, especially in the 0.00–0.18 range, where 53 instances are observed. This indicates a tendency for posts lacking verifiable evidence to be more polarizing, though the relationship is not absolute.",
+          "laymans_summary": "The chart shows how the quality of sources in a post relates to how polarizing the post is. Posts with weaker or vague sources (source_quality between 0.00 and 0.67) are generally less polarizing, especially when they are clearly not polarizing (polarization 0.00–0.18). In contrast, posts with low-quality or no sources (source_quality 1.33–2.00) tend to be more polarizing, particularly when polarization is above 0.72. This suggests that a lack of strong evidence may contribute to more extreme, divisive language.",
+          "module_name": "feature distribution 2D",
+          "module_params": {
+            "feature_name_1": "source_quality",
+            "feature_name_2": "polarization",
+            "label": "True"
+          }
+        },
+        {
+          "module_output": {
+            "accuracy": 0.65,
+            "f1_score": 0.6482,
+            "precision": 0.6531,
+            "recall": 0.65
+          },
+          "action": "performance metrics",
+          "summary": "The model's performance metrics indicate moderate effectiveness, with an accuracy of 0.65, F1 score of 0.6482, precision of 0.6531, and recall of 0.65. These values suggest the model tends to predict polarizing content with reasonable consistency, though there is room for improvement.",
+          "laymans_summary": "The model is somewhat accurate in predicting whether a post is polarizing, with about a 65% success rate. It performs similarly across different measures like precision and recall, suggesting it's reasonably balanced at identifying polarizing content.",
+          "module_name": "performance metrics",
+          "module_params": {}
+        },
+        {
+          "module_output": {
+            "confusion": [
+              [
+                0.64,
+                0.21,
+                0.15
+              ],
+              [
+                0.18,
+                0.66,
+                0.16
+              ],
+              [
+                0.23,
+                0.12,
+                0.65
+              ]
+            ],
+            "note": "First column/row  is the False label, second column/row is the Neither label and third column/row is the True label."
+          },
+          "action": "confusion matrix",
+          "summary": "The confusion matrix indicates a moderate level of confidence in the model's prediction of 'True' (65% true positive rate), with a notable 23% false positive rate. The model performs best on 'Neither' predictions (66% accuracy) and least accurately on 'False' predictions (64% accuracy). This suggests an overall trend toward cautious over-prediction of 'True' labels, particularly in cases involving high polarization, certainty, and dehumanization. The model remains uncertain in distinguishing 'False' from 'Neither' cases, as the confidence in those predictions is only marginally above random chance.",
+          "laymans_summary": "The model predicts that the post is likely to be classified as 'True' (e.g., polarizing, harmful, or misleading), based on the data. The confusion matrix shows that the model is most confident when predicting 'True' cases, as it correctly identifies 65% of such instances. However, there is still a moderate chance (23%) of misclassifying a non-'True' post as 'True'. The model also tends to accurately predict when a post is 'Neither' (66% correct), but it struggles more with identifying 'False' cases (only 64% correct). Overall, the model is reasonably confident in its 'True' predictions.",
+          "module_name": "confusion matrix",
+          "module_params": {}
+        },
+        {
+          "module_output": {
+            "label": 2,
+            "values": {
+              "us_vs_them_lang": 0.04,
+              "exaggerated_uncertainty": 0.2,
+              "source_quality": 0.18,
+              "victim_villain_language": 0.04,
+              "black_and_white_language": 0.06,
+              "dehumanization": 0.03,
+              "emotionality": 0.12,
+              "reading_difficulty": 0.09,
+              "sentiment": 0.05,
+              "polarization": 0.18
+            },
+            "top_features": [
+              "exaggerated_uncertainty",
+              "source_quality",
+              "polarization"
+            ]
+          },
+          "action": "global feature importance (label: True)",
+          "summary": "The model prediction of 'True' (likely polarizing or harmful) is most strongly influenced by exaggerated uncertainty (0.2), source quality (0.18), and polarization (0.18), which together form the top three global features. These metrics indicate the post presents claims with absolute certainty (exaggerated_uncertainty: 1.0), lacks credible sourcing (source_quality: 0.0), and promotes divisive framing (polarization: 0.18). Other notable traits include moderate emotional tone (emotionality: 0.0) and low reading difficulty (0.0). The evidence suggests the post is likely to amplify misinformation due to its definitive tone and poor evidentiary foundation.",
+          "laymans_summary": "The model predicts that the post is likely to be highly polarized and misleading. Key factors include presenting claims with absolute certainty (exaggerated_uncertainty: 1.0) and lacking verifiable evidence (source_quality: 0.0). These two features are the most important in shaping the model's prediction, followed by high polarization (0.18). The post also uses emotionally charged language (emotionality: 0.0) and is written at an easy reading level (0.0). Overall, the post tends to frame issues in extreme terms, which increases its potential to spread misinformation.",
+          "module_name": "global feature importance",
+          "module_params": {
+            "label": "True"
+          }
+        },
+        {
+          "module_output": {
+            "feature": "source_quality",
+            "class": "True",
+            "grid_values": [
+              0,
+              1,
+              2
+            ],
+            "average": [
+              0.403529136321328,
+              0.3459665205989715,
+              0.07367355304022247
+            ]
+          },
+          "action": "partial dependence plot for source_quality (label: True)",
+          "summary": "The partial dependence plot indicates that higher source quality (lower values: 0=specific, 1=vague, 2=no evidence) correlates with a lower predicted probability of the label 'True'. Specifically, at source quality value 0 (specific evidence), the average prediction is 0.404; at value 1 (vague sourcing), it drops to 0.346; and at value 2 (no evidence), it decreases further to 0.074. This suggests that posts with no evidence are less likely to be predicted as 'True' than those with specific evidence, though the effect is not monotonic across all levels. The model appears to interpret the absence of evidence as reducing the likelihood of the extreme label, despite other indicators pointing toward polarization.",
+          "laymans_summary": "The model shows that when the source quality of a post is low (no evidence), the prediction for the post being 'True' (e.g., highly polarized or misleading) is relatively high. As source quality increases (more specific evidence), the likelihood of the post being classified as 'True' decreases. Specifically, at zero evidence (value 2), the predicted probability is about 7.4%, and as the evidence becomes more specific (value 0), the probability rises to around 40.4%. This suggests that posts lacking reliable sources are more likely to be flagged by the model, though they still have a lower chance than posts with poor framing.",
+          "module_name": "partial dependence plot",
+          "module_params": {
+            "feature_name": "source_quality",
+            "label": "True"
+          }
+        }
+      ],
+      "conclusion": {
+        "judgement_rating": 1,
+        "judgement_reason": "The model prediction is classified as 'True' (polarizing/harmful), primarily driven by 'exaggerated_uncertainty' (1.0) and 'source_quality' (0.0), suggesting absolute certainty without verifiable evidence. However, the partial dependence plot indicates that low source quality (value 2) correlates with a lower predicted probability of 'True' (only 7.4%), which contradicts the model's strong reliance on this feature. This inconsistency undermines trust. Moreover, 'exaggerated_uncertainty' has a high SHAP value (0.0337) despite being 1.0, suggesting the model may misinterpret definitive claims as risky. The feature distribution shows most posts with low source quality are not polarizing, further weakening the link. Although 'polarization' (0.18) and 'emotionality' (negative value) support the label, the model's internal logic is inconsistent. Thus, while the top features appear relevant, their interactions and the partial dependence results suggest poor model coherence, resulting in only moderate trustworthiness.",
+        "judgement_reason_short": "The model relies on contradictory signals—claiming certainty without evidence while downplaying such cases in training data—making the prediction unreliable.",
+        "most_relevant_modules": [
+          "partial dependence plot",
+          "global feature importance"
+        ]
+      }
+    },
+    "error": null,
+    "latency_ms": 28745.004,
+    "start_time": "2025-09-12T20:56:47.689329+00:00",
+    "end_time": "2025-09-12T20:57:16.434333+00:00",
+    "trace_id": "91abd4b86686dd11c0e7d270e2b98354",
+    "prompt_token_count": null,
+    "completion_token_count": null,
+    "annotations": [
+      {
+        "name": "xai_description_truthfulness",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 0.0,
+        "explanation": null,
+        "trace_id": "9d01daded0b6bfeb1d8938a3e98035c3",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-12T21:05:52.598992+00:00",
+        "end_time": "2025-09-12T21:06:53.432625+00:00"
+      },
+      {
+        "name": "layman_xai_truthfulness",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 0.5714285714285714,
+        "explanation": null,
+        "trace_id": "50b09caece3d3de5d220c7259fd54890",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-12T21:06:53.450945+00:00",
+        "end_time": "2025-09-12T21:07:35.703802+00:00"
+      },
+      {
+        "name": "short_assessment_truthfulness",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 0.0,
+        "explanation": null,
+        "trace_id": "c6233d0d44821c51a5a9ddaa950d84ee",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-12T21:07:35.724304+00:00",
+        "end_time": "2025-09-12T21:07:42.297430+00:00"
+      },
+      {
+        "name": "focus_quality",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 1.0,
+        "explanation": null,
+        "trace_id": "2e07471adbbb86362e1bd88c3755a7db",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-12T21:07:42.310384+00:00",
+        "end_time": "2025-09-12T21:07:49.248167+00:00"
+      },
+      {
+        "name": "label_correlation",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 0.33333333333333337,
+        "explanation": null,
+        "trace_id": "c5f3c9dda7ec16fb4059bc5238e45448",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-12T21:07:49.255753+00:00",
+        "end_time": "2025-09-12T21:07:49.257318+00:00"
+      },
+      {
+        "name": "technical_xai_clarity",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 0.14285714285714285,
+        "explanation": null,
+        "trace_id": "32aab65795c6dcfd671fc10cc7241d6b",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-12T21:07:49.309629+00:00",
+        "end_time": "2025-09-12T21:08:31.750186+00:00"
+      },
+      {
+        "name": "technical_assessment_clarity",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 0.0,
+        "explanation": null,
+        "trace_id": "fccc08bf804a42c4641e8f7db2c44359",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-12T21:08:31.775309+00:00",
+        "end_time": "2025-09-12T21:08:40.887289+00:00"
+      }
+    ]
+  },
+  {
+    "example_id": "RGF0YXNldEV4YW1wbGU6MTk3",
+    "repetition_number": 1,
+    "input": {
+      "dp_id": 259
+    },
+    "reference_output": {},
+    "output": {
+      "trace": [
+        {
+          "module_output": {
+            "id": 259,
+            "prediction": 2,
+            "statement": "“The Universities of Wisconsin are 43rd out of 50 states in the nation, in terms of public support for our universities. The $855 million (budget request) gets us up to average.”",
+            "values": {
+              "us_vs_them_lang": {
+                "shap_value": 0.0187,
+                "feature_value": 0.0
+              },
+              "exaggerated_uncertainty": {
+                "shap_value": 0.1231,
+                "feature_value": 0.8
+              },
+              "source_quality": {
+                "shap_value": 0.1047,
+                "feature_value": 0.0
+              },
+              "victim_villain_language": {
+                "shap_value": -0.0012,
+                "feature_value": 0.0
+              },
+              "black_and_white_language": {
+                "shap_value": 0.0218,
+                "feature_value": 0.0
+              },
+              "dehumanization": {
+                "shap_value": 0.0122,
+                "feature_value": 0.0
+              },
+              "emotionality": {
+                "shap_value": 0.1279,
+                "feature_value": 0.1
+              },
+              "reading_difficulty": {
+                "shap_value": -0.0219,
+                "feature_value": 0.2
+              },
+              "sentiment": {
+                "shap_value": 0.0389,
+                "feature_value": 0.0
+              },
+              "polarization": {
+                "shap_value": 0.1387,
+                "feature_value": 0.1
+              }
+            },
+            "top_features": [
+              "polarization",
+              "emotionality",
+              "exaggerated_uncertainty",
+              "source_quality",
+              "sentiment",
+              "reading_difficulty",
+              "black_and_white_language",
+              "us_vs_them_lang",
+              "dehumanization",
+              "victim_villain_language"
+            ]
+          },
+          "action": "individual feature importance",
+          "summary": "The model predicts a high likelihood of polarization, driven primarily by elevated levels of emotionality (0.1), exaggerated certainty (0.8), and polarization (0.1). The top contributing factors are polarization (SHAP value: 0.1387), emotionality (0.1279), exaggerated uncertainty (0.1231), and source quality (0.1047). Despite low explicit demonization (dehumanization = 0.0, us-vs-them = 0.0), the statement exhibits a strong rhetorical style with definitive claims and a lack of nuanced sourcing. Reading difficulty (0.2) and sentiment (0.0) show only minor influence. The model's confidence in this prediction is moderate, given the combined influence of these key features.",
+          "laymans_summary": "The model predicts that the statement is likely to be polarizing. The key factors driving this prediction include high polarization (0.1), strong emotionality (0.1), and a high level of certainty in the claims (0.8). The statement uses clear language with minimal evidence (source quality = 0.0) and lacks dehumanizing or us-vs-them framing. Overall, the text leans toward being emotionally charged and opinionated, but not extreme in terms of demonizing or oversimplifying the issue.",
+          "module_name": "individual feature importance",
+          "module_params": {}
+        },
+        {
+          "module_output": {
+            "counts": [
+              63,
+              29,
+              33,
+              8,
+              1,
+              8,
+              5,
+              16,
+              17,
+              4
+            ],
+            "edges": [
+              0.0,
+              0.09,
+              0.18,
+              0.27,
+              0.36,
+              0.44999999999999996,
+              0.54,
+              0.63,
+              0.72,
+              0.8099999999999999,
+              0.9
+            ]
+          },
+          "action": "feature distribution for polarization (label: True)",
+          "summary": "The feature distribution shows 63 instances near the minimum (0.0) and increasing counts up to 8 instances near the maximum edge (0.9), indicating that the text features predominantly moderate to low values across dimensions like emotionality (0.1), polarization (0.1), and dehumanization (0.0). The model's prediction of 'True' aligns with this, suggesting the content is not highly polarizing or extreme. Most features are clustered at the lower end of the scale, with only a few rising to moderate levels. This pattern suggests the likelihood of nuanced or neutral content, with little indication of extreme rhetoric or high emotional intensity.",
+          "laymans_summary": "The data shows that most of the features in the text are near the lower end of their scale, suggesting a neutral and non-polarizing tone. Only a few indicators, like emotional tone and reading difficulty, are slightly elevated, but not significantly. The distribution of these features is scattered across low to moderate levels, with only a small number of cases showing higher values, indicating limited extreme or highly charged content.",
+          "module_name": "feature distribution",
+          "module_params": {
+            "feature_name": "polarization",
+            "label": "True"
+          }
+        },
+        {
+          "module_output": "| polarization ↓ \\ emotionality → | -0.80–-0.44 | -0.44–-0.08 | -0.08–0.28 | 0.28–0.64 | 0.64–1.00 |\n| --- | --- | --- | --- | --- | --- |\n| 0.00–0.18 | 0 | 1 | 80 | 10 | 1 |\n| 0.18–0.36 | 2 | 3 | 28 | 8 | 0 |\n| 0.36–0.54 | 0 | 0 | 8 | 1 | 0 |\n| 0.54–0.72 | 12 | 3 | 3 | 3 | 0 |\n| 0.72–0.90 | 18 | 2 | 0 | 1 | 0 |",
+          "action": "feature distribution 2D for polarization, emotionality (label: True)",
+          "summary": "The 2D feature distribution reveals that the text is predominantly in the low-to-moderate polarization range (0.00–0.18) and low-to-moderate emotionality (-0.08–0.28), with 80 instances in this quadrant. Higher polarization values (0.54–0.72 and 0.72–0.90) show a smaller but notable cluster, with 12 and 18 instances respectively, particularly in the more negative emotion range (-0.80–-0.44). This indicates the post shows limited emotional intensity but a tendency toward moderate polarization, especially in the higher polarization bands, though not extreme overall.",
+          "laymans_summary": "The analysis shows that the text is slightly polarized and tends to be neutral in emotion. Most of the content falls in the middle range of emotion and polarization, with the highest concentration (80 instances) in the moderate polarization (0.00–0.18) and low-to-moderate emotion range (-0.08–0.28). This suggests the text is not overly heated or extreme, but still leans toward somewhat polarized messaging.",
+          "module_name": "feature distribution 2D",
+          "module_params": {
+            "feature_name_1": "polarization",
+            "feature_name_2": "emotionality",
+            "label": "True"
+          }
+        },
+        {
+          "module_output": {
+            "accuracy": 0.65,
+            "f1_score": 0.6482,
+            "precision": 0.6531,
+            "recall": 0.65
+          },
+          "action": "performance metrics",
+          "summary": "The model predicts 'True' with moderate confidence, supported by performance metrics: accuracy of 65%, F1 score of 64.82%, precision of 65.31%, and recall of 65%. These values indicate the model performs reasonably well but is not highly confident, suggesting the prediction is likely correct but not certain. The input data shows low evidence, limited emotional extremity, and low polarization markers, yet the model flags it as indicating extremist tendencies, implying that subtle indicators—such as the absence of nuance or minimal dehumanization—may be driving the decision.",
+          "laymans_summary": "The model predicts that the post is likely to be polarizing or extreme in tone. It shows signs of low evidence, neutral sentiment, and minimal exaggeration, but it does not clearly frame victims or villains, nor does it use overly simplistic language. Overall, the model is moderately confident in this prediction.",
+          "module_name": "performance metrics",
+          "module_params": {}
+        },
+        {
+          "module_output": {
+            "confusion": [
+              [
+                0.64,
+                0.21,
+                0.15
+              ],
+              [
+                0.18,
+                0.66,
+                0.16
+              ],
+              [
+                0.23,
+                0.12,
+                0.65
+              ]
+            ],
+            "note": "First column/row  is the False label, second column/row is the Neither label and third column/row is the True label."
+          },
+          "action": "confusion matrix",
+          "summary": "The model's prediction is 'True' with a moderate level of confidence. The confusion matrix indicates that the model has a 65% accuracy rate in correctly identifying 'True' instances, as 65% of actual 'True' cases were predicted as 'True'. However, there is a notable likelihood of misclassification: 23% of 'True' instances were flagged as 'False', and 12% as 'Neither'. The model is most consistent in predicting 'Neither' (66% accuracy), while 'False' predictions show lower accuracy (64%) and higher confusion with other labels. Overall, the model is reasonably well-calibrated but exhibits uncertainty in boundary cases, particularly when distinguishing between 'True' and 'Neither' or 'True' and 'False'.",
+          "laymans_summary": "The model is fairly confident in its prediction, but there's some uncertainty. It tends to classify this post as 'True' (indicating a specific sentiment or stance), and the confusion matrix shows it's most accurate when predicting 'True' (with 65% accuracy). However, it sometimes confuses 'True' with 'Neither' or 'False', especially when the post is less clear or more nuanced.",
+          "module_name": "confusion matrix",
+          "module_params": {}
+        },
+        {
+          "module_output": {
+            "label": 2,
+            "values": {
+              "us_vs_them_lang": 0.04,
+              "exaggerated_uncertainty": 0.2,
+              "source_quality": 0.18,
+              "victim_villain_language": 0.04,
+              "black_and_white_language": 0.06,
+              "dehumanization": 0.03,
+              "emotionality": 0.12,
+              "reading_difficulty": 0.09,
+              "sentiment": 0.05,
+              "polarization": 0.18
+            },
+            "top_features": [
+              "exaggerated_uncertainty",
+              "source_quality",
+              "polarization"
+            ]
+          },
+          "action": "global feature importance (label: True)",
+          "summary": "The top three features influencing the model's prediction are exaggerated_uncertainty (0.2), source_quality (0.18), and polarization (0.18). Exaggerated_uncertainty indicates that the text presents claims with high definitiveness, which tends to amplify perceived certainty. Source_quality suggests weak or absent evidence, which may reduce credibility. Polarization reflects a tendency to frame issues in binary terms, likely increasing divisiveness. Together, these factors suggest the text leans toward a high-risk, potentially misleading narrative, particularly due to overconfident claims and a lack of verifiable support.",
+          "laymans_summary": "The model predicts that the text is likely to be problematic, based on how it presents information. The most influential factors are how certain the text sounds, how reliable its sources are, and how strongly it divides people into opposing sides. These elements together suggest a higher risk of spreading harmful narratives.",
+          "module_name": "global feature importance",
+          "module_params": {
+            "label": "True"
+          }
+        },
+        {
+          "module_output": {
+            "feature": "polarization",
+            "class": "True",
+            "grid_values": [
+              0.0,
+              0.1,
+              0.2,
+              0.3,
+              0.4,
+              0.5,
+              0.6,
+              0.7,
+              0.8,
+              0.9,
+              1.0
+            ],
+            "average": [
+              0.398650062285356,
+              0.39667849778366016,
+              0.3740082639622025,
+              0.33604280299771105,
+              0.2921568629651523,
+              0.2967642808642616,
+              0.309114647983257,
+              0.2963244913225843,
+              0.2123638821128265,
+              0.19911044855738919,
+              0.176890676211961
+            ]
+          },
+          "action": "partial dependence plot for polarization (label: True)",
+          "summary": "The partial dependence plot for polarization shows a non-monotonic relationship with the predicted label 'True'. At low polarization values (0.0 to 0.3), the average predicted probability remains relatively stable around 0.37–0.40, indicating a moderate tendency toward 'True'. As polarization increases beyond 0.3, the predicted probability declines, reaching a low of approximately 0.18 at polarization levels of 0.8–1.0. This suggests that while low to moderate polarization is somewhat consistent with the 'True' prediction, higher polarization is less likely to align with this outcome. The trend is not linear, as a slight uptick is observed at polarization levels 0.5–0.6, but overall the model appears to associate high polarization with lower confidence in the 'True' label.",
+          "laymans_summary": "The model predicts that the post is likely to be polarizing, but the degree of polarization has a complex relationship with this prediction. Moderately polarized content (around 0.1 to 0.3) is slightly more associated with the 'True' label, but as polarization increases further, the likelihood of the prediction decreases. The trend suggests that very high polarization (above 0.6) is less likely to be classified as 'True'.",
+          "module_name": "partial dependence plot",
+          "module_params": {
+            "feature_name": "polarization",
+            "label": "True"
+          }
+        }
+      ],
+      "conclusion": {
+        "judgement_rating": 2,
+        "judgement_reason": "The model's prediction of 'True' (indicating polarizing or extreme content) is supported by multiple local explanation modules, but there is significant inconsistency in the evidence. The 'global feature importance' emphasizes 'exaggerated_uncertainty' (0.2), 'source_quality' (0.18), and 'polarization' (0.18) as top drivers, yet the 'feature distribution' and 'partial dependence plot' suggest that the actual values for polarization (0.1) and emotionality (0.1) fall in the low-to-moderate range, and higher polarization levels correlate with lower 'True' predictions. Additionally, the 'individual feature importance' shows low dehumanization (0.0) and no us-vs-them language, contradicting a high-extremism interpretation. The confusion matrix reveals that only 65% of 'True' instances are correctly identified, and 23% are mislabeled as 'False', indicating strong uncertainty in boundary cases. This contradiction between features and interpretation reduces trustworthiness.",
+        "judgement_reason_short": "The model points to low-extremity data but claims high polarization, and its own metrics show it's only 65% accurate, so we can't fully trust the prediction.",
+        "most_relevant_modules": [
+          "individual feature importance",
+          "partial dependence plot"
+        ]
+      }
+    },
+    "error": null,
+    "latency_ms": 28061.636,
+    "start_time": "2025-09-12T20:57:16.440502+00:00",
+    "end_time": "2025-09-12T20:57:44.502138+00:00",
+    "trace_id": "8e6b94f18bede36c46357262def9d51c",
+    "prompt_token_count": null,
+    "completion_token_count": null,
+    "annotations": [
+      {
+        "name": "xai_description_truthfulness",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 0.42857142857142855,
+        "explanation": null,
+        "trace_id": "e28492efbfb0aa360812d88c08b4f2ae",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-12T21:08:40.893283+00:00",
+        "end_time": "2025-09-12T21:09:37.168604+00:00"
+      },
+      {
+        "name": "layman_xai_truthfulness",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 0.42857142857142855,
+        "explanation": null,
+        "trace_id": "b5622829c4ffbfece87b9aa3203fe53f",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-12T21:09:37.188160+00:00",
+        "end_time": "2025-09-12T21:10:17.124543+00:00"
+      },
+      {
+        "name": "short_assessment_truthfulness",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 0.0,
+        "explanation": null,
+        "trace_id": "2a8c7feec4694ad25692264f57ab7b75",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-12T21:10:17.136592+00:00",
+        "end_time": "2025-09-12T21:10:24.358534+00:00"
+      },
+      {
+        "name": "focus_quality",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 1.0,
+        "explanation": null,
+        "trace_id": "998e37b470a7662830b288357ebca870",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-12T21:10:24.367715+00:00",
+        "end_time": "2025-09-12T21:10:32.117850+00:00"
+      },
+      {
+        "name": "label_correlation",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 0.6666666666666667,
+        "explanation": null,
+        "trace_id": "ff4413f302696e45f0e4cd9b2fc633dd",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-12T21:10:32.124701+00:00",
+        "end_time": "2025-09-12T21:10:32.126703+00:00"
+      },
+      {
+        "name": "technical_xai_clarity",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 0.5714285714285714,
+        "explanation": null,
+        "trace_id": "283b34994f905cf36118be3d9f6f62a2",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-12T21:10:32.188582+00:00",
+        "end_time": "2025-09-12T21:11:16.094767+00:00"
+      },
+      {
+        "name": "technical_assessment_clarity",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 1.0,
+        "explanation": null,
+        "trace_id": "4be4a8674f2b0e69986d12e93ad150eb",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-12T21:11:16.107589+00:00",
+        "end_time": "2025-09-12T21:11:22.549086+00:00"
+      }
+    ]
+  },
+  {
+    "example_id": "RGF0YXNldEV4YW1wbGU6MTk4",
+    "repetition_number": 1,
+    "input": {
+      "dp_id": 260
+    },
+    "reference_output": {},
+    "output": {
+      "trace": [
+        {
+          "module_output": {
+            "id": 260,
+            "prediction": 2,
+            "statement": "\"The consumer confidence in this country has gone way down.\"",
+            "values": {
+              "us_vs_them_lang": {
+                "shap_value": 0.0074,
+                "feature_value": 0.0
+              },
+              "exaggerated_uncertainty": {
+                "shap_value": 0.0807,
+                "feature_value": 0.7
+              },
+              "source_quality": {
+                "shap_value": 0.0542,
+                "feature_value": 1.0
+              },
+              "victim_villain_language": {
+                "shap_value": -0.0068,
+                "feature_value": 0.0
+              },
+              "black_and_white_language": {
+                "shap_value": 0.05,
+                "feature_value": 0.0
+              },
+              "dehumanization": {
+                "shap_value": 0.0134,
+                "feature_value": 0.0
+              },
+              "emotionality": {
+                "shap_value": 0.0682,
+                "feature_value": -0.5
+              },
+              "reading_difficulty": {
+                "shap_value": 0.036,
+                "feature_value": 0.3
+              },
+              "sentiment": {
+                "shap_value": 0.04,
+                "feature_value": -1.0
+              },
+              "polarization": {
+                "shap_value": 0.0768,
+                "feature_value": 0.2
+              }
+            },
+            "top_features": [
+              "exaggerated_uncertainty",
+              "polarization",
+              "emotionality",
+              "source_quality",
+              "black_and_white_language",
+              "sentiment",
+              "reading_difficulty",
+              "dehumanization",
+              "us_vs_them_lang",
+              "victim_villain_language"
+            ]
+          },
+          "action": "individual feature importance",
+          "summary": "The model prediction of 'True' (indicating high polarization) is primarily driven by high 'exaggerated_uncertainty' (0.7, SHAP = 0.0807), strong 'polarization' (0.2, SHAP = 0.0768), and negative 'emotionality' (-0.5, SHAP = 0.0682), along with negative 'sentiment' (-1.0, SHAP = 0.04) and 'source_quality' (1.0, SHAP = 0.0542). These features collectively suggest the statement tends to amplify perceived certainty without evidence, expresses negative affect, and simplifies complex issues—factors that are likely to increase polarization, especially when paired with low nuance and neutral framing of opponents.",
+          "laymans_summary": "The model predicts that the statement is likely to be polarizing, based on how strongly it expresses uncertainty, negativity, and simplicity. Features like 'exaggerated_uncertainty' (0.7) and 'polarization' (0.2) contribute most to this prediction, along with negative sentiment (-1.0) and emotionality (-0.5). The lack of specific sources (source_quality = 1.0) and simple framing (black_and_white_language = 0.0) also slightly increase the likelihood of polarization.",
+          "module_name": "individual feature importance",
+          "module_params": {}
+        },
+        {
+          "module_output": {
+            "counts": [
+              19,
+              0,
+              6,
+              0,
+              0,
+              34,
+              16,
+              1,
+              62,
+              46
+            ],
+            "edges": [
+              0.0,
+              0.1,
+              0.2,
+              0.30000000000000004,
+              0.4,
+              0.5,
+              0.6000000000000001,
+              0.7000000000000001,
+              0.8,
+              0.9,
+              1.0
+            ]
+          },
+          "action": "feature distribution for exaggerated_uncertainty (label: True)",
+          "summary": "The feature distribution reveals that the model's predictions are concentrated in the higher end of the scale, particularly with 62 instances in the 0.8–0.9 range, indicating a likely high degree of polarization and emotional intensity. While most values cluster between 0.3 and 0.8, there are notable spikes at 0.1, 0.2, and 1.0, suggesting a spread of moderate to extreme expressions. The model prediction of 'True' is consistent with this pattern, as the distribution tends to support the presence of high polarization and emotional framing, particularly in the extremes.",
+          "laymans_summary": "The data shows that most of the text samples fall into lower ranges of features like polarization, emotionality, and reading difficulty, with a few outliers in more extreme categories. The highest count (62) appears in the 0.8-0.9 range, suggesting many texts are moderately polarized and emotionally charged. Overall, the distribution indicates a tendency toward moderate-to-high levels of emotional and polarized expression.",
+          "module_name": "feature distribution",
+          "module_params": {
+            "feature_name": "exaggerated_uncertainty",
+            "label": "True"
+          }
+        },
+        {
+          "module_output": "| exaggerated_uncertainty ↓ \\ polarization → | 0.00–0.18 | 0.18–0.36 | 0.36–0.54 | 0.54–0.72 | 0.72–0.90 |\n| --- | --- | --- | --- | --- | --- |\n| 0.00–0.20 | 15 | 0 | 1 | 1 | 2 |\n| 0.20–0.40 | 4 | 1 | 0 | 0 | 1 |\n| 0.40–0.60 | 9 | 11 | 5 | 6 | 3 |\n| 0.60–0.80 | 4 | 5 | 2 | 0 | 6 |\n| 0.80–1.00 | 60 | 24 | 1 | 14 | 9 |",
+          "action": "feature distribution 2D for exaggerated_uncertainty, polarization (label: True)",
+          "summary": "The 2D feature distribution indicates that higher values of exaggerated_uncertainty (particularly in the 0.80–1.00 range) are often associated with higher polarization levels (0.54–0.90), especially in the 0.72–0.90 polarization range. There are 9 instances in this high-exaggeration, high-polarization category, which is relatively elevated compared to other cells. In contrast, the combination of low uncertainty (0.00–0.20) and low polarization (0.00–0.18) contains 15 cases, suggesting these patterns are less prevalent. The data tends to show a positive association between high certainty in claims and heightened polarization, though the relationship is not absolute. The distribution is skewed, with 60 cases at the highest uncertainty range, indicating that definitive language is common among polarizing posts.",
+          "laymans_summary": "The chart shows how two features, 'exaggerated_uncertainty' and 'polarization,' are distributed in the data. Most of the data points fall in the high uncertainty (0.80–1.00) and medium to high polarization (0.54–0.90) range, suggesting that posts with strong, definitive claims tend to also be more polarizing. There are fewer examples in the low uncertainty and low polarization ranges.",
+          "module_name": "feature distribution 2D",
+          "module_params": {
+            "feature_name_1": "exaggerated_uncertainty",
+            "feature_name_2": "polarization",
+            "label": "True"
+          }
+        },
+        {
+          "module_output": {
+            "accuracy": 0.65,
+            "f1_score": 0.6482,
+            "precision": 0.6531,
+            "recall": 0.65
+          },
+          "action": "performance metrics",
+          "summary": "The model predicts 'True' (indicating a potentially harmful or polarizing post) with an accuracy of 0.65, a precision of 0.6531, a recall of 0.65, and an F1 score of 0.6482. These metrics suggest the model performs moderately well in identifying harmful content, though there is room for improvement. The post itself exhibits features such as low sentiment (-1.0), high dehumanization (0.0), low source quality (1.0), and low reading difficulty (0.3), which the model likely used to make its prediction. While trends suggest the model tends to correctly flag posts with high emotional negativity and weak evidence, its performance remains uncertain due to moderate metric values.",
+          "laymans_summary": "The model predicts that the post is likely harmful, based on strong signs of negative emotion, low evidence quality, and a lack of nuanced language. It performs reasonably well, with about a 65% accuracy in making such predictions.",
+          "module_name": "performance metrics",
+          "module_params": {}
+        },
+        {
+          "module_output": {
+            "confusion": [
+              [
+                0.64,
+                0.21,
+                0.15
+              ],
+              [
+                0.18,
+                0.66,
+                0.16
+              ],
+              [
+                0.23,
+                0.12,
+                0.65
+              ]
+            ],
+            "note": "First column/row  is the False label, second column/row is the Neither label and third column/row is the True label."
+          },
+          "action": "confusion matrix",
+          "summary": "The confusion matrix indicates that the model has a high likelihood of correctly identifying \"True\" labels (65% accuracy) and \"False\" labels (64% accuracy), with moderate performance on \"Neither\" cases (66% accuracy). The model tends to misclassify \"Neither\" instances as either \"False\" (18%) or \"True\" (12%), suggesting some uncertainty in detecting neutral content. Overall, the model is reasonably well-calibrated, with higher confidence in definitive predictions rather than nuanced ones.",
+          "laymans_summary": "The model is fairly accurate in predicting whether a post is True (related to propaganda), especially when it's clearly True or False. It performs better at identifying clearly False posts (64% accuracy) and clearly True posts (65% accuracy), but is less certain when the post is neutral (Neither), often confusing it with other categories.",
+          "module_name": "confusion matrix",
+          "module_params": {}
+        },
+        {
+          "module_output": {
+            "label": 2,
+            "values": {
+              "us_vs_them_lang": 0.04,
+              "exaggerated_uncertainty": 0.2,
+              "source_quality": 0.18,
+              "victim_villain_language": 0.04,
+              "black_and_white_language": 0.06,
+              "dehumanization": 0.03,
+              "emotionality": 0.12,
+              "reading_difficulty": 0.09,
+              "sentiment": 0.05,
+              "polarization": 0.18
+            },
+            "top_features": [
+              "exaggerated_uncertainty",
+              "source_quality",
+              "polarization"
+            ]
+          },
+          "action": "global feature importance (label: True)",
+          "summary": "The model prediction is True, suggesting a high likelihood of harmful or extreme content. The top three most influential features based on global feature importance are 'exaggerated_uncertainty' (0.2), 'source_quality' (0.18), and 'polarization' (0.18). These metrics indicate that definite claims with weak or no evidence and high polarization are significant drivers of the model's decision. Additionally, emotionality (0.12) and reading difficulty (0.09) contribute noticeably, while other features have lower impact. The strong influence of 'exaggerated_uncertainty' and 'polarization' suggests that the clarity and divisiveness of messaging strongly shape predictions, even when the sentiment is negative (-1.0).",
+          "laymans_summary": "The model predicts that the post is likely to be classified as harmful or extreme, based on several factors. The most influential aspects are how certain the post presents its claims, how strong the evidence is, and how polarizing the content appears. Posts that show extreme certainty, weak or no evidence, and high polarization are more likely to be flagged. Other factors like emotionality and reading difficulty also play a moderate role.",
+          "module_name": "global feature importance",
+          "module_params": {
+            "label": "True"
+          }
+        },
+        {
+          "module_output": {
+            "feature": "exaggerated_uncertainty",
+            "class": "True",
+            "grid_values": [
+              0.0,
+              0.1,
+              0.2,
+              0.3,
+              0.4,
+              0.5,
+              0.6,
+              0.7,
+              0.75,
+              0.8,
+              0.9,
+              1.0
+            ],
+            "average": [
+              0.25933914316875384,
+              0.2372450770109563,
+              0.2891949762754598,
+              0.280038147127666,
+              0.2499922362738019,
+              0.275662193205412,
+              0.3340518162755272,
+              0.37413664074484565,
+              0.3937247192436281,
+              0.41789239497827246,
+              0.3720497719438904,
+              0.3815112546801933
+            ]
+          },
+          "action": "partial dependence plot for exaggerated_uncertainty (label: True)",
+          "summary": "The partial dependence plot indicates that higher values of exaggerated_uncertainty, particularly in the range 0.7 to 0.8, tend to increase the model's predicted probability of the label 'True'. At the given value of 0.7, the average prediction is approximately 0.37, reflecting a modest but notable tendency toward 'True' predictions as certainty increases. Beyond 0.8, the effect diminishes slightly, suggesting a non-linear relationship. The model's sensitivity to this feature is moderate and consistent with the observed data.",
+          "laymans_summary": "The model is more likely to predict 'True' when the post presents claims with high certainty, especially around 0.7 to 0.8 on the exaggerated_uncertainty scale. At 0.7 (the value in the data), the prediction likelihood is already rising, reaching about 0.37, and continues to increase slightly before dipping again at higher certainty levels.",
+          "module_name": "partial dependence plot",
+          "module_params": {
+            "feature_name": "exaggerated_uncertainty",
+            "label": "True"
+          }
+        }
+      ],
+      "conclusion": {
+        "judgement_rating": 2,
+        "judgement_reason": "The model's prediction of 'True' (indicating high polarization) is supported by strong local explanations: 'exaggerated_uncertainty' (0.7, SHAP = 0.0807) and 'polarization' (0.2, SHAP = 0.0768) are the top drivers. The statement 'The consumer confidence in this country has gone way down' exhibits highly definite language ('way down'), which aligns with elevated 'exaggerated_uncertainty' (0.7), despite lacking a source. The partial dependence plot confirms that such certainty increases the 'True' prediction likelihood. Global feature importance also emphasizes 'exaggerated_uncertainty' (0.2) and 'polarization' (0.18) as key factors. The overall consistency across local and global explanations, along with moderate model performance (F1 = 0.6482), supports a good level of trustworthiness.",
+        "judgement_reason_short": "The model trusts the prediction because strong features like 'exaggerated_uncertainty' (0.7) and 'polarization' (0.2) strongly support it, and their influence is confirmed across multiple analyses.",
+        "most_relevant_modules": [
+          "individual feature importance",
+          "feature distribution 2D"
+        ]
+      }
+    },
+    "error": null,
+    "latency_ms": 27754.525,
+    "start_time": "2025-09-12T20:57:44.514542+00:00",
+    "end_time": "2025-09-12T20:58:12.269067+00:00",
+    "trace_id": "6806c8b0563cc5c03570044055cad359",
+    "prompt_token_count": null,
+    "completion_token_count": null,
+    "annotations": [
+      {
+        "name": "xai_description_truthfulness",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 0.14285714285714285,
+        "explanation": null,
+        "trace_id": "7ad4338cc2adf19553b58f64484e4781",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-12T21:11:22.558026+00:00",
+        "end_time": "2025-09-12T21:12:25.717144+00:00"
+      },
+      {
+        "name": "layman_xai_truthfulness",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 0.42857142857142855,
+        "explanation": null,
+        "trace_id": "0dd31f47ea7fb67ca6e20234644198f2",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-12T21:12:25.738531+00:00",
+        "end_time": "2025-09-12T21:13:11.084119+00:00"
+      },
+      {
+        "name": "short_assessment_truthfulness",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 1.0,
+        "explanation": null,
+        "trace_id": "5517d922c0a9b594d4175459fecf8d3e",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-12T21:13:11.099239+00:00",
+        "end_time": "2025-09-12T21:13:18.090223+00:00"
+      },
+      {
+        "name": "focus_quality",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 1.0,
+        "explanation": null,
+        "trace_id": "b9df951d781e63d01fb7463cf1d6509d",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-12T21:13:18.101886+00:00",
+        "end_time": "2025-09-12T21:13:23.714643+00:00"
+      },
+      {
+        "name": "label_correlation",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 0.6666666666666667,
+        "explanation": null,
+        "trace_id": "d1786457ef108b538f386cb639b0c73e",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-12T21:13:23.739113+00:00",
+        "end_time": "2025-09-12T21:13:23.741126+00:00"
+      },
+      {
+        "name": "technical_xai_clarity",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 0.42857142857142855,
+        "explanation": null,
+        "trace_id": "cd4b9130d43b642f013feeb94a15969f",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-12T21:13:23.793588+00:00",
+        "end_time": "2025-09-12T21:14:07.280123+00:00"
+      },
+      {
+        "name": "technical_assessment_clarity",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 1.0,
+        "explanation": null,
+        "trace_id": "335fb203bceb70c196157343032e2a67",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-12T21:14:07.300372+00:00",
+        "end_time": "2025-09-12T21:14:13.455331+00:00"
+      }
+    ]
+  }
+]

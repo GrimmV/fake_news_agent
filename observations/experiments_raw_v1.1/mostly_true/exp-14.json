@@ -1,0 +1,2014 @@
+[
+  {
+    "example_id": "RGF0YXNldEV4YW1wbGU6MjIz",
+    "repetition_number": 1,
+    "input": {
+      "dp_id": 197
+    },
+    "reference_output": {},
+    "output": {
+      "trace": [
+        {
+          "module_output": {
+            "id": 197,
+            "prediction": 2,
+            "statement": "\"The ERA could also mandate that schools allow biological males to compete in girls' sports.\"",
+            "values": {
+              "us_vs_them_lang": {
+                "shap_value": 0.0163,
+                "feature_value": 1.0
+              },
+              "exaggerated_uncertainty": {
+                "shap_value": 0.1004,
+                "feature_value": 0.8
+              },
+              "source_quality": {
+                "shap_value": 0.061,
+                "feature_value": 1.0
+              },
+              "victim_villain_language": {
+                "shap_value": 0.096,
+                "feature_value": 0.0
+              },
+              "black_and_white_language": {
+                "shap_value": -0.0006,
+                "feature_value": 1.0
+              },
+              "dehumanization": {
+                "shap_value": 0.0161,
+                "feature_value": 0.0
+              },
+              "emotionality": {
+                "shap_value": 0.0559,
+                "feature_value": -0.2
+              },
+              "reading_difficulty": {
+                "shap_value": 0.0293,
+                "feature_value": 0.3
+              },
+              "sentiment": {
+                "shap_value": 0.0277,
+                "feature_value": -1.0
+              },
+              "polarization": {
+                "shap_value": -0.069,
+                "feature_value": 0.9
+              }
+            },
+            "top_features": [
+              "exaggerated_uncertainty",
+              "victim_villain_language",
+              "polarization",
+              "source_quality",
+              "emotionality",
+              "reading_difficulty",
+              "sentiment",
+              "us_vs_them_lang",
+              "dehumanization",
+              "black_and_white_language"
+            ]
+          },
+          "action": "individual feature importance",
+          "summary": "Top feature contributions: exaggerated_uncertainty (shap=0.1004, value=0.8), victim_villain_language (shap=0.096, value=0.0), source_quality (shap=0.061, value=1.0), emotionality (shap=0.0559, value=-0.2), polarization (shap=-0.069, value=0.9). Exaggerated uncertainty was the strongest positive contributor.",
+          "laymans_summary": "The post used very certain language (like saying 'could mandate' instead of 'might say'), which made it more likely to be flagged. Even though it didn't use 'good vs. evil' framing, the absolute claims were the strongest factor.",
+          "module_name": "individual feature importance",
+          "module_params": {}
+        },
+        {
+          "module_output": {
+            "counts": [
+              19,
+              0,
+              6,
+              0,
+              0,
+              34,
+              16,
+              1,
+              62,
+              46
+            ],
+            "edges": [
+              0.0,
+              0.1,
+              0.2,
+              0.30000000000000004,
+              0.4,
+              0.5,
+              0.6000000000000001,
+              0.7000000000000001,
+              0.8,
+              0.9,
+              1.0
+            ]
+          },
+          "action": "feature distribution for exaggerated_uncertainty (label: True)",
+          "summary": "The feature distribution shows 62 features in the 0.8-0.9 range and 46 features in the 0.9-1.0 range, totaling 108 out of 184 features concentrated in the highest polarization bins.",
+          "laymans_summary": "Most features are in high polarization ranges: 62 in 80-90% and 46 in 90-100%.",
+          "module_name": "feature distribution",
+          "module_params": {
+            "feature_name": "exaggerated_uncertainty",
+            "label": "True"
+          }
+        },
+        {
+          "module_output": "| exaggerated_uncertainty ↓ \\ victim_villain_language → | 0.00–0.50 | 0.50–1.00 |\n| --- | --- | --- |\n| 0.00–0.20 | 15 | 4 |\n| 0.20–0.40 | 6 | 0 |\n| 0.40–0.60 | 30 | 4 |\n| 0.60–0.80 | 14 | 3 |\n| 0.80–1.00 | 89 | 19 |",
+          "action": "feature distribution 2D for exaggerated_uncertainty, victim_villain_language (label: True)",
+          "summary": "The 2D feature distribution shows 89 instances where exaggerated_uncertainty (0.80–1.00, high certainty) aligns with victim_villain_language (0.00–0.50, no victim-villain framing), dominating the dataset. This corresponds to the provided datapoint value of victim_villain_language=0.0.",
+          "laymans_summary": "The text is very certain (no doubts) and doesn't claim 'good people vs. evil villains,' matching the data showing no victim-villain framing.",
+          "module_name": "feature distribution 2D",
+          "module_params": {
+            "feature_name_1": "exaggerated_uncertainty",
+            "feature_name_2": "victim_villain_language",
+            "label": "True"
+          }
+        },
+        {
+          "module_output": {
+            "accuracy": 0.65,
+            "f1_score": 0.6482,
+            "precision": 0.6531,
+            "recall": 0.65
+          },
+          "action": "performance metrics",
+          "summary": "The model achieved accuracy of 65%, F1 score of 64.8%, precision of 65.3%, and recall of 65%, indicating balanced performance with moderate precision and recall.",
+          "laymans_summary": "The model got about 65 out of 100 answers right and was consistent in identifying key points.",
+          "module_name": "performance metrics",
+          "module_params": {}
+        },
+        {
+          "module_output": {
+            "confusion": [
+              [
+                0.64,
+                0.21,
+                0.15
+              ],
+              [
+                0.18,
+                0.66,
+                0.16
+              ],
+              [
+                0.23,
+                0.12,
+                0.65
+              ]
+            ],
+            "note": "First column/row  is the False label, second column/row is the Neither label and third column/row is the True label."
+          },
+          "action": "confusion matrix",
+          "summary": "Confusion matrix shows 65% accuracy for True predictions (0.65), with 23% misclassified as False and 12% as Neither for actual True labels.",
+          "laymans_summary": "The model got it right 65% of the time when it predicted something was 'True'—like if a warning was real, it was correct 65 out of 100 times.",
+          "module_name": "confusion matrix",
+          "module_params": {}
+        },
+        {
+          "module_output": {
+            "label": 2,
+            "values": {
+              "us_vs_them_lang": 0.04,
+              "exaggerated_uncertainty": 0.2,
+              "source_quality": 0.18,
+              "victim_villain_language": 0.04,
+              "black_and_white_language": 0.06,
+              "dehumanization": 0.03,
+              "emotionality": 0.12,
+              "reading_difficulty": 0.09,
+              "sentiment": 0.05,
+              "polarization": 0.18
+            },
+            "top_features": [
+              "exaggerated_uncertainty",
+              "source_quality",
+              "polarization"
+            ]
+          },
+          "action": "global feature importance (label: True)",
+          "summary": "Global feature importance identifies exaggerated_uncertainty (0.2), source_quality (0.18), and polarization (0.18) as the top three contributors to the model's prediction, with exaggerated_uncertainty having the highest impact.",
+          "laymans_summary": "The AI's top factors were how certain the post was (0.2), how credible the sources were (0.18), and how polarizing the content was (0.18).",
+          "module_name": "global feature importance",
+          "module_params": {
+            "label": "True"
+          }
+        },
+        {
+          "module_output": {
+            "feature": "exaggerated_uncertainty",
+            "class": "True",
+            "grid_values": [
+              0.0,
+              0.1,
+              0.2,
+              0.3,
+              0.4,
+              0.5,
+              0.6,
+              0.7,
+              0.75,
+              0.8,
+              0.9,
+              1.0
+            ],
+            "average": [
+              0.25933914316875384,
+              0.2372450770109563,
+              0.2891949762754598,
+              0.280038147127666,
+              0.2499922362738019,
+              0.275662193205412,
+              0.3340518162755272,
+              0.37413664074484565,
+              0.3937247192436281,
+              0.41789239497827246,
+              0.3720497719438904,
+              0.3815112546801933
+            ]
+          },
+          "action": "partial dependence plot for exaggerated_uncertainty (label: True)",
+          "summary": "The partial dependence plot shows that at exaggerated_uncertainty = 0.8, the predicted probability for class 'True' is 0.418. This represents a local peak in the model's prediction around this certainty value.",
+          "laymans_summary": "When a post is written with very high certainty (about 80% certainty), the model predicts it's more likely to be classified as 'True' with a 42% chance.",
+          "module_name": "partial dependence plot",
+          "module_params": {
+            "feature_name": "exaggerated_uncertainty",
+            "label": "True"
+          }
+        }
+      ],
+      "conclusion": {
+        "judgement_rating": 2,
+        "judgement_reason": "The prediction is moderately trustworthy due to strong local evidence from multiple modules. The feature 'exaggerated_uncertainty' has a high SHAP value (0.1004) and is the top contributor, with a value of 0.8 in the given instance. The 2D feature distribution confirms that this combination (exaggerated_uncertainty=0.8 and victim_villain_language=0.0) is common in the 'True' label group, supporting the model's confidence. However, the model's overall accuracy is only 65%, and the partial dependence plot shows that at this certainty level (0.8), the predicted probability is 0.418, which is below chance (0.5), indicating low confidence locally. This discrepancy between strong feature importance and low predicted probability reduces trustworthiness.",
+        "judgement_reason_short": "High feature importance but low prediction probability makes the result uncertain.",
+        "most_relevant_modules": [
+          "individual feature importance",
+          "partial dependence plot"
+        ]
+      }
+    },
+    "error": null,
+    "latency_ms": 264574.472,
+    "start_time": "2025-09-21T02:01:51.286494+00:00",
+    "end_time": "2025-09-21T02:06:15.860966+00:00",
+    "trace_id": "cb5c0cdee39f955071f169c2ea729b96",
+    "prompt_token_count": null,
+    "completion_token_count": null,
+    "annotations": [
+      {
+        "name": "xai_description_truthfulness",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 0.8571428571428571,
+        "explanation": null,
+        "trace_id": "a23f292d7a92f93889cd012016f529a1",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-21T02:30:00.862861+00:00",
+        "end_time": "2025-09-21T02:30:42.612229+00:00"
+      },
+      {
+        "name": "layman_xai_truthfulness",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 0.2857142857142857,
+        "explanation": null,
+        "trace_id": "10f3e8b839b1af1f79adc664646bbc5b",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-21T02:30:42.619221+00:00",
+        "end_time": "2025-09-21T02:31:24.077659+00:00"
+      },
+      {
+        "name": "short_assessment_truthfulness",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 1.0,
+        "explanation": null,
+        "trace_id": "cba44f00f79adff285f2bb98be3df0c8",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-21T02:31:24.084982+00:00",
+        "end_time": "2025-09-21T02:31:29.625673+00:00"
+      },
+      {
+        "name": "focus_quality",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 1.0,
+        "explanation": null,
+        "trace_id": "71ec9a3a4fd50aa8bf87def7f407c29a",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-21T02:31:29.667764+00:00",
+        "end_time": "2025-09-21T02:31:34.475869+00:00"
+      },
+      {
+        "name": "label_correlation",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 0.6666666666666667,
+        "explanation": null,
+        "trace_id": "cbc6f3a9669f8cb63058334dadd30089",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-21T02:31:34.525853+00:00",
+        "end_time": "2025-09-21T02:31:34.526968+00:00"
+      },
+      {
+        "name": "technical_xai_clarity",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 0.7142857142857143,
+        "explanation": null,
+        "trace_id": "ce459ce5529c28ac47099f0bd3971e0d",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-21T02:31:34.580398+00:00",
+        "end_time": "2025-09-21T02:32:13.578596+00:00"
+      },
+      {
+        "name": "technical_assessment_clarity",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 1.0,
+        "explanation": null,
+        "trace_id": "9cc887581f3898dd84acffc0f5abefdc",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-21T02:32:13.588269+00:00",
+        "end_time": "2025-09-21T02:32:19.304631+00:00"
+      }
+    ]
+  },
+  {
+    "example_id": "RGF0YXNldEV4YW1wbGU6MjI0",
+    "repetition_number": 1,
+    "input": {
+      "dp_id": 198
+    },
+    "reference_output": {},
+    "output": {
+      "trace": [
+        {
+          "module_output": {
+            "id": 198,
+            "prediction": 2,
+            "statement": "“Since 1989 and a new age of globalization began, 51 million jobs have been created in America. 49 million, 96%, have been created under Democratic presidents.”",
+            "values": {
+              "us_vs_them_lang": {
+                "shap_value": 0.0148,
+                "feature_value": 0.0
+              },
+              "exaggerated_uncertainty": {
+                "shap_value": 0.1764,
+                "feature_value": 1.0
+              },
+              "source_quality": {
+                "shap_value": 0.1131,
+                "feature_value": 0.0
+              },
+              "victim_villain_language": {
+                "shap_value": -0.0054,
+                "feature_value": 0.0
+              },
+              "black_and_white_language": {
+                "shap_value": 0.0302,
+                "feature_value": 0.0
+              },
+              "dehumanization": {
+                "shap_value": 0.0116,
+                "feature_value": 0.0
+              },
+              "emotionality": {
+                "shap_value": 0.1175,
+                "feature_value": 1.0
+              },
+              "reading_difficulty": {
+                "shap_value": -0.0144,
+                "feature_value": 0.2
+              },
+              "sentiment": {
+                "shap_value": -0.0385,
+                "feature_value": 1.0
+              },
+              "polarization": {
+                "shap_value": 0.0327,
+                "feature_value": 0.1
+              }
+            },
+            "top_features": [
+              "exaggerated_uncertainty",
+              "emotionality",
+              "source_quality",
+              "sentiment",
+              "polarization",
+              "black_and_white_language",
+              "us_vs_them_lang",
+              "reading_difficulty",
+              "dehumanization",
+              "victim_villain_language"
+            ]
+          },
+          "action": "individual feature importance",
+          "summary": "Top contributors to prediction (True): exaggerated_uncertainty (SHAP: 0.1764, value: 1.0), emotionality (SHAP: 0.1175, value: 1.0), source_quality (SHAP: 0.1131, value: 0.0).",
+          "laymans_summary": "The post uses very definite claims (like '96% of jobs under Democrats') and positive language, which the AI flagged as key reasons for its prediction. Specific numbers and certainty levels were the main drivers.",
+          "module_name": "individual feature importance",
+          "module_params": {}
+        },
+        {
+          "module_output": {
+            "counts": [
+              19,
+              0,
+              6,
+              0,
+              0,
+              34,
+              16,
+              1,
+              62,
+              46
+            ],
+            "edges": [
+              0.0,
+              0.1,
+              0.2,
+              0.30000000000000004,
+              0.4,
+              0.5,
+              0.6000000000000001,
+              0.7000000000000001,
+              0.8,
+              0.9,
+              1.0
+            ]
+          },
+          "action": "feature distribution for exaggerated_uncertainty (label: True)",
+          "summary": "Feature distribution shows 62 features in 0.8–0.9 range and 46 in 0.9–1.0 range (total 108/184 features), indicating strong concentration in upper value ranges.",
+          "laymans_summary": "Most feature values are high, with 62 features between 0.8 and 0.9, and 46 features between 0.9 and 1.0.",
+          "module_name": "feature distribution",
+          "module_params": {
+            "feature_name": "exaggerated_uncertainty",
+            "label": "True"
+          }
+        },
+        {
+          "module_output": "| exaggerated_uncertainty ↓ \\ emotionality → | -0.80–-0.44 | -0.44–-0.08 | -0.08–0.28 | 0.28–0.64 | 0.64–1.00 |\n| --- | --- | --- | --- | --- | --- |\n| 0.00–0.20 | 2 | 0 | 16 | 1 | 0 |\n| 0.20–0.40 | 1 | 0 | 4 | 1 | 0 |\n| 0.40–0.60 | 2 | 3 | 28 | 1 | 0 |\n| 0.60–0.80 | 7 | 0 | 10 | 0 | 0 |\n| 0.80–1.00 | 20 | 6 | 61 | 20 | 1 |",
+          "action": "feature distribution 2D for exaggerated_uncertainty, emotionality (label: True)",
+          "summary": "The 2D feature distribution shows 61 data points in the cell where exaggerated_uncertainty (0.8-1.0) overlaps with emotionality (-0.08-0.28), indicating the dominant pattern of high certainty paired with neutral-to-positive sentiment.",
+          "laymans_summary": "Most posts with very certain claims (no doubts shown) have neutral or slightly positive emotions, with 61 examples in the highest category.",
+          "module_name": "feature distribution 2D",
+          "module_params": {
+            "feature_name_1": "exaggerated_uncertainty",
+            "feature_name_2": "emotionality",
+            "label": "True"
+          }
+        },
+        {
+          "module_output": {
+            "accuracy": 0.65,
+            "f1_score": 0.6482,
+            "precision": 0.6531,
+            "recall": 0.65
+          },
+          "action": "performance metrics",
+          "summary": "Accuracy: 0.65, F1 Score: 0.6482, Precision: 0.6531, Recall: 0.65",
+          "laymans_summary": "The model correctly predicts 65 times out of 100, with similar accuracy in other measures.",
+          "module_name": "performance metrics",
+          "module_params": {}
+        },
+        {
+          "module_output": {
+            "confusion": [
+              [
+                0.64,
+                0.21,
+                0.15
+              ],
+              [
+                0.18,
+                0.66,
+                0.16
+              ],
+              [
+                0.23,
+                0.12,
+                0.65
+              ]
+            ],
+            "note": "First column/row  is the False label, second column/row is the Neither label and third column/row is the True label."
+          },
+          "action": "confusion matrix",
+          "summary": "The confusion matrix shows 64.0% accuracy for 'False' (0.64), 66.0% for 'Neither' (0.66), and 65.0% for 'True' (0.65) classification rates.",
+          "laymans_summary": "The model correctly identifies 'True' posts 65 times out of 100, similar to getting 65 out of 100 answers right for this category.",
+          "module_name": "confusion matrix",
+          "module_params": {}
+        },
+        {
+          "module_output": {
+            "label": 2,
+            "values": {
+              "us_vs_them_lang": 0.04,
+              "exaggerated_uncertainty": 0.2,
+              "source_quality": 0.18,
+              "victim_villain_language": 0.04,
+              "black_and_white_language": 0.06,
+              "dehumanization": 0.03,
+              "emotionality": 0.12,
+              "reading_difficulty": 0.09,
+              "sentiment": 0.05,
+              "polarization": 0.18
+            },
+            "top_features": [
+              "exaggerated_uncertainty",
+              "source_quality",
+              "polarization"
+            ]
+          },
+          "action": "global feature importance (label: True)",
+          "summary": "Top global feature importance values: exaggerated_uncertainty (0.2), source_quality (0.18), polarization (0.18). These are the most influential features for the model's True prediction.",
+          "laymans_summary": "The model's main reasons for predicting 'True' were how certain the post was (0.2), how good the sources were (0.18), and how polarizing the text was (0.18).",
+          "module_name": "global feature importance",
+          "module_params": {
+            "label": "True"
+          }
+        },
+        {
+          "module_output": {
+            "feature": "exaggerated_uncertainty",
+            "class": "True",
+            "grid_values": [
+              0.0,
+              0.1,
+              0.2,
+              0.3,
+              0.4,
+              0.5,
+              0.6,
+              0.7,
+              0.75,
+              0.8,
+              0.9,
+              1.0
+            ],
+            "average": [
+              0.25933914316875384,
+              0.2372450770109563,
+              0.2891949762754598,
+              0.280038147127666,
+              0.2499922362738019,
+              0.275662193205412,
+              0.3340518162755272,
+              0.37413664074484565,
+              0.3937247192436281,
+              0.41789239497827246,
+              0.3720497719438904,
+              0.3815112546801933
+            ]
+          },
+          "action": "partial dependence plot for exaggerated_uncertainty (label: True)",
+          "summary": "The partial dependence plot for exaggerated_uncertainty shows predicted probability peaks at 0.8 (41.8%) and decreases to 38.2% at 1.0, with the data point (exaggerated_uncertainty=1.0) corresponding to a prediction probability of 0.3815.",
+          "laymans_summary": "Posts with absolute certainty (100% confidence) have a 38% chance of being predicted as 'True', but the model predicts 'True' most often (42%) when posts are 80% confident.",
+          "module_name": "partial dependence plot",
+          "module_params": {
+            "feature_name": "exaggerated_uncertainty",
+            "label": "True"
+          }
+        }
+      ],
+      "conclusion": {
+        "judgement_rating": 2,
+        "judgement_reason": "The model's prediction is supported by strong local explanations for the 'True' label, particularly highlighting exaggerated_uncertainty (SHAP: 0.1764, value: 1.0) and emotionality (SHAP: 0.1175, value: 1.0) as top contributors. The 2D feature distribution confirms a dense cluster at high exaggerated_uncertainty (0.8–1.0) and neutral-to-positive emotionality (-0.08–0.28), reinforcing the model's focus on these values. However, the prediction probability from the partial dependence plot at exaggerated_uncertainty = 1.0 is 0.3815, which is below 0.5, indicating moderate confidence. Although the feature importance aligns with expected patterns, the low confidence in the prediction despite high feature values reduces trustworthiness. Performance metrics (F1: 0.6482) further indicate only moderate model performance.",
+        "judgement_reason_short": "High feature importance and distribution patterns support the prediction, but low confidence score (0.3815) reduces trust.",
+        "most_relevant_modules": [
+          "individual feature importance",
+          "partial dependence plot"
+        ]
+      }
+    },
+    "error": null,
+    "latency_ms": 178764.935,
+    "start_time": "2025-09-21T02:06:15.865251+00:00",
+    "end_time": "2025-09-21T02:09:14.630186+00:00",
+    "trace_id": "1c8917fcbc22b99af2dcaa0590c0e91f",
+    "prompt_token_count": null,
+    "completion_token_count": null,
+    "annotations": [
+      {
+        "name": "xai_description_truthfulness",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 0.7142857142857143,
+        "explanation": null,
+        "trace_id": "0c3270da6ac7b439628ff1035683949a",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-21T02:32:19.310276+00:00",
+        "end_time": "2025-09-21T02:33:11.545407+00:00"
+      },
+      {
+        "name": "layman_xai_truthfulness",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 0.5714285714285714,
+        "explanation": null,
+        "trace_id": "140d19b82cc056d0fab90c888dd87c6b",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-21T02:33:11.561229+00:00",
+        "end_time": "2025-09-21T02:33:55.768709+00:00"
+      },
+      {
+        "name": "short_assessment_truthfulness",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 1.0,
+        "explanation": null,
+        "trace_id": "a9b64da5235949003133bad5f7eb54d9",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-21T02:33:55.779001+00:00",
+        "end_time": "2025-09-21T02:34:00.328687+00:00"
+      },
+      {
+        "name": "focus_quality",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 1.0,
+        "explanation": null,
+        "trace_id": "9a682dfbe0bb1c25fbdfea11f938a23f",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-21T02:34:00.388321+00:00",
+        "end_time": "2025-09-21T02:34:05.845295+00:00"
+      },
+      {
+        "name": "label_correlation",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 0.6666666666666667,
+        "explanation": null,
+        "trace_id": "625795af137828f1a8ffa695ab8f5e8a",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-21T02:34:05.850383+00:00",
+        "end_time": "2025-09-21T02:34:05.852221+00:00"
+      },
+      {
+        "name": "technical_xai_clarity",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 0.5714285714285714,
+        "explanation": null,
+        "trace_id": "396c299483997de50bd2a31f9ae44819",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-21T02:34:05.899649+00:00",
+        "end_time": "2025-09-21T02:34:42.964335+00:00"
+      },
+      {
+        "name": "technical_assessment_clarity",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 1.0,
+        "explanation": null,
+        "trace_id": "5cac6c1390e0b4ef3c240135f41bd9d2",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-21T02:34:42.972115+00:00",
+        "end_time": "2025-09-21T02:34:48.555917+00:00"
+      }
+    ]
+  },
+  {
+    "example_id": "RGF0YXNldEV4YW1wbGU6MjI1",
+    "repetition_number": 1,
+    "input": {
+      "dp_id": 199
+    },
+    "reference_output": {},
+    "output": {
+      "trace": [
+        {
+          "module_output": {
+            "id": 199,
+            "prediction": 2,
+            "statement": "“There was a bill to basically create a ban to make sure we never become a sanctuary state, that no locality passes those regulations, and (former Manchester Mayor Joyce Craig) opposed that bill.”",
+            "values": {
+              "us_vs_them_lang": {
+                "shap_value": 0.0072,
+                "feature_value": 0.0
+              },
+              "exaggerated_uncertainty": {
+                "shap_value": 0.0572,
+                "feature_value": 0.5
+              },
+              "source_quality": {
+                "shap_value": 0.0344,
+                "feature_value": 1.0
+              },
+              "victim_villain_language": {
+                "shap_value": 0.0029,
+                "feature_value": 0.0
+              },
+              "black_and_white_language": {
+                "shap_value": 0.0305,
+                "feature_value": 0.0
+              },
+              "dehumanization": {
+                "shap_value": 0.0101,
+                "feature_value": 0.0
+              },
+              "emotionality": {
+                "shap_value": 0.1364,
+                "feature_value": 0.2
+              },
+              "reading_difficulty": {
+                "shap_value": 0.0356,
+                "feature_value": 0.3
+              },
+              "sentiment": {
+                "shap_value": 0.0381,
+                "feature_value": 0.0
+              },
+              "polarization": {
+                "shap_value": 0.0759,
+                "feature_value": 0.2
+              }
+            },
+            "top_features": [
+              "emotionality",
+              "polarization",
+              "exaggerated_uncertainty",
+              "sentiment",
+              "reading_difficulty",
+              "source_quality",
+              "black_and_white_language",
+              "dehumanization",
+              "us_vs_them_lang",
+              "victim_villain_language"
+            ]
+          },
+          "action": "individual feature importance",
+          "summary": "Top feature contributions for prediction: emotionality (SHAP=0.1364, value=0.2), polarization (SHAP=0.0759, value=0.2), exaggerated_uncertainty (SHAP=0.0572, value=0.5), sentiment (SHAP=0.0381, value=0.0).",
+          "laymans_summary": "The text showed moderate emotion (0.2), mild polarization (0.2), and moderate certainty in claims (0.5), which were the key reasons the model flagged it.",
+          "module_name": "individual feature importance",
+          "module_params": {}
+        },
+        {
+          "module_output": {
+            "counts": [
+              1,
+              31,
+              0,
+              7,
+              83,
+              16,
+              24,
+              21,
+              0,
+              0,
+              1
+            ],
+            "edges": [
+              -0.8,
+              -0.6363636363636365,
+              -0.4727272727272728,
+              -0.30909090909090914,
+              -0.1454545454545455,
+              0.018181818181818077,
+              0.18181818181818177,
+              0.34545454545454546,
+              0.509090909090909,
+              0.6727272727272726,
+              0.8363636363636362,
+              1.0
+            ]
+          },
+          "action": "feature distribution for emotionality (label: True)",
+          "summary": "Feature distribution counts: 1, 31, 0, 7, 83, 16, 24, 21, 0, 0, 1 across 11 bins. Peak at 83 in the [-0.145, 0.018) range, followed by 31 in [-0.636, -0.472) and 24 in [0.181, 0.345). Bins 2, 8, and 9 contain no data.",
+          "laymans_summary": "Most data points cluster around the middle, meaning most examples are neutral or slightly positive/negative.",
+          "module_name": "feature distribution",
+          "module_params": {
+            "feature_name": "emotionality",
+            "label": "True"
+          }
+        },
+        {
+          "module_output": "| emotionality ↓ \\ polarization → | 0.00–0.18 | 0.18–0.36 | 0.36–0.54 | 0.54–0.72 | 0.72–0.90 |\n| --- | --- | --- | --- | --- | --- |\n| -0.80–-0.44 | 0 | 2 | 0 | 12 | 18 |\n| -0.44–-0.08 | 1 | 3 | 0 | 3 | 2 |\n| -0.08–0.28 | 80 | 28 | 8 | 3 | 0 |\n| 0.28–0.64 | 10 | 8 | 1 | 3 | 1 |\n| 0.64–1.00 | 1 | 0 | 0 | 0 | 0 |",
+          "action": "feature distribution 2D for emotionality, polarization (label: True)",
+          "summary": "The 2D feature distribution shows 80 data points in the emotionality range (-0.08 to 0.28) and polarization range (0.00 to 0.18), representing the largest cluster, with declining counts in higher polarization ranges (e.g., 28 in polarization 0.18-0.36, 8 in 0.36-0.54).",
+          "laymans_summary": "Most of the posts had calm emotions and didn't strongly divide people, with 80 examples where the words were neutral and not very polarized.",
+          "module_name": "feature distribution 2D",
+          "module_params": {
+            "feature_name_1": "emotionality",
+            "feature_name_2": "polarization",
+            "label": "True"
+          }
+        },
+        {
+          "module_output": {
+            "accuracy": 0.65,
+            "f1_score": 0.6482,
+            "precision": 0.6531,
+            "recall": 0.65
+          },
+          "action": "performance metrics",
+          "summary": "The model's performance metrics show accuracy: 0.65, F1-score: 0.6482, precision: 0.6531, recall: 0.65.",
+          "laymans_summary": "The model got 65% of the answers right, with similar accuracy in other tests, meaning it's moderately reliable.",
+          "module_name": "performance metrics",
+          "module_params": {}
+        },
+        {
+          "module_output": {
+            "confusion": [
+              [
+                0.64,
+                0.21,
+                0.15
+              ],
+              [
+                0.18,
+                0.66,
+                0.16
+              ],
+              [
+                0.23,
+                0.12,
+                0.65
+              ]
+            ],
+            "note": "First column/row  is the False label, second column/row is the Neither label and third column/row is the True label."
+          },
+          "action": "confusion matrix",
+          "summary": "Confusion matrix results: False predictions: 64% correct (0.64), Neither predictions: 66% correct (0.66), True predictions: 65% correct (0.65).",
+          "laymans_summary": "The model correctly identified false posts 64% of the time, neutral posts 66% of the time, and true posts 65% of the time.",
+          "module_name": "confusion matrix",
+          "module_params": {}
+        },
+        {
+          "module_output": {
+            "label": 2,
+            "values": {
+              "us_vs_them_lang": 0.04,
+              "exaggerated_uncertainty": 0.2,
+              "source_quality": 0.18,
+              "victim_villain_language": 0.04,
+              "black_and_white_language": 0.06,
+              "dehumanization": 0.03,
+              "emotionality": 0.12,
+              "reading_difficulty": 0.09,
+              "sentiment": 0.05,
+              "polarization": 0.18
+            },
+            "top_features": [
+              "exaggerated_uncertainty",
+              "source_quality",
+              "polarization"
+            ]
+          },
+          "action": "global feature importance (label: True)",
+          "summary": "Global feature importance: exaggerated_uncertainty (0.2), source_quality (0.18), polarization (0.18) are the top three contributors to the model's prediction.",
+          "laymans_summary": "The top factors were how certain the post's claims were (0.2), how reliable the sources were (0.18), and how divisive the message was (0.18).",
+          "module_name": "global feature importance",
+          "module_params": {
+            "label": "True"
+          }
+        },
+        {
+          "module_output": {
+            "feature": "emotionality",
+            "class": "True",
+            "grid_values": [
+              -1.0,
+              -0.8,
+              -0.7,
+              -0.6,
+              -0.5,
+              -0.3,
+              -0.2,
+              -0.1,
+              0.0,
+              0.1,
+              0.2,
+              0.3,
+              0.4,
+              0.5,
+              0.6,
+              1.0
+            ],
+            "average": [
+              0.27212788713722263,
+              0.2723090465575125,
+              0.26023800090334664,
+              0.2603322038018974,
+              0.29142963882465683,
+              0.29383187560641777,
+              0.30571452125990356,
+              0.32596732038855597,
+              0.29154377333972376,
+              0.37333731939923104,
+              0.3617089182011783,
+              0.35309942209099143,
+              0.3610554309183403,
+              0.3800458785627662,
+              0.36613624652813426,
+              0.376233376189408
+            ]
+          },
+          "action": "partial dependence plot for emotionality (label: True)",
+          "summary": "At emotionality = 0.2, the partial dependence plot shows an average predicted probability of 0.362 (36.2%) for the 'True' class.",
+          "laymans_summary": "When a post has a little bit of positive emotion (level 0.2), the model thinks it's 'True' about 36% of the time.",
+          "module_name": "partial dependence plot",
+          "module_params": {
+            "feature_name": "emotionality",
+            "label": "True"
+          }
+        }
+      ],
+      "conclusion": {
+        "judgement_rating": 2,
+        "judgement_reason": "The model's prediction is moderately trustworthy based on local explanations. Key insights include: (1) emotionality contributes significantly (SHAP=0.1364) and is at a moderate value (0.2), aligning with a partial dependence plot showing a 36.2% predicted probability for 'True' at this value; (2) polarization (SHAP=0.0759) and exaggerated_uncertainty (SHAP=0.0572) also contribute, with exaggerated_uncertainty being a top global feature (importance=0.2); (3) feature distributions show strong clustering in emotionality and polarization (e.g., 80 data points in the [-0.08,0.28) and [0.00,0.18) ranges), supporting that the model's input is within typical ranges. However, the model’s overall accuracy (0.65) and F1-score (0.6482) are only moderate, and confusion matrix results show no significant improvement in predicting 'True' over other classes, which limits confidence. Therefore, while local explanations are consistent and plausible, wider model performance remains modest.",
+        "judgement_reason_short": "The prediction is moderately trustworthy because local explanations align with typical data patterns, but the model's overall accuracy is only moderate.",
+        "most_relevant_modules": [
+          "individual feature importance",
+          "partial dependence plot"
+        ]
+      }
+    },
+    "error": null,
+    "latency_ms": 156966.58500000002,
+    "start_time": "2025-09-21T02:09:14.636569+00:00",
+    "end_time": "2025-09-21T02:11:51.603154+00:00",
+    "trace_id": "ac04e6aad3254f134e1023ef45768168",
+    "prompt_token_count": null,
+    "completion_token_count": null,
+    "annotations": [
+      {
+        "name": "xai_description_truthfulness",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 0.7142857142857143,
+        "explanation": null,
+        "trace_id": "e97bb1dbb1ba427774064b333527abab",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-21T02:34:48.573033+00:00",
+        "end_time": "2025-09-21T02:35:28.770121+00:00"
+      },
+      {
+        "name": "layman_xai_truthfulness",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 0.42857142857142855,
+        "explanation": null,
+        "trace_id": "a8032c9e0a1f3b02923c90a28b59bd47",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-21T02:35:28.775433+00:00",
+        "end_time": "2025-09-21T02:36:15.224937+00:00"
+      },
+      {
+        "name": "short_assessment_truthfulness",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 1.0,
+        "explanation": null,
+        "trace_id": "5e8e8e105d5fbcff868829b119098199",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-21T02:36:15.246866+00:00",
+        "end_time": "2025-09-21T02:36:20.323206+00:00"
+      },
+      {
+        "name": "focus_quality",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 1.0,
+        "explanation": null,
+        "trace_id": "c71132976070af89205d9e24f7a70460",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-21T02:36:20.330376+00:00",
+        "end_time": "2025-09-21T02:36:25.996517+00:00"
+      },
+      {
+        "name": "label_correlation",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 0.6666666666666667,
+        "explanation": null,
+        "trace_id": "ca36cb8ef3bba725b66793f9aaf4270b",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-21T02:36:26.001764+00:00",
+        "end_time": "2025-09-21T02:36:26.005002+00:00"
+      },
+      {
+        "name": "technical_xai_clarity",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 0.7142857142857143,
+        "explanation": null,
+        "trace_id": "5d5b8beb3556add3883ff7ad8543286b",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-21T02:36:26.061948+00:00",
+        "end_time": "2025-09-21T02:37:02.831156+00:00"
+      },
+      {
+        "name": "technical_assessment_clarity",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 1.0,
+        "explanation": null,
+        "trace_id": "094bc3544f8de0cd9b6a2ac4f16b0fb4",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-21T02:37:02.850244+00:00",
+        "end_time": "2025-09-21T02:37:08.301757+00:00"
+      }
+    ]
+  },
+  {
+    "example_id": "RGF0YXNldEV4YW1wbGU6MjI2",
+    "repetition_number": 1,
+    "input": {
+      "dp_id": 200
+    },
+    "reference_output": {},
+    "output": {
+      "trace": [
+        {
+          "module_output": {
+            "id": 200,
+            "prediction": 2,
+            "statement": "“Since May of last year, we have removed or returned more individuals than in any year since 2015.”",
+            "values": {
+              "us_vs_them_lang": {
+                "shap_value": 0.0187,
+                "feature_value": 0.0
+              },
+              "exaggerated_uncertainty": {
+                "shap_value": 0.1231,
+                "feature_value": 0.8
+              },
+              "source_quality": {
+                "shap_value": 0.1047,
+                "feature_value": 0.0
+              },
+              "victim_villain_language": {
+                "shap_value": -0.0012,
+                "feature_value": 0.0
+              },
+              "black_and_white_language": {
+                "shap_value": 0.0218,
+                "feature_value": 0.0
+              },
+              "dehumanization": {
+                "shap_value": 0.0122,
+                "feature_value": 0.0
+              },
+              "emotionality": {
+                "shap_value": 0.1279,
+                "feature_value": 0.1
+              },
+              "reading_difficulty": {
+                "shap_value": -0.0219,
+                "feature_value": 0.2
+              },
+              "sentiment": {
+                "shap_value": 0.0389,
+                "feature_value": 0.0
+              },
+              "polarization": {
+                "shap_value": 0.1387,
+                "feature_value": 0.1
+              }
+            },
+            "top_features": [
+              "polarization",
+              "emotionality",
+              "exaggerated_uncertainty",
+              "source_quality",
+              "sentiment",
+              "reading_difficulty",
+              "black_and_white_language",
+              "us_vs_them_lang",
+              "dehumanization",
+              "victim_villain_language"
+            ]
+          },
+          "action": "individual feature importance",
+          "summary": "Top features influencing the 'True' prediction: polarization (SHAP 0.1387, value 0.1), emotionality (0.1279, 0.1), exaggerated_uncertainty (0.1231, 0.8), source_quality (0.1047, 0.0). Polarization had the highest influence (0.1387), with exaggerated_uncertainty showing the strongest feature value (0.8).",
+          "laymans_summary": "The model found the post was polarizing because it used extreme language (0.14 influence), strong emotions (0.13), very certain claims (0.12), and good sources (0.10). The claims were very definite (exaggerated_uncertainty=0.8) and the post had mild emotion (emotionality=0.1).",
+          "module_name": "individual feature importance",
+          "module_params": {}
+        },
+        {
+          "module_output": {
+            "counts": [
+              63,
+              29,
+              33,
+              8,
+              1,
+              8,
+              5,
+              16,
+              17,
+              4
+            ],
+            "edges": [
+              0.0,
+              0.09,
+              0.18,
+              0.27,
+              0.36,
+              0.44999999999999996,
+              0.54,
+              0.63,
+              0.72,
+              0.8099999999999999,
+              0.9
+            ]
+          },
+          "action": "feature distribution for polarization (label: True)",
+          "summary": "Feature distribution shows 63 counts in [0.0, 0.09), 33 in [0.18, 0.27), and decreasing counts for higher intervals, indicating dominant presence of low-range features.",
+          "laymans_summary": "Most features are in the lowest range (0.0 to 0.09), with 63 data points. The next highest is 33 in the 0.18 to 0.27 range.",
+          "module_name": "feature distribution",
+          "module_params": {
+            "feature_name": "polarization",
+            "label": "True"
+          }
+        },
+        {
+          "module_output": "| polarization ↓ \\ emotionality → | -0.80–-0.44 | -0.44–-0.08 | -0.08–0.28 | 0.28–0.64 | 0.64–1.00 |\n| --- | --- | --- | --- | --- | --- |\n| 0.00–0.18 | 0 | 1 | 80 | 10 | 1 |\n| 0.18–0.36 | 2 | 3 | 28 | 8 | 0 |\n| 0.36–0.54 | 0 | 0 | 8 | 1 | 0 |\n| 0.54–0.72 | 12 | 3 | 3 | 3 | 0 |\n| 0.72–0.90 | 18 | 2 | 0 | 1 | 0 |",
+          "action": "feature distribution 2D for polarization, emotionality (label: True)",
+          "summary": "The 2D feature distribution shows 80 data points in the low polarization (0.00–0.18) and emotionality (-0.08–0.28) range, reflecting a majority of posts with nuanced, low-emotional tone.",
+          "laymans_summary": "Most posts (80 examples) are calm and not overly divided, with neutral or slightly positive feelings.",
+          "module_name": "feature distribution 2D",
+          "module_params": {
+            "feature_name_1": "polarization",
+            "feature_name_2": "emotionality",
+            "label": "True"
+          }
+        },
+        {
+          "module_output": {
+            "accuracy": 0.65,
+            "f1_score": 0.6482,
+            "precision": 0.6531,
+            "recall": 0.65
+          },
+          "action": "performance metrics",
+          "summary": "Performance metrics: Accuracy = 0.65, F1 Score = 0.6482, Precision = 0.6531, Recall = 0.65",
+          "laymans_summary": "The model correctly predicts 65% of the time, making it a reliable tool for this task.",
+          "module_name": "performance metrics",
+          "module_params": {}
+        },
+        {
+          "module_output": {
+            "confusion": [
+              [
+                0.64,
+                0.21,
+                0.15
+              ],
+              [
+                0.18,
+                0.66,
+                0.16
+              ],
+              [
+                0.23,
+                0.12,
+                0.65
+              ]
+            ],
+            "note": "First column/row  is the False label, second column/row is the Neither label and third column/row is the True label."
+          },
+          "action": "confusion matrix",
+          "summary": "The confusion matrix shows the model correctly classifies 'True' labels 65% of the time (0.65), with 64% accuracy for 'False' and 66% for 'Neither'.",
+          "laymans_summary": "The model correctly identifies 'True' posts 65 times out of 100, meaning it's right most of the time when marking something as 'True'.",
+          "module_name": "confusion matrix",
+          "module_params": {}
+        },
+        {
+          "module_output": {
+            "label": 2,
+            "values": {
+              "us_vs_them_lang": 0.04,
+              "exaggerated_uncertainty": 0.2,
+              "source_quality": 0.18,
+              "victim_villain_language": 0.04,
+              "black_and_white_language": 0.06,
+              "dehumanization": 0.03,
+              "emotionality": 0.12,
+              "reading_difficulty": 0.09,
+              "sentiment": 0.05,
+              "polarization": 0.18
+            },
+            "top_features": [
+              "exaggerated_uncertainty",
+              "source_quality",
+              "polarization"
+            ]
+          },
+          "action": "global feature importance (label: True)",
+          "summary": "The top global feature importances are exaggerated_uncertainty (0.2), source_quality (0.18), and polarization (0.18), indicating these features most strongly influenced the model's 'True' prediction.",
+          "laymans_summary": "The top factors the model used were how certain the post is (0.2), source quality (0.18), and polarization (0.18).",
+          "module_name": "global feature importance",
+          "module_params": {
+            "label": "True"
+          }
+        },
+        {
+          "module_output": {
+            "feature": "polarization",
+            "class": "True",
+            "grid_values": [
+              0.0,
+              0.1,
+              0.2,
+              0.3,
+              0.4,
+              0.5,
+              0.6,
+              0.7,
+              0.8,
+              0.9,
+              1.0
+            ],
+            "average": [
+              0.398650062285356,
+              0.39667849778366016,
+              0.3740082639622025,
+              0.33604280299771105,
+              0.2921568629651523,
+              0.2967642808642616,
+              0.309114647983257,
+              0.2963244913225843,
+              0.2123638821128265,
+              0.19911044855738919,
+              0.176890676211961
+            ]
+          },
+          "action": "partial dependence plot for polarization (label: True)",
+          "summary": "The partial dependence plot shows that as polarization increases from 0.0 to 1.0, the predicted probability for class 'True' decreases from 0.399 to 0.177. At the data point's polarization value of 0.1, the average probability is 0.3967.",
+          "laymans_summary": "When posts show more extreme division (higher polarization), the model is less likely to say they are 'True' (a negative label). For example, at a polarization level of 0.1, the model is about 40% sure.",
+          "module_name": "partial dependence plot",
+          "module_params": {
+            "feature_name": "polarization",
+            "label": "True"
+          }
+        }
+      ],
+      "conclusion": {
+        "judgement_rating": 2,
+        "judgement_reason": "The model's prediction is moderately trustworthy. Local explanation tools such as individual feature importance and partial dependence plots support the result: polarization (0.1) and exaggerated_uncertainty (0.8) are highly influential, and the partial dependence plot shows that at a polarization value of 0.1, the predicted probability for 'True' is 0.3967, which aligns with moderate confidence. However, global feature importance shows exaggerated_uncertainty has the highest impact (0.2), suggesting its dominance may skew predictions. The model accuracy (0.65) and F1 score (0.6482) are only moderate, indicating limited overall performance. While local explanations are consistent across multiple modules, the model's general performance is not strong, reducing overall trustworthiness.",
+        "judgement_reason_short": "Features like exaggerated_uncertainty and polarization matter, but model accuracy is only moderate.",
+        "most_relevant_modules": [
+          "individual feature importance",
+          "partial dependence plot"
+        ]
+      }
+    },
+    "error": null,
+    "latency_ms": 205043.153,
+    "start_time": "2025-09-21T02:14:28.898753+00:00",
+    "end_time": "2025-09-21T02:17:53.941906+00:00",
+    "trace_id": "5876150adbc00f4c38e2cab9bd14d6ca",
+    "prompt_token_count": null,
+    "completion_token_count": null,
+    "annotations": [
+      {
+        "name": "xai_description_truthfulness",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 0.8571428571428571,
+        "explanation": null,
+        "trace_id": "59d67f125f840c22ef71470de2dc3863",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-21T02:37:08.332341+00:00",
+        "end_time": "2025-09-21T02:37:53.052257+00:00"
+      },
+      {
+        "name": "layman_xai_truthfulness",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 0.2857142857142857,
+        "explanation": null,
+        "trace_id": "edd7532afc06ee850ec70b9fd2e1617a",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-21T02:37:53.083056+00:00",
+        "end_time": "2025-09-21T02:38:39.009290+00:00"
+      },
+      {
+        "name": "short_assessment_truthfulness",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 1.0,
+        "explanation": null,
+        "trace_id": "760c62bb1767bc682b7eb6e36d487ae7",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-21T02:38:39.033288+00:00",
+        "end_time": "2025-09-21T02:38:43.573842+00:00"
+      },
+      {
+        "name": "focus_quality",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 1.0,
+        "explanation": null,
+        "trace_id": "9746a081965cc1cfe3cf4542bc7bb9ce",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-21T02:38:43.627767+00:00",
+        "end_time": "2025-09-21T02:38:48.593729+00:00"
+      },
+      {
+        "name": "label_correlation",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 0.6666666666666667,
+        "explanation": null,
+        "trace_id": "1c7a97a51167f3492936fb446bd5ec43",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-21T02:38:48.643504+00:00",
+        "end_time": "2025-09-21T02:38:48.645009+00:00"
+      },
+      {
+        "name": "technical_xai_clarity",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 0.42857142857142855,
+        "explanation": null,
+        "trace_id": "1fe7bd9db44fcc8f27a5d19c5ef88a05",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-21T02:38:48.696190+00:00",
+        "end_time": "2025-09-21T02:39:31.751870+00:00"
+      },
+      {
+        "name": "technical_assessment_clarity",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 1.0,
+        "explanation": null,
+        "trace_id": "bd36640042bfb159e986f05fd8105ded",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-21T02:39:31.769775+00:00",
+        "end_time": "2025-09-21T02:39:37.449851+00:00"
+      }
+    ]
+  },
+  {
+    "example_id": "RGF0YXNldEV4YW1wbGU6MjI3",
+    "repetition_number": 1,
+    "input": {
+      "dp_id": 201
+    },
+    "reference_output": {},
+    "output": {
+      "trace": [
+        {
+          "module_output": {
+            "id": 201,
+            "prediction": 2,
+            "statement": "“When I worked on the Affordable Care Act, I wrote the amendment that allows all young people to stay on their parents’ health insurance until they turn 26. Overnight, millions of young Americans got health care.”",
+            "values": {
+              "us_vs_them_lang": {
+                "shap_value": 0.0131,
+                "feature_value": 0.0
+              },
+              "exaggerated_uncertainty": {
+                "shap_value": 0.1328,
+                "feature_value": 1.0
+              },
+              "source_quality": {
+                "shap_value": 0.1036,
+                "feature_value": 0.0
+              },
+              "victim_villain_language": {
+                "shap_value": -0.0071,
+                "feature_value": 0.0
+              },
+              "black_and_white_language": {
+                "shap_value": 0.0266,
+                "feature_value": 0.0
+              },
+              "dehumanization": {
+                "shap_value": 0.0103,
+                "feature_value": 0.0
+              },
+              "emotionality": {
+                "shap_value": 0.0566,
+                "feature_value": 0.5
+              },
+              "reading_difficulty": {
+                "shap_value": -0.0244,
+                "feature_value": 0.2
+              },
+              "sentiment": {
+                "shap_value": -0.0516,
+                "feature_value": 1.0
+              },
+              "polarization": {
+                "shap_value": -0.0099,
+                "feature_value": 0.1
+              }
+            },
+            "top_features": [
+              "exaggerated_uncertainty",
+              "source_quality",
+              "emotionality",
+              "sentiment",
+              "black_and_white_language",
+              "reading_difficulty",
+              "us_vs_them_lang",
+              "dehumanization",
+              "polarization",
+              "victim_villain_language"
+            ]
+          },
+          "action": "individual feature importance",
+          "summary": "Top feature contributors to True prediction: exaggerated_uncertainty (value: 1.0, SHAP: 0.1328), source_quality (value: 0.0, SHAP: 0.1036), emotionality (value: 0.5, SHAP: 0.0566).",
+          "laymans_summary": "The post says things as absolute facts (like 'millions got care overnight'), gives specific examples, and uses strong emotions. These make the model think it's biased.",
+          "module_name": "individual feature importance",
+          "module_params": {}
+        },
+        {
+          "module_output": {
+            "counts": [
+              19,
+              0,
+              6,
+              0,
+              0,
+              34,
+              16,
+              1,
+              62,
+              46
+            ],
+            "edges": [
+              0.0,
+              0.1,
+              0.2,
+              0.30000000000000004,
+              0.4,
+              0.5,
+              0.6000000000000001,
+              0.7000000000000001,
+              0.8,
+              0.9,
+              1.0
+            ]
+          },
+          "action": "feature distribution for exaggerated_uncertainty (label: True)",
+          "summary": "Feature distribution shows concentrated high values: 62 features in [0.8, 0.9), 46 in [0.9, 1.0], with minimal presence in lower ranges (e.g., 19 in [0.0, 0.1), 6 in [0.2, 0.3), and zero counts for [0.1, 0.2), [0.3, 0.4), [0.4, 0.5)).",
+          "laymans_summary": "Most features are very high, like 62 features between 80-90% and 46 features between 90-100% on a scale where 100% is the highest.",
+          "module_name": "feature distribution",
+          "module_params": {
+            "feature_name": "exaggerated_uncertainty",
+            "label": "True"
+          }
+        },
+        {
+          "module_output": "| exaggerated_uncertainty ↓ \\ source_quality → | 0.00–0.67 | 0.67–1.33 | 1.33–2.00 |\n| --- | --- | --- | --- |\n| 0.00–0.20 | 11 | 6 | 2 |\n| 0.20–0.40 | 1 | 4 | 1 |\n| 0.40–0.60 | 4 | 30 | 0 |\n| 0.60–0.80 | 1 | 16 | 0 |\n| 0.80–1.00 | 48 | 59 | 1 |",
+          "action": "feature distribution 2D for exaggerated_uncertainty, source_quality (label: True)",
+          "summary": "Current datapoint: exaggerated_uncertainty=1.0 (0.80-1.00 range), source_quality=0.0 (0.00-0.67 range). Cell count: 48. Highest cell count (59) corresponds to exaggerated_uncertainty=0.80-1.00 & source_quality=0.67-1.33.",
+          "laymans_summary": "The model shows most posts with high certainty (exaggerated_uncertainty at 1.0) and low sourcing quality (source_quality at 0.0) appear in a common pattern, with 48 examples matching these values. This is the largest cluster in the dataset, while the most frequent overall combination (59 examples) involves moderate sourcing (0.67-1.33).",
+          "module_name": "feature distribution 2D",
+          "module_params": {
+            "feature_name_1": "exaggerated_uncertainty",
+            "feature_name_2": "source_quality",
+            "label": "True"
+          }
+        },
+        {
+          "module_output": {
+            "accuracy": 0.65,
+            "f1_score": 0.6482,
+            "precision": 0.6531,
+            "recall": 0.65
+          },
+          "action": "performance metrics",
+          "summary": "The model achieved an accuracy of 65.00%, F1 score of 64.82%, precision of 65.31%, and recall of 65.00%.",
+          "laymans_summary": "The model got about 65 questions right out of 100 and did a good job distinguishing correct answers from wrong ones, making few mistakes when saying something was true.",
+          "module_name": "performance metrics",
+          "module_params": {}
+        },
+        {
+          "module_output": {
+            "confusion": [
+              [
+                0.64,
+                0.21,
+                0.15
+              ],
+              [
+                0.18,
+                0.66,
+                0.16
+              ],
+              [
+                0.23,
+                0.12,
+                0.65
+              ]
+            ],
+            "note": "First column/row  is the False label, second column/row is the Neither label and third column/row is the True label."
+          },
+          "action": "confusion matrix",
+          "summary": "The confusion matrix shows a True/True prediction rate of 65% (0.65), with accuracy rates of 64% (0.64) for False/False and 66% (0.66) for Neither/Neither.",
+          "laymans_summary": "The model correctly guessed 'True' answers 65 times out of 100.",
+          "module_name": "confusion matrix",
+          "module_params": {}
+        },
+        {
+          "module_output": {
+            "label": 2,
+            "values": {
+              "us_vs_them_lang": 0.04,
+              "exaggerated_uncertainty": 0.2,
+              "source_quality": 0.18,
+              "victim_villain_language": 0.04,
+              "black_and_white_language": 0.06,
+              "dehumanization": 0.03,
+              "emotionality": 0.12,
+              "reading_difficulty": 0.09,
+              "sentiment": 0.05,
+              "polarization": 0.18
+            },
+            "top_features": [
+              "exaggerated_uncertainty",
+              "source_quality",
+              "polarization"
+            ]
+          },
+          "action": "global feature importance (label: True)",
+          "summary": "Global feature importance shows exaggerated_uncertainty (0.2), source_quality (0.18), and polarization (0.18) as the top three contributors to the model's prediction.",
+          "laymans_summary": "The top three factors the model noticed were how certain the post was (20%), how good the sources were (18%), and how polarized the topic was (18%).",
+          "module_name": "global feature importance",
+          "module_params": {
+            "label": "True"
+          }
+        },
+        {
+          "module_output": {
+            "feature": "exaggerated_uncertainty",
+            "class": "True",
+            "grid_values": [
+              0.0,
+              0.1,
+              0.2,
+              0.3,
+              0.4,
+              0.5,
+              0.6,
+              0.7,
+              0.75,
+              0.8,
+              0.9,
+              1.0
+            ],
+            "average": [
+              0.25933914316875384,
+              0.2372450770109563,
+              0.2891949762754598,
+              0.280038147127666,
+              0.2499922362738019,
+              0.275662193205412,
+              0.3340518162755272,
+              0.37413664074484565,
+              0.3937247192436281,
+              0.41789239497827246,
+              0.3720497719438904,
+              0.3815112546801933
+            ]
+          },
+          "action": "partial dependence plot for exaggerated_uncertainty (label: True)",
+          "summary": "The partial dependence plot for 'exaggerated_uncertainty' shows a peak prediction probability of 0.4179 at 0.8 certainty (80% definitive claims), followed by a slight decline to 0.3815 at 1.0 certainty (absolute certainty). The given post's 'exaggerated_uncertainty' value of 1.0 corresponds to a predicted probability of 0.3815.",
+          "laymans_summary": "The model is most confident a post is 'True' (meets the criteria) when claims are stated very definitely (80% certainty), with a 42% confidence. At full certainty (100%), confidence drops to 38%.",
+          "module_name": "partial dependence plot",
+          "module_params": {
+            "feature_name": "exaggerated_uncertainty",
+            "label": "True"
+          }
+        }
+      ],
+      "conclusion": {
+        "judgement_rating": 2,
+        "judgement_reason": "The prediction is moderately trustworthy because while the local explanation shows strong feature contributions from exaggerated_uncertainty (1.0) and source_quality (0.0), the partial dependence plot indicates that the peak prediction probability (0.4179) occurs at 80% certainty, not at the observed 100% certainty (value: 1.0), where the probability drops to 0.3815. This suggests a mismatch between the model's learned pattern and the current input value, reducing confidence. Additionally, the model's overall accuracy (65.00%) is only moderate, and no direct verification of the statement's factual accuracy is provided.",
+        "judgement_reason_short": "The model predicts lower confidence at 100% certainty than at 80%, which is concerning given the input value.",
+        "most_relevant_modules": [
+          "partial dependence plot",
+          "individual feature importance"
+        ]
+      }
+    },
+    "error": null,
+    "latency_ms": 175286.764,
+    "start_time": "2025-09-21T02:17:53.948896+00:00",
+    "end_time": "2025-09-21T02:20:49.235660+00:00",
+    "trace_id": "093f9af789ae84aa68cbf4f25ad8fc49",
+    "prompt_token_count": null,
+    "completion_token_count": null,
+    "annotations": [
+      {
+        "name": "xai_description_truthfulness",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 1.0,
+        "explanation": null,
+        "trace_id": "fc8f2c4f1e0393f4948228e6b3b1cb0e",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-21T02:39:37.456187+00:00",
+        "end_time": "2025-09-21T02:40:24.034026+00:00"
+      },
+      {
+        "name": "layman_xai_truthfulness",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 0.14285714285714285,
+        "explanation": null,
+        "trace_id": "dba06969d674eb7f1a6879b13dba36f4",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-21T02:40:24.048254+00:00",
+        "end_time": "2025-09-21T02:41:23.702713+00:00"
+      },
+      {
+        "name": "short_assessment_truthfulness",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 1.0,
+        "explanation": null,
+        "trace_id": "61750be882c1677a54ab153d1b9e4c9e",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-21T02:41:23.710176+00:00",
+        "end_time": "2025-09-21T02:41:29.374516+00:00"
+      },
+      {
+        "name": "focus_quality",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 1.0,
+        "explanation": null,
+        "trace_id": "edb88251cffccb445f0969af550f971d",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-21T02:41:29.395678+00:00",
+        "end_time": "2025-09-21T02:41:36.555620+00:00"
+      },
+      {
+        "name": "label_correlation",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 0.6666666666666667,
+        "explanation": null,
+        "trace_id": "cc91dc534833548744fd6082f7976479",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-21T02:41:36.573697+00:00",
+        "end_time": "2025-09-21T02:41:36.576770+00:00"
+      },
+      {
+        "name": "technical_xai_clarity",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 0.8571428571428571,
+        "explanation": null,
+        "trace_id": "e46aadf2e9d52b9b2190bcc92efd9896",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-21T02:41:36.625305+00:00",
+        "end_time": "2025-09-21T02:42:15.076962+00:00"
+      },
+      {
+        "name": "technical_assessment_clarity",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 1.0,
+        "explanation": null,
+        "trace_id": "f72f29bcd879ae86f37614406f6499f6",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-21T02:42:15.083293+00:00",
+        "end_time": "2025-09-21T02:42:21.621919+00:00"
+      }
+    ]
+  },
+  {
+    "example_id": "RGF0YXNldEV4YW1wbGU6MjI4",
+    "repetition_number": 1,
+    "input": {
+      "dp_id": 202
+    },
+    "reference_output": {},
+    "output": {
+      "trace": [
+        {
+          "module_output": {
+            "id": 202,
+            "prediction": 2,
+            "statement": "“It's estimated” that President Donald Trump’s tariffs will mean “American families would have to pay about $4,000 more a year.”",
+            "values": {
+              "us_vs_them_lang": {
+                "shap_value": -0.0097,
+                "feature_value": 1.0
+              },
+              "exaggerated_uncertainty": {
+                "shap_value": 0.0044,
+                "feature_value": 0.6
+              },
+              "source_quality": {
+                "shap_value": 0.0608,
+                "feature_value": 1.0
+              },
+              "victim_villain_language": {
+                "shap_value": 0.0402,
+                "feature_value": 1.0
+              },
+              "black_and_white_language": {
+                "shap_value": 0.1884,
+                "feature_value": 0.0
+              },
+              "dehumanization": {
+                "shap_value": 0.0105,
+                "feature_value": 0.0
+              },
+              "emotionality": {
+                "shap_value": 0.0002,
+                "feature_value": -0.5
+              },
+              "reading_difficulty": {
+                "shap_value": -0.0018,
+                "feature_value": 0.2
+              },
+              "sentiment": {
+                "shap_value": 0.0161,
+                "feature_value": -1.0
+              },
+              "polarization": {
+                "shap_value": -0.0118,
+                "feature_value": 0.8
+              }
+            },
+            "top_features": [
+              "black_and_white_language",
+              "source_quality",
+              "victim_villain_language",
+              "sentiment",
+              "polarization",
+              "dehumanization",
+              "us_vs_them_lang",
+              "exaggerated_uncertainty",
+              "reading_difficulty",
+              "emotionality"
+            ]
+          },
+          "action": "individual feature importance",
+          "summary": "Top contributing features to prediction (True): black_and_white_language (SHAP=0.1884), source_quality (0.0608), victim_villain_language (0.0402), with polarization at 0.8. Binary framing, vague sourcing, and victim-villain narratives significantly drove the high polarization score.",
+          "laymans_summary": "The post about Trump's tariffs used simple 'good vs bad' language (like calling others 'evil'), didn't give clear evidence for claims, and framed issues as 'good people vs villains.' These factors made it seem more extreme. The top influences were the simple language (0.188), vague sources (0.06), and victim-villain story (0.04).",
+          "module_name": "individual feature importance",
+          "module_params": {}
+        },
+        {
+          "module_output": {
+            "counts": [
+              138,
+              46
+            ],
+            "edges": [
+              0.0,
+              0.5,
+              1.0
+            ]
+          },
+          "action": "feature distribution for black_and_white_language (label: True)",
+          "summary": "The feature distribution for the True prediction shows 138 samples in the [0.0, 0.5) bin and 46 samples in the [0.5, 1.0) bin, based on edges [0.0, 0.5, 1.0].",
+          "laymans_summary": "When the model predicts 'True', most examples (138) fall in the lower category (0.0 to 0.5), and fewer (46) fall in the higher category (0.5 to 1.0).",
+          "module_name": "feature distribution",
+          "module_params": {
+            "feature_name": "black_and_white_language",
+            "label": "True"
+          }
+        },
+        {
+          "module_output": "| black_and_white_language ↓ \\ source_quality → | 0.00–0.67 | 0.67–1.33 | 1.33–2.00 |\n| --- | --- | --- | --- |\n| 0.00–0.50 | 61 | 74 | 3 |\n| 0.50–1.00 | 4 | 41 | 1 |",
+          "action": "feature distribution 2D for black_and_white_language, source_quality (label: True)",
+          "summary": "The 2D feature distribution shows 74 instances in the cell where black_and_white_language (0.00–0.50) and source_quality (0.67–1.33) intersect, representing the most common combination for this model's prediction.",
+          "laymans_summary": "The chart shows 74 cases where posts used simple language without extreme 'good vs. evil' framing and had sources that were easy to verify.",
+          "module_name": "feature distribution 2D",
+          "module_params": {
+            "feature_name_1": "black_and_white_language",
+            "feature_name_2": "source_quality",
+            "label": "True"
+          }
+        },
+        {
+          "module_output": {
+            "accuracy": 0.65,
+            "f1_score": 0.6482,
+            "precision": 0.6531,
+            "recall": 0.65
+          },
+          "action": "performance metrics",
+          "summary": "Accuracy: 0.65, F1 Score: 0.6482, Precision: 0.6531, Recall: 0.65",
+          "laymans_summary": "The model got it right 65 times out of 100, with similar accuracy in identifying key patterns (like which posts were polarizing or misleading).",
+          "module_name": "performance metrics",
+          "module_params": {}
+        },
+        {
+          "module_output": {
+            "confusion": [
+              [
+                0.64,
+                0.21,
+                0.15
+              ],
+              [
+                0.18,
+                0.66,
+                0.16
+              ],
+              [
+                0.23,
+                0.12,
+                0.65
+              ]
+            ],
+            "note": "First column/row  is the False label, second column/row is the Neither label and third column/row is the True label."
+          },
+          "action": "confusion matrix",
+          "summary": "The confusion matrix shows the model correctly classifies 'False' labels 64% of the time, 'Neither' labels 66% of the time, and 'True' labels 65% of the time.",
+          "laymans_summary": "The model gets the right answer about two-thirds of the time for each type, like True, False, or Neither.",
+          "module_name": "confusion matrix",
+          "module_params": {}
+        },
+        {
+          "module_output": {
+            "label": 2,
+            "values": {
+              "us_vs_them_lang": 0.04,
+              "exaggerated_uncertainty": 0.2,
+              "source_quality": 0.18,
+              "victim_villain_language": 0.04,
+              "black_and_white_language": 0.06,
+              "dehumanization": 0.03,
+              "emotionality": 0.12,
+              "reading_difficulty": 0.09,
+              "sentiment": 0.05,
+              "polarization": 0.18
+            },
+            "top_features": [
+              "exaggerated_uncertainty",
+              "source_quality",
+              "polarization"
+            ]
+          },
+          "action": "global feature importance (label: True)",
+          "summary": "Global feature importance analysis shows exaggerated_uncertainty (0.2) as the top predictor, followed by source_quality (0.18) and polarization (0.18), indicating these aspects most strongly contributed to the model's True prediction.",
+          "laymans_summary": "The model's prediction was most influenced by how certain the text was (0.2), source reliability (0.18), and polarization (0.18).",
+          "module_name": "global feature importance",
+          "module_params": {
+            "label": "True"
+          }
+        },
+        {
+          "module_output": {
+            "feature": "black_and_white_language",
+            "class": "True",
+            "grid_values": [
+              0,
+              1
+            ],
+            "average": [
+              0.3923361211923157,
+              0.3303958595687459
+            ]
+          },
+          "action": "partial dependence plot for black_and_white_language (label: True)",
+          "summary": "The partial dependence plot shows that as 'black_and_white_language' increases from 0.0 to 1.0, the predicted probability for class 'True' decreases from 0.392 to 0.330.",
+          "laymans_summary": "When a post uses simple 'good vs. evil' language (black-and-white), the model's prediction that it's a certain type (True) drops from about 39% to 33%.",
+          "module_name": "partial dependence plot",
+          "module_params": {
+            "feature_name": "black_and_white_language",
+            "label": "True"
+          }
+        }
+      ],
+      "conclusion": {
+        "judgement_rating": 2,
+        "judgement_reason": "The model predicts a 'True' label with moderate confidence, supported by strong local explanations. The individual feature importance highlights black_and_white_language (SHAP=0.1884) and source_quality (0.0608) as top contributors, indicating that binary framing and vague sourcing significantly influenced the high polarization score. The 2D feature distribution shows 74 instances in the cell where black_and_white_language is in [0.0, 0.5) and source_quality is in [0.67, 1.33), representing the most common combination for the 'True' prediction. However, the partial dependence plot shows a counterintuitive decrease in 'True' probability as black_and_white_language increases, contradicting the positive SHAP value, raising concerns about consistency. Despite this, the performance metrics (accuracy 0.65, F1 0.6482) and confusion matrix (65% true positive rate) suggest only moderate overall reliability. The global importance also identifies exaggerated_uncertainty and polarization as top predictors, reinforcing the 'True' label. The inconsistency between SHAP and PDP results introduces uncertainty, reducing trustworthiness.",
+        "judgement_reason_short": "Highly influenced by binary framing and vague sourcing, but conflicting signals in the plots reduce confidence.",
+        "most_relevant_modules": [
+          "individual feature importance",
+          "partial dependence plot"
+        ]
+      }
+    },
+    "error": null,
+    "latency_ms": 156697.627,
+    "start_time": "2025-09-21T02:24:25.898581+00:00",
+    "end_time": "2025-09-21T02:27:02.596208+00:00",
+    "trace_id": "6f2472334be4671d2aea8496e3237582",
+    "prompt_token_count": null,
+    "completion_token_count": null,
+    "annotations": [
+      {
+        "name": "xai_description_truthfulness",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 0.7142857142857143,
+        "explanation": null,
+        "trace_id": "fa15f943326c56607491178403ca52a7",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-21T02:42:21.656831+00:00",
+        "end_time": "2025-09-21T02:43:01.353911+00:00"
+      },
+      {
+        "name": "layman_xai_truthfulness",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 0.7142857142857143,
+        "explanation": null,
+        "trace_id": "00ce40dc5d195c544a14a36002bb5f45",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-21T02:43:01.359924+00:00",
+        "end_time": "2025-09-21T02:43:44.602773+00:00"
+      },
+      {
+        "name": "short_assessment_truthfulness",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 1.0,
+        "explanation": null,
+        "trace_id": "db6b893100937f84a817286f969d0d80",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-21T02:43:44.660795+00:00",
+        "end_time": "2025-09-21T02:43:50.427521+00:00"
+      },
+      {
+        "name": "focus_quality",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 1.0,
+        "explanation": null,
+        "trace_id": "448a60fcc24a1cf9ec280fe9ca18ff66",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-21T02:43:50.434891+00:00",
+        "end_time": "2025-09-21T02:43:56.694750+00:00"
+      },
+      {
+        "name": "label_correlation",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 0.6666666666666667,
+        "explanation": null,
+        "trace_id": "8173d4ac459c905f3cc5e63876348aad",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-21T02:43:56.705450+00:00",
+        "end_time": "2025-09-21T02:43:56.710174+00:00"
+      },
+      {
+        "name": "technical_xai_clarity",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 0.7142857142857143,
+        "explanation": null,
+        "trace_id": "e8573045166e610bc9f2abd4bb43f5ef",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-21T02:43:56.766807+00:00",
+        "end_time": "2025-09-21T02:44:32.090304+00:00"
+      },
+      {
+        "name": "technical_assessment_clarity",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 0.0,
+        "explanation": null,
+        "trace_id": "2430d1b0cd8354e85487fb036ce215cc",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-09-21T02:44:32.117401+00:00",
+        "end_time": "2025-09-21T02:44:40.263366+00:00"
+      }
+    ]
+  }
+]

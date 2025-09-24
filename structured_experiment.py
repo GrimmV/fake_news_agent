@@ -340,14 +340,20 @@ def main():
     #     },
     # ]
     
-    for i in range(1, 5):
+    for i in range(1, 6):
         for key, value in test_dataset.items():
-            ds_version = f"patterns_{key}_v1"
-            # overall_experiment_df = pd.DataFrame(value)
-            # dataset = px_client.upload_dataset(dataframe=overall_experiment_df,
-            #                             dataset_name=f"structured_experiment_inputs_{ds_version}",
-            #                             input_keys=["dp_id"])
-            dataset = px_client.get_dataset(name=f"structured_experiment_inputs_{ds_version}")
+            ds_version = f"patterns_{key}_v1.1"
+            overall_experiment_df = pd.DataFrame(value)
+            try:
+                dataset = px_client.upload_dataset(dataframe=overall_experiment_df,
+                                        dataset_name=f"structured_experiment_inputs_{ds_version}",
+                                        input_keys=["dp_id"])
+            except Exception as e:
+                print(f"Error uploading dataset: {e}")
+                dataset = px_client.get_dataset(name=f"structured_experiment_inputs_{ds_version}")
+            if not dataset:
+                print(f"Error getting dataset: {ds_version}")
+                continue
             experiment = run_experiment(
                 dataset,
                 run_agent_task,

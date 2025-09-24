@@ -87,15 +87,18 @@ def get_available_divergence_types(experiment_results_file="experiment_results.j
 if __name__ == "__main__":
     # Example usage - change the divergence type here
     divergence_type = "explanation_framing"  # Change this to the divergence type you want
+    the_id = "improved"
+    experiment_results_file = f"experiment_results-{the_id}.json"
+    
     
     print(f"Extracting factors for divergence type: '{divergence_type}'")
     
     # Get available divergence types
-    available_types = get_available_divergence_types()
+    available_types = get_available_divergence_types(experiment_results_file)
     print(f"\nAvailable divergence types: {available_types}")
     
     # Extract factors
-    df = extract_factors_by_divergence_type(divergence_type)
+    df = extract_factors_by_divergence_type(divergence_type, experiment_results_file)
     
     if df.empty:
         print(f"\nNo factors found for divergence type '{divergence_type}'")
@@ -103,7 +106,7 @@ if __name__ == "__main__":
         print(f"\nFound {len(df)} factors for divergence type '{divergence_type}'")
         
         # Save to CSV
-        output_file = f"factors_{divergence_type.replace(' ', '_').replace('/', '_')}.csv"
+        output_file = f"factors_{divergence_type.replace(' ', '_').replace('/', '_')}_{the_id}.csv"
         df.to_csv(output_file, index=False, encoding='utf-8')
         print(f"Results saved to {output_file}")
         
