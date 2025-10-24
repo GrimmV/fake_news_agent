@@ -18,14 +18,14 @@ load_dotenv(override=True)
 
 API_KEY = os.getenv("API_KEY")
 MODEL_NAME = os.getenv("MODEL_NAME")
-MODEL_NAME_2 = os.getenv("MODEL_NAME_2")
+MODEL_NAME_2 = os.getenv("MODEL_NAME")
 BASE_URL = os.getenv("OLLAMA_ENDPOINT")
 
-if MODEL_NAME in ["gpt-4o-mini", "gpt-4o", "o3", "o3-mini"]:
+if any([elem in MODEL_NAME for elem in ["gpt-4o-mini", "gpt-4o", "o3", "o3-mini", "gpt-5-mini", "gpt-4.1"]]):
     llm = GPTModel(model_name=MODEL_NAME, key=API_KEY)
 else:
     llm = OllamaOpenAI(model_name=MODEL_NAME, base_url=BASE_URL)
-if MODEL_NAME_2 in ["gpt-4o-mini", "gpt-4o", "o3", "o3-mini"]:
+if any([elem in MODEL_NAME_2 for elem in ["gpt-4o-mini", "gpt-4o", "o3", "o3-mini", "gpt-5-mini", "gpt-4.1"]]):
     llm_2 = GPTModel(model_name=MODEL_NAME_2, key=API_KEY)
 else:
     llm_2 = OllamaOpenAI(model_name=MODEL_NAME_2, base_url=BASE_URL)

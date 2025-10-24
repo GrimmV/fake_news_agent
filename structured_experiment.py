@@ -340,9 +340,9 @@ def main():
     #     },
     # ]
     
-    for i in range(1, 6):
+    for i in range(1, 3):
         for key, value in test_dataset.items():
-            ds_version = f"patterns_{key}_v1.1"
+            ds_version = f"patterns_{key}_v1.2"
             overall_experiment_df = pd.DataFrame(value)
             try:
                 dataset = px_client.upload_dataset(dataframe=overall_experiment_df,

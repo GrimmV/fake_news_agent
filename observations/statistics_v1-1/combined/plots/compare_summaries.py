@@ -17,6 +17,16 @@ import pandas as pd
 #     os.path.join(os.path.dirname(__file__), "set-30b-improved-prompt_summary.csv"),
 # ]
 
+METRICS_MAPPING = {
+    "label_correlation": "Label Correlation",
+    "short_assessment_truthfulness": "Short Assessment Truthfulness",
+    "layman_xai_truthfulness": "Layman XAI Truthfulness",
+    "technical_assessment_clarity": "Technical Assessment Clarity",
+    "technical_xai_clarity": "Technical XAI Clarity",
+    "xai_description_truthfulness": "XAI Description Truthfulness"
+}
+
+
 FILES: List[str] = [
     os.path.join(os.path.dirname(__file__), "set-4b_summary.csv"),
     os.path.join(os.path.dirname(__file__), "set-30b_summary.csv"),
@@ -28,9 +38,9 @@ FILES: List[str] = [
 # Labels for settings (x-axis). Must align with FILES. If empty or length differs,
 # labels are inferred from basenames without extension.
 SETTING_LABELS: List[str] = [
-    "Set 4b",
-    "Set 30b",
-    "Set 30b-think",
+    "Qwen3 4b",
+    "Qwen3 30b",
+    "Qwen3 30b-think",
 ]
 
 # Output path for the figure
@@ -60,7 +70,7 @@ ANNOTATION_FONTSIZE: int = 18
 # Typography
 TITLE_FONTSIZE: int = 20
 TICK_FONTSIZE: int = 18
-LEGEND_FONTSIZE: int = 18
+LEGEND_FONTSIZE: int = 20
 
 
 def read_and_aggregate(path: str) -> pd.DataFrame:
@@ -131,7 +141,7 @@ def plot_metric_subplot(ax: plt.Axes, metric: str, aggregated: List[pd.DataFrame
     mean_centers = x - BAR_WIDTH / 2.0
     std_centers = x + BAR_WIDTH / 2.0
     ax.bar(mean_centers, means, width=BAR_WIDTH, color=MEAN_BAR_COLOR, label="Mean")
-    ax.bar(std_centers, stds, width=BAR_WIDTH, color=STD_BAR_COLOR, label="Std")
+    ax.bar(std_centers, stds, width=BAR_WIDTH, color=STD_BAR_COLOR, label="Variance")
 
     # Lines across settings, connected at the center of corresponding bars
     ax.plot(mean_centers, means, color=MEAN_LINE_COLOR, linewidth=LINE_WIDTH)
@@ -143,7 +153,7 @@ def plot_metric_subplot(ax: plt.Axes, metric: str, aggregated: List[pd.DataFrame
         pct_m = safe_percent_change(means[i], means[i - 1])
         if pct_m is not None and not (np.isnan(means[i]) or np.isnan(means[i - 1])):
             text_color = "green" if pct_m >= 0 else "red"
-            text = f"{pct_m:+.2f}%"
+            text = f"{pct_m:+.0f}%"
             add_connection_annotation(
                 ax,
                 mean_centers[i - 1],
@@ -158,8 +168,8 @@ def plot_metric_subplot(ax: plt.Axes, metric: str, aggregated: List[pd.DataFrame
         # Std change
         pct_s = safe_percent_change(stds[i], stds[i - 1])
         if pct_s is not None and not (np.isnan(stds[i]) or np.isnan(stds[i - 1])):
-            text_color = "green" if pct_s >= 0 else "red"
-            text = f"{pct_s:+.2f}%"
+            text_color = "red" if pct_s >= 0 else "green"
+            text = f"{pct_s:+.0f}%"
             add_connection_annotation(
                 ax,
                 std_centers[i - 1],
@@ -173,11 +183,11 @@ def plot_metric_subplot(ax: plt.Axes, metric: str, aggregated: List[pd.DataFrame
             )
 
     # Cosmetics
-    ax.set_title(metric, fontsize=TITLE_FONTSIZE)
+    ax.set_title(METRICS_MAPPING[metric], fontsize=TITLE_FONTSIZE, fontweight="bold")
     ax.set_xticks(x)
     ax.set_xticklabels(setting_labels)
-    ax.set_ylim(0, 1)
-    ax.set_yticks([0.0, 0.25, 0.5, 0.75, 1.0])
+    ax.set_ylim(0, 1.2)
+    ax.set_yticks([0, 0.5, 1])
     ax.tick_params(axis="both", labelsize=TICK_FONTSIZE)
     ax.grid(axis="y", linestyle=":", alpha=0.4)
 
@@ -215,13 +225,16 @@ def main() -> None:
         c = j % n_cols
         fig.delaxes(axes[r][c])
 
+    # Add main title
+    fig.suptitle("Model Performance Comparison Qwen3", fontsize=24, fontweight='bold')
+
     # Shared legend for Mean/Std
     handles, labels = axes[0][0].get_legend_handles_labels()
     if handles:
-        fig.legend(handles[:2], labels[:2], loc="upper center", ncol=2, frameon=False, fontsize=LEGEND_FONTSIZE)
-        plt.subplots_adjust(top=0.88)
+        fig.legend(handles[:2], labels[:2], loc="lower center", ncol=2, frameon=False, fontsize=LEGEND_FONTSIZE)
+        plt.subplots_adjust(top=0.88, hspace=0.4)
     else:
-        plt.tight_layout()
+        plt.subplots_adjust(bottom=0.2)
 
     os.makedirs(os.path.dirname(OUTPUT_FIGURE), exist_ok=True)
     fig.savefig(OUTPUT_FIGURE, dpi=200, bbox_inches="tight")

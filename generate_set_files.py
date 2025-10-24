@@ -11,8 +11,8 @@ from typing import Dict, List, Any
 from collections import defaultdict
 import logging
 
-version = "_v1.1"
-version_out = "_v1-1"
+version = "_v1.2"
+version_out = "_v1-2"
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')

@@ -8,7 +8,7 @@ import numpy as np
 
 import matplotlib.pyplot as plt
 
-version = "_v1-1"
+version = "_v1-2"
 
 def load_combined_variable(file_path: str, var_name: str) -> Dict[str, List[List[float]]]:
     """Load a python file from an arbitrary path and return the variable named var_name.

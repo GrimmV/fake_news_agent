@@ -1,0 +1,2024 @@
+[
+  {
+    "example_id": "RGF0YXNldEV4YW1wbGU6MjQ3",
+    "repetition_number": 1,
+    "input": {
+      "dp_id": 102
+    },
+    "reference_output": {},
+    "output": {
+      "trace": [
+        {
+          "module_output": {
+            "id": 102,
+            "prediction": 1,
+            "statement": "“ICE officials have been ordered NOT to wear their uniforms or badges when they vote today\" so as not to intimidate noncitizens.",
+            "values": {
+              "us_vs_them_lang": {
+                "shap_value": 0.0131,
+                "feature_value": 1.0
+              },
+              "exaggerated_uncertainty": {
+                "shap_value": 0.0019,
+                "feature_value": 0.7
+              },
+              "source_quality": {
+                "shap_value": 0.0402,
+                "feature_value": 1.0
+              },
+              "victim_villain_language": {
+                "shap_value": 0.057,
+                "feature_value": 1.0
+              },
+              "black_and_white_language": {
+                "shap_value": 0.0227,
+                "feature_value": 1.0
+              },
+              "dehumanization": {
+                "shap_value": 0.0116,
+                "feature_value": 0.0
+              },
+              "emotionality": {
+                "shap_value": 0.0038,
+                "feature_value": -0.5
+              },
+              "reading_difficulty": {
+                "shap_value": -0.0044,
+                "feature_value": 0.3
+              },
+              "sentiment": {
+                "shap_value": 0.0173,
+                "feature_value": -1.0
+              },
+              "polarization": {
+                "shap_value": 0.0618,
+                "feature_value": 0.8
+              }
+            },
+            "top_features": [
+              "polarization",
+              "victim_villain_language",
+              "source_quality",
+              "black_and_white_language",
+              "sentiment",
+              "us_vs_them_lang",
+              "dehumanization",
+              "reading_difficulty",
+              "emotionality",
+              "exaggerated_uncertainty"
+            ]
+          },
+          "action": "individual feature importance",
+          "summary": "Module ID 102 evaluated the example statement: “ICE officials have been ordered NOT to wear their uniforms or badges when they vote today\" so as not to intimidate noncitizens.\" The module reports an internal prediction label of 1 and provides per-feature SHAP contributions and feature values. Top positive contributors (in order) are: polarization (SHAP=0.0618, feature_value=0.8), victim_villain_language (SHAP=0.0570, feature_value=1.0), and source_quality (SHAP=0.0402, feature_value=1.0). Other positive contributors include black_and_white_language (SHAP=0.0227, value=1.0), sentiment (SHAP=0.0173, value=-1.0), us_vs_them_lang (SHAP=0.0131, value=1.0), dehumanization (SHAP=0.0116, value=0.0), emotionality (SHAP=0.0038, value=-0.5), and exaggerated_uncertainty (SHAP=0.0019, value=0.7). Reading_difficulty provided a small negative contribution (SHAP=-0.0044, value=0.3). The module’s top_features list matches this ordering: [polarization, victim_villain_language, source_quality, black_and_white_language, sentiment, us_vs_them_lang, dehumanization, reading_difficulty, emotionality, exaggerated_uncertainty]. In sum, the prediction is driven most by polarization (0.0618) and victim/villain framing (0.0570), with source quality (1.0 corresponding to vague/no specific evidence) also increasing the predicted label. Reading difficulty slightly decreases the prediction (-0.0044).",
+          "laymans_summary": "This check looked at why the model made its decision for the sentence about ICE officers. The two biggest reasons were that the message is quite polarizing (score 0.8) and it frames people as victims vs villains (on). The claim also lacks solid evidence (source quality=1.0). One feature (reading difficulty=0.3) pushed the model a tiny bit in the other direction. The numbers show how much each feature pulled the decision: the largest pull was polarization (0.0618), then victim/villain language (0.0570), then weak sourcing (0.0402).",
+          "module_name": "individual feature importance",
+          "module_params": {}
+        },
+        {
+          "module_output": {
+            "counts": [
+              40,
+              16,
+              21,
+              11,
+              4,
+              13,
+              3,
+              21,
+              39,
+              13,
+              3
+            ],
+            "edges": [
+              0.0,
+              0.09090909090909091,
+              0.18181818181818182,
+              0.2727272727272727,
+              0.36363636363636365,
+              0.4545454545454546,
+              0.5454545454545454,
+              0.6363636363636364,
+              0.7272727272727273,
+              0.8181818181818182,
+              0.9090909090909092,
+              1.0
+            ]
+          },
+          "action": "feature distribution for polarization (label: Neither)",
+          "summary": "The “feature distribution” module reports counts across 11 equal-width bins (edges from 0.0 to 1.0 in steps of ~0.090909). Counts per bin are [40, 16, 21, 11, 4, 13, 3, 21, 39, 13, 3], summing to 184 samples. The distribution is bimodal: a large peak in the first bin (40 samples in range 0.0–0.0909) and a similarly large peak near the upper range (39 samples in range 0.81818–0.90909), with smaller counts spread across the middle bins.",
+          "laymans_summary": "The module split the data into 11 slices from 0 to 1. Out of 184 items, 40 fall in the very low slice (near 0) and 39 fall in a high slice (around 0.82–0.91). The rest are scattered in smaller groups, so the data has two big clumps: one very low and one high.",
+          "module_name": "feature distribution",
+          "module_params": {
+            "feature_name": "polarization",
+            "label": "Neither"
+          }
+        },
+        {
+          "module_output": "| polarization ↓ \\ victim_villain_language → | 0.00–0.50 | 0.50–1.00 |\n| --- | --- | --- |\n| 0.00–0.20 | 56 | 0 |\n| 0.20–0.40 | 32 | 0 |\n| 0.40–0.60 | 19 | 1 |\n| 0.60–0.80 | 7 | 14 |\n| 0.80–1.00 | 8 | 47 |",
+          "action": "feature distribution 2D for polarization, victim_villain_language (label: Neither)",
+          "summary": "The 2D feature distribution (polarization vs. victim_villain_language) shows counts by bins. For victim_villain_language=1 (right column, 0.50–1.00), counts by polarization bin are: 0.00–0.20: 0, 0.20–0.40: 0, 0.40–0.60: 1, 0.60–0.80: 14, 0.80–1.00: 47 (total 62). For victim_villain_language=0 (left column, 0.00–0.50), counts are: 0.00–0.20: 56, 0.20–0.40: 32, 0.40–0.60: 19, 0.60–0.80: 7, 0.80–1.00: 8 (total 122). The given datapoint has victim_villain_language=1.0 and polarization=0.8, which places it in the 0.80–1.00 polarization bin and the victim_villain_language=1 column; that cell contains 47 examples. Overall, 47 of 62 (≈76%) examples with victim_villain_language=1 fall in the highest polarization bin (0.80–1.00), and 61 of 62 (≈98%) fall in polarization ≥0.60. By contrast, examples with victim_villain_language=0 are concentrated in lower polarization bins (56 in 0.00–0.20 and 32 in 0.20–0.40).",
+          "laymans_summary": "Most posts that frame an issue as \"good people harmed by evil actors\" (victim_villain_language=1) are highly polarizing. In the data, 47 out of 62 such posts are in the highest polarization group (0.80–1.00). Your datapoint (victim_villain_language=1.0, polarization=0.8) sits in that high-polarization group with 47 similar examples.",
+          "module_name": "feature distribution 2D",
+          "module_params": {
+            "feature_name_1": "polarization",
+            "feature_name_2": "victim_villain_language",
+            "label": "Neither"
+          }
+        },
+        {
+          "module_output": {
+            "accuracy": 0.65,
+            "f1_score": 0.6482,
+            "precision": 0.6531,
+            "recall": 0.65
+          },
+          "action": "performance metrics",
+          "summary": "The performance metrics module reports accuracy = 0.65, F1 score = 0.6482, precision = 0.6531, and recall = 0.65. These values indicate moderate model performance: the model is correct about 65% of the time, and precision and recall are both around 0.65, producing an F1 consistent with that balance. For the specific datapoint where the model predicted 'Neither', these metrics imply roughly a two‑thirds average probability of being correct, but with substantial room for improvement.",
+          "laymans_summary": "The model gets answers right about 65% of the time. Its measures for being correct when it makes a prediction (precision) and for finding the things it should (recall) are also about 65%, so overall it’s right roughly two out of three times. The prediction 'Neither' is somewhat reliable but not certain.",
+          "module_name": "performance metrics",
+          "module_params": {}
+        },
+        {
+          "module_output": {
+            "confusion": [
+              [
+                0.64,
+                0.21,
+                0.15
+              ],
+              [
+                0.18,
+                0.66,
+                0.16
+              ],
+              [
+                0.23,
+                0.12,
+                0.65
+              ]
+            ],
+            "note": "First column/row  is the False label, second column/row is the Neither label and third column/row is the True label."
+          },
+          "action": "confusion matrix",
+          "summary": "Confusion matrix (rows = actual label, columns = predicted label; order: False, Neither, True): [[0.64, 0.21, 0.15], [0.18, 0.66, 0.16], [0.23, 0.12, 0.65]]. Per-class correct prediction rates (diagonal): False = 0.64, Neither = 0.66, True = 0.65. Main confusions: actual False is most often mistaken for Neither (0.21) and sometimes for True (0.15); actual Neither is misclassified as False (0.18) or True (0.16); actual True is misclassified as False (0.23) or Neither (0.12). Overall the model achieves moderate class-wise accuracy (~64–66%) but shows noticeable confusion particularly between False↔Neither and True→False.",
+          "laymans_summary": "Imagine three buckets: False, Neither, and True. When the real answer is False, the model picks False 64% of the time, Neither 21%, and True 15%. For Neither, it picks Neither 66%, False 18%, True 16%. For True, it picks True 65%, False 23%, Neither 12%. So the model is correct about two-thirds of the time for each label but often mixes up False with Neither and sometimes calls True as False.",
+          "module_name": "confusion matrix",
+          "module_params": {}
+        },
+        {
+          "module_output": {
+            "label": 1,
+            "values": {
+              "us_vs_them_lang": 0.04,
+              "exaggerated_uncertainty": 0.13,
+              "source_quality": 0.15,
+              "victim_villain_language": 0.09,
+              "black_and_white_language": 0.04,
+              "dehumanization": 0.03,
+              "emotionality": 0.11,
+              "reading_difficulty": 0.1,
+              "sentiment": 0.1,
+              "polarization": 0.21
+            },
+            "top_features": [
+              "polarization",
+              "source_quality",
+              "exaggerated_uncertainty"
+            ]
+          },
+          "action": "global feature importance (label: Neither)",
+          "summary": "The \"global feature importance\" module reports absolute SHAP-sum importances for label 1. The highest importance is polarization = 0.21, followed by source_quality = 0.15 and exaggerated_uncertainty = 0.13 (the module's top_features list: [\"polarization\",\"source_quality\",\"exaggerated_uncertainty\"]). Other feature importances are emotionality = 0.11, reading_difficulty = 0.10, sentiment = 0.10, victim_villain_language = 0.09, us_vs_them_lang = 0.04, black_and_white_language = 0.04, and dehumanization = 0.03. The module uses absolute sums of SHAP values to rank features (label: 1).",
+          "laymans_summary": "This module shows which parts of the post the model paid most attention to. \"Polarization\" mattered the most (0.21), then \"source quality\" (0.15) and \"exaggerated certainty\" (0.13). The rest of the features mattered less (values range from 0.11 down to 0.03).",
+          "module_name": "global feature importance",
+          "module_params": {
+            "label": "Neither"
+          }
+        },
+        {
+          "module_output": {
+            "feature": "polarization",
+            "class": "Neither",
+            "grid_values": [
+              0.0,
+              0.1,
+              0.2,
+              0.3,
+              0.4,
+              0.5,
+              0.6,
+              0.7,
+              0.8,
+              0.9,
+              1.0
+            ],
+            "average": [
+              0.3115496870330339,
+              0.2743365441384729,
+              0.3213941708143009,
+              0.4263419699847853,
+              0.46425132692146187,
+              0.39031841506085097,
+              0.38892413869875103,
+              0.39263828615520535,
+              0.3291453606675924,
+              0.34434726559641005,
+              0.2929180459288766
+            ]
+          },
+          "action": "partial dependence plot for polarization (label: Neither)",
+          "summary": "Partial dependence plot for feature 'polarization' toward predicted class 'Neither' reports PDP grid values [0.0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1.0] with corresponding average predicted probabilities [0.3115496870330339,0.2743365441384729,0.3213941708143009,0.4263419699847853,0.46425132692146187,0.39031841506085097,0.38892413869875103,0.39263828615520535,0.3291453606675924,0.34434726559641005,0.2929180459288766]. For the datapoint's polarization value of 0.8, the PDP average predicted probability for class 'Neither' is 0.3291453606675924. The PDP shows a peak near polarization 0.4 (0.4643) and 0.3 (0.4263), with lower probabilities at the high end (e.g., 1.0: 0.2929). This suggests that polarization around 0.4 most strongly increases the model's probability of predicting 'Neither', while higher polarization like 0.8 corresponds to a reduced probability (~0.33).",
+          "laymans_summary": "The plot shows how changing the text's polarization affects the model's chance of saying 'Neither.' When polarization is 0.8 (your example), the model gives about a 33% chance of 'Neither'. The model's highest chance (~46%) happens when polarization is about 0.4. So texts that are more polarized than 0.4 tend to make the model less likely to pick 'Neither.'",
+          "module_name": "partial dependence plot",
+          "module_params": {
+            "feature_name": "polarization",
+            "label": "Neither"
+          }
+        }
+      ],
+      "conclusion": {
+        "judgement_rating": 2,
+        "judgement_reason": "Local explanations are generally coherent and supported by training-data coverage, but there are some tensions and overall model performance is only moderate. Evidence for trust: individual SHAP contributions show polarization (SHAP=+0.0618) and victim_villain_language (SHAP=+0.0570) are the top drivers toward the 'Neither' prediction, with source_quality also adding (+0.0402). The datapoint lies in a dense cell in the 2D distribution (victim_villain_language=1 and polarization=0.8–1.0), containing 47 of 62 examples (~76% in that cell; 61/62 ≈98% have polarization ≥0.60), so the model has many similar training examples supporting the local attribution. Counter-evidence: the PDP for polarization at 0.8 gives an average predicted probability for 'Neither' of only 0.329 (lower than the PDP peak ~0.464 at polarization≈0.4), which suggests the marginal effect of high polarization on 'Neither' is negative on average; SHAP magnitudes are modest (top local SHAP 0.0618 and total positive SHAP sum ≈0.229), meaning no single feature dominates strongly; and overall model metrics are moderate (accuracy ≈0.65, F1≈0.6482, per-class Neither correct rate 0.66). Taken together, the local attributions are plausible and backed by dense training examples (increasing trust), but PDP/interaction inconsistencies and only ~65% overall accuracy limit confidence. I therefore rate the prediction as Good (2) — usable as supporting evidence but should not be the sole basis for a high-stakes decision. ",
+        "judgement_reason_short": "Local feature attributions match many similar training examples (good), but model accuracy (~65%) and some contradictory PDP behavior lower confidence (so be cautious).",
+        "most_relevant_modules": [
+          "individual feature importance",
+          "feature distribution 2D"
+        ]
+      }
+    },
+    "error": null,
+    "latency_ms": 110101.389,
+    "start_time": "2025-10-15T16:15:43.550364+00:00",
+    "end_time": "2025-10-15T16:17:33.651753+00:00",
+    "trace_id": "34c3361d81a109a964ece17206333cf6",
+    "prompt_token_count": null,
+    "completion_token_count": null,
+    "annotations": [
+      {
+        "name": "xai_description_truthfulness",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 0.8571428571428571,
+        "explanation": null,
+        "trace_id": "7a2bbf9066a26e66c53a452401b4d37d",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-10-15T16:32:15.559510+00:00",
+        "end_time": "2025-10-15T16:33:11.334806+00:00"
+      },
+      {
+        "name": "layman_xai_truthfulness",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 0.8571428571428571,
+        "explanation": null,
+        "trace_id": "06dabe431354563df1f5ec1a4886230a",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-10-15T16:33:11.346649+00:00",
+        "end_time": "2025-10-15T16:33:52.336715+00:00"
+      },
+      {
+        "name": "short_assessment_truthfulness",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 1.0,
+        "explanation": null,
+        "trace_id": "04f503e1e7bd6e94cf0a38a7aee66fcb",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-10-15T16:33:52.348306+00:00",
+        "end_time": "2025-10-15T16:33:57.677626+00:00"
+      },
+      {
+        "name": "focus_quality",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 1.0,
+        "explanation": null,
+        "trace_id": "3031e869e05c2adc4dc7a3f3a8cac1fa",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-10-15T16:33:57.716991+00:00",
+        "end_time": "2025-10-15T16:34:04.689000+00:00"
+      },
+      {
+        "name": "label_correlation",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 0.8333333333333334,
+        "explanation": null,
+        "trace_id": "528820f74b51e292e8b056112d6d92e1",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-10-15T16:34:04.716320+00:00",
+        "end_time": "2025-10-15T16:34:04.718613+00:00"
+      },
+      {
+        "name": "technical_xai_clarity",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 0.8571428571428571,
+        "explanation": null,
+        "trace_id": "dafe328cc22b9d3715dca2fd05029867",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-10-15T16:34:04.774889+00:00",
+        "end_time": "2025-10-15T16:34:40.683609+00:00"
+      },
+      {
+        "name": "technical_assessment_clarity",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 1.0,
+        "explanation": null,
+        "trace_id": "313385e203d6342d36e5702912bd972b",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-10-15T16:34:40.700287+00:00",
+        "end_time": "2025-10-15T16:34:47.629170+00:00"
+      }
+    ]
+  },
+  {
+    "example_id": "RGF0YXNldEV4YW1wbGU6MjQ4",
+    "repetition_number": 1,
+    "input": {
+      "dp_id": 103
+    },
+    "reference_output": {},
+    "output": {
+      "trace": [
+        {
+          "module_output": {
+            "id": 103,
+            "prediction": 1,
+            "statement": "Canadian tourism to Florida has declined by 80%.",
+            "values": {
+              "us_vs_them_lang": {
+                "shap_value": 0.0072,
+                "feature_value": 0.0
+              },
+              "exaggerated_uncertainty": {
+                "shap_value": 0.1228,
+                "feature_value": 0.9
+              },
+              "source_quality": {
+                "shap_value": 0.1137,
+                "feature_value": 1.0
+              },
+              "victim_villain_language": {
+                "shap_value": -0.0088,
+                "feature_value": 0.0
+              },
+              "black_and_white_language": {
+                "shap_value": -0.0028,
+                "feature_value": 0.0
+              },
+              "dehumanization": {
+                "shap_value": 0.0068,
+                "feature_value": 0.0
+              },
+              "emotionality": {
+                "shap_value": 0.0704,
+                "feature_value": 0.0
+              },
+              "reading_difficulty": {
+                "shap_value": 0.0777,
+                "feature_value": 0.2
+              },
+              "sentiment": {
+                "shap_value": -0.009,
+                "feature_value": 0.0
+              },
+              "polarization": {
+                "shap_value": 0.0445,
+                "feature_value": 0.0
+              }
+            },
+            "top_features": [
+              "exaggerated_uncertainty",
+              "source_quality",
+              "reading_difficulty",
+              "emotionality",
+              "polarization",
+              "sentiment",
+              "victim_villain_language",
+              "us_vs_them_lang",
+              "dehumanization",
+              "black_and_white_language"
+            ]
+          },
+          "action": "individual feature importance",
+          "summary": "Module output for the statement \"Canadian tourism to Florida has declined by 80%\" (module prediction = 1) shows the largest positive contributions to the model score come from: exaggerated_uncertainty (feature value = 0.9, SHAP = +0.1228) and source_quality (feature value = 1.0, SHAP = +0.1137). Other positive contributors are reading_difficulty (value = 0.2, SHAP = +0.0777), emotionality (value = 0.0, SHAP = +0.0704), and polarization (value = 0.0, SHAP = +0.0445). Small positive effects are seen for us_vs_them_lang (value = 0.0, SHAP = +0.0072) and dehumanization (value = 0.0, SHAP = +0.0068). Features that slightly decreased the model score are sentiment (value = 0.0, SHAP = -0.0090), victim_villain_language (value = 0.0, SHAP = -0.0088), and black_and_white_language (value = 0.0, SHAP = -0.0028). The module's top_features list (in order) is: [\"exaggerated_uncertainty\", \"source_quality\", \"reading_difficulty\", \"emotionality\", \"polarization\", \"sentiment\", \"victim_villain_language\", \"us_vs_them_lang\", \"dehumanization\", \"black_and_white_language\"].",
+          "laymans_summary": "For the sentence saying \"Canadian tourism to Florida has declined by 80%\", the model was pushed most by two things: the claim sounded very certain (exaggerated_uncertainty = 0.9, impact +0.1228) and it had vague/no sourcing (source_quality = 1.0, impact +0.1137). A little extra came from how hard it is to read (reading_difficulty = 0.2, +0.0777) and the emotional tone (+0.0704). A few features gave tiny negative effects, but the biggest numbers are the 0.9 certainty and 1.0 poor sourcing that increased the model’s score the most.",
+          "module_name": "individual feature importance",
+          "module_params": {}
+        },
+        {
+          "module_output": {
+            "counts": [
+              20,
+              1,
+              10,
+              0,
+              0,
+              37,
+              26,
+              0,
+              61,
+              29
+            ],
+            "edges": [
+              0.0,
+              0.1,
+              0.2,
+              0.30000000000000004,
+              0.4,
+              0.5,
+              0.6000000000000001,
+              0.7000000000000001,
+              0.8,
+              0.9,
+              1.0
+            ]
+          },
+          "action": "feature distribution for exaggerated_uncertainty (label: Neither)",
+          "summary": "The feature distribution across ten 0.1-width bins (edges 0.0–1.0) has counts [20, 1, 10, 0, 0, 37, 26, 0, 61, 29], totaling 184 samples. The largest single bin is 0.8–0.9 with 61 samples (33.2% of total). High-value bins (0.5–1.0) contain 153 samples (83.2% of total), while low-value bins (0.0–0.5) contain 31 samples (16.8%). Three bins are empty: 0.3–0.4, 0.4–0.5, and 0.7–0.8. The median falls in the 0.6–0.7 bin (cumulative counts reach 94 by that bin), indicating the distribution is strongly skewed toward higher values (most mass between 0.5 and 0.9).",
+          "laymans_summary": "Out of 184 items, most values are high: 61 are in the 0.8–0.9 range and 153 (about 83%) are 0.5 or higher. Only 31 (about 17%) are below 0.5, and three small ranges have no items at all. So the data is mostly clustered toward bigger numbers.",
+          "module_name": "feature distribution",
+          "module_params": {
+            "feature_name": "exaggerated_uncertainty",
+            "label": "Neither"
+          }
+        },
+        {
+          "module_output": "| exaggerated_uncertainty ↓ \\ source_quality → | 0.00–0.67 | 0.67–1.33 | 1.33–2.00 |\n| --- | --- | --- | --- |\n| 0.00–0.20 | 9 | 6 | 6 |\n| 0.20–0.40 | 1 | 9 | 0 |\n| 0.40–0.60 | 4 | 31 | 2 |\n| 0.60–0.80 | 1 | 25 | 0 |\n| 0.80–1.00 | 21 | 60 | 9 |",
+          "action": "feature distribution 2D for exaggerated_uncertainty, source_quality (label: Neither)",
+          "summary": "The 2D feature-distribution table bins exaggerated_uncertainty (rows) against source_quality (columns). The datapoint has exaggerated_uncertainty = 0.90 (falls in the 0.80–1.00 row) and source_quality = 1.00 (falls in the 0.67–1.33 column). The cell for (0.80–1.00, 0.67–1.33) contains 60 samples — the single largest cell. The full 0.80–1.00 row contains 21, 60, and 9 samples respectively (left-to-right), totaling 90 samples in that row. Summing all table cells gives 184 samples total. Thus 60/184 (≈32.6%) of samples are in the exact same bin as the datapoint, and 90/184 (≈48.9%) share the same high uncertainty row. Other notable counts: 31 samples in (0.40–0.60, 0.67–1.33) and 25 in (0.60–0.80, 0.67–1.33).",
+          "laymans_summary": "The table groups examples by how certain they sound (rows) and how good their sources are (columns). Your example sits in the high-certainty row (0.80–1.00) and the middle-source column (0.67–1.33). There are 60 examples in that same box and 90 examples in the entire high-certainty row out of 184 total — so many neighbors are very similar to this one.",
+          "module_name": "feature distribution 2D",
+          "module_params": {
+            "feature_name_1": "exaggerated_uncertainty",
+            "feature_name_2": "source_quality",
+            "label": "Neither"
+          }
+        },
+        {
+          "module_output": {
+            "accuracy": 0.65,
+            "f1_score": 0.6482,
+            "precision": 0.6531,
+            "recall": 0.65
+          },
+          "action": "performance metrics",
+          "summary": "Module 'performance metrics' reports model performance as: accuracy = 0.65, F1 score = 0.6482, precision = 0.6531, and recall = 0.65. These values indicate moderate overall performance, with precision slightly higher than recall and an F1 score closely matching the other metrics, suggesting a roughly balanced trade-off between precision and recall but room for improvement.",
+          "laymans_summary": "The model gets about 65% of cases right. It’s almost equally good at finding relevant items and avoiding wrong hits, but overall performance is only moderate and could be improved.",
+          "module_name": "performance metrics",
+          "module_params": {}
+        },
+        {
+          "module_output": {
+            "confusion": [
+              [
+                0.64,
+                0.21,
+                0.15
+              ],
+              [
+                0.18,
+                0.66,
+                0.16
+              ],
+              [
+                0.23,
+                0.12,
+                0.65
+              ]
+            ],
+            "note": "First column/row  is the False label, second column/row is the Neither label and third column/row is the True label."
+          },
+          "action": "confusion matrix",
+          "summary": "Confusion matrix (rows = actual, columns = predicted; label order: [False, Neither, True]) is: [[0.64, 0.21, 0.15], [0.18, 0.66, 0.16], [0.23, 0.12, 0.65]]. Diagonal (per-class recall) values are: False 0.64, Neither 0.66, True 0.65. For the model prediction 'Neither' (the datapoint's predicted label): when the true label is Neither, the model predicts Neither 0.66 (recall = 66%); when the model predicts Neither, the distribution over actual labels is [0.21 (False), 0.66 (Neither), 0.12 (True)], so precision ≈ 0.66 (0.66/0.99 ≈ 66.7%). Misclassifications for actual Neither are 0.18 → False and 0.16 → True. Overall the model shows roughly balanced per-class performance with about two-thirds correct per class and most errors coming from confusion between neighboring labels.",
+          "laymans_summary": "The table shows how often the model gets each label right. For each true label the model is correct about two-thirds of the time (64%–66%–65%). When the model says 'Neither' it is right about two out of three times. Most mistakes are the model mixing up False, Neither, and True rather than always being wrong.",
+          "module_name": "confusion matrix",
+          "module_params": {}
+        },
+        {
+          "module_output": {
+            "label": 1,
+            "values": {
+              "us_vs_them_lang": 0.04,
+              "exaggerated_uncertainty": 0.13,
+              "source_quality": 0.15,
+              "victim_villain_language": 0.09,
+              "black_and_white_language": 0.04,
+              "dehumanization": 0.03,
+              "emotionality": 0.11,
+              "reading_difficulty": 0.1,
+              "sentiment": 0.1,
+              "polarization": 0.21
+            },
+            "top_features": [
+              "polarization",
+              "source_quality",
+              "exaggerated_uncertainty"
+            ]
+          },
+          "action": "global feature importance (label: Neither)",
+          "summary": "Global feature importance (absolute SHAP sums) shows polarization as the top contributor at 0.21, followed by source_quality at 0.15 and exaggerated_uncertainty at 0.13. Remaining feature importances: emotionality 0.11, reading_difficulty 0.10, sentiment 0.10, victim_villain_language 0.09, us_vs_them_lang 0.04, black_and_white_language 0.04, and dehumanization 0.03. The module's listed top_features are [\"polarization\", \"source_quality\", \"exaggerated_uncertainty\"]. For context, the datapoint’s feature values include polarization=0.0, source_quality=1.0, and exaggerated_uncertainty=0.9; the model prediction is “Neither.”",
+          "laymans_summary": "The module says three things mattered most for the model’s decision: polarization (0.21), source quality (0.15), and how certain the post sounds (0.13). Other features mattered less (numbers shown). For this example, polarization was 0.0, source quality 1.0 (vague/no evidence), and certainty 0.9 (very certain). The model’s prediction was “Neither.”",
+          "module_name": "global feature importance",
+          "module_params": {
+            "label": "Neither"
+          }
+        },
+        {
+          "module_output": {
+            "feature": "exaggerated_uncertainty",
+            "class": "Neither",
+            "grid_values": [
+              0.0,
+              0.1,
+              0.2,
+              0.3,
+              0.4,
+              0.5,
+              0.6,
+              0.7,
+              0.75,
+              0.8,
+              0.9,
+              1.0
+            ],
+            "average": [
+              0.34168946215347884,
+              0.3630139987989911,
+              0.3890378075877657,
+              0.400930724114071,
+              0.3894567232834101,
+              0.3166504764497254,
+              0.2747515488455759,
+              0.3020011204017073,
+              0.2949764366329152,
+              0.3002910887468887,
+              0.3464486191276162,
+              0.34710634269194657
+            ]
+          },
+          "action": "partial dependence plot for exaggerated_uncertainty (label: Neither)",
+          "summary": "Partial dependence plot for feature \"exaggerated_uncertainty\" toward class \"Neither\" shows a non-monotonic relationship. Grid values (0.0 to 1.0) map to average predicted probabilities: [0.34168946215347884, 0.3630139987989911, 0.3890378075877657, 0.400930724114071, 0.3894567232834101, 0.3166504764497254, 0.2747515488455759, 0.3020011204017073, 0.2949764366329152, 0.3002910887468887, 0.3464486191276162, 0.34710634269194657]. The curve peaks at exaggerated_uncertainty=0.3 with average 0.400930724114071, reaches its lowest at 0.6 with average 0.2747515488455759, and at the datapoint's value 0.9 the average predicted probability for \"Neither\" is 0.3464486191276162. The model prediction for this datapoint is \"Neither\" and exaggerated_uncertainty for the datapoint is 0.9.",
+          "laymans_summary": "The plot shows how the model's chance of predicting \"Neither\" changes as the certainty level goes from 0 to 1. It starts around 34%, rises to about 40% at 0.3, drops to a low of ~27% at 0.6, then is about 34.6% at 0.9 (the datapoint's value). In short: the effect isn't straight up or down — it wiggles, and at 0.9 the model gives ~34.6% support for \"Neither\".",
+          "module_name": "partial dependence plot",
+          "module_params": {
+            "feature_name": "exaggerated_uncertainty",
+            "label": "Neither"
+          }
+        }
+      ],
+      "conclusion": {
+        "judgement_rating": 2,
+        "judgement_reason": "Local explanations give mixed but overall moderately supportive evidence for the model’s “Neither” prediction. Key local SHAP contributors pushing the prediction toward ‘Neither’ are: exaggerated_uncertainty (value=0.90, SHAP=+0.1228) and source_quality (value=1.00, SHAP=+0.1137); additional positive contributions include reading_difficulty (0.2, +0.0777) and emotionality (0.0, +0.0704). The positive SHAPs sum to roughly +0.43 and negatives sum to only about -0.02, giving a substantial net local push toward ‘Neither’. The datapoint is well-supported in the training/validation distribution: 60/184 (≈32.6%) of samples fall in the exact same 2D bin (exaggerated_uncertainty 0.80–1.00 and source_quality 0.67–1.33) and 90/184 (≈48.9%) share the same high-uncertainty row, so this is not an outlier. However, global/model-level indicators temper confidence: overall accuracy ≈0.65 and per-class recall/precision for ‘Neither’ ≈0.66, so the model is only moderately reliable, and global feature importance lists polarization as the top feature overall (0.21) even though polarization=0.0 for this instance. The partial dependence for exaggerated_uncertainty at 0.9 gives an average predicted probability for ‘Neither’ of ≈0.346, which is not especially high (the PDP peaks at ≈0.401 at 0.3 and dips as low as ≈0.275 at 0.6). Putting this together: the local explanations (strong positive SHAPs and good local support in the data distribution) justify moderate trust in the local prediction, but the model’s only-moderate overall performance and the PDP’s middling probability advise caution and independent fact-checking.",
+        "judgement_reason_short": "The explanation features strongly support ‘Neither’ locally (big positive SHAPs and many similar datapoints), but the model’s overall accuracy (~65%) and only-moderate predicted probability (~0.35) make the result moderately trustworthy — check with external sources.",
+        "most_relevant_modules": [
+          "individual feature importance",
+          "feature distribution 2D"
+        ]
+      }
+    },
+    "error": null,
+    "latency_ms": 117788.733,
+    "start_time": "2025-10-15T16:17:33.663804+00:00",
+    "end_time": "2025-10-15T16:19:31.452537+00:00",
+    "trace_id": "c09f8535d152573dfc5617cf6f3402dd",
+    "prompt_token_count": null,
+    "completion_token_count": null,
+    "annotations": [
+      {
+        "name": "xai_description_truthfulness",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 1.0,
+        "explanation": null,
+        "trace_id": "b1521d729e70280a1f10f64c7d71fb6e",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-10-15T16:34:47.653020+00:00",
+        "end_time": "2025-10-15T16:35:33.929756+00:00"
+      },
+      {
+        "name": "layman_xai_truthfulness",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 1.0,
+        "explanation": null,
+        "trace_id": "837ee4f7c46f19185b9f70a4c94fa07d",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-10-15T16:35:33.934584+00:00",
+        "end_time": "2025-10-15T16:36:14.858571+00:00"
+      },
+      {
+        "name": "short_assessment_truthfulness",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 1.0,
+        "explanation": null,
+        "trace_id": "0e9d378500d8bd546c9e6065241e1047",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-10-15T16:36:14.875221+00:00",
+        "end_time": "2025-10-15T16:36:20.840241+00:00"
+      },
+      {
+        "name": "focus_quality",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 1.0,
+        "explanation": null,
+        "trace_id": "83f5752ad1015f123f783e571b01f8bd",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-10-15T16:36:20.847008+00:00",
+        "end_time": "2025-10-15T16:36:27.226721+00:00"
+      },
+      {
+        "name": "label_correlation",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 0.8333333333333334,
+        "explanation": null,
+        "trace_id": "76aca87a466a3c8c4022da31cd675dc1",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-10-15T16:36:27.233308+00:00",
+        "end_time": "2025-10-15T16:36:27.234409+00:00"
+      },
+      {
+        "name": "technical_xai_clarity",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 0.8571428571428571,
+        "explanation": null,
+        "trace_id": "0e4ae7c8aa71bf0ce08043bf7f1e0894",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-10-15T16:36:27.284758+00:00",
+        "end_time": "2025-10-15T16:37:04.993737+00:00"
+      },
+      {
+        "name": "technical_assessment_clarity",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 1.0,
+        "explanation": null,
+        "trace_id": "74580e7af5cae6e9583355f003609980",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-10-15T16:37:05.007872+00:00",
+        "end_time": "2025-10-15T16:37:08.591689+00:00"
+      }
+    ]
+  },
+  {
+    "example_id": "RGF0YXNldEV4YW1wbGU6MjQ5",
+    "repetition_number": 1,
+    "input": {
+      "dp_id": 104
+    },
+    "reference_output": {},
+    "output": {
+      "trace": [
+        {
+          "module_output": {
+            "id": 104,
+            "prediction": 2,
+            "statement": "California S.B. 1174 eliminates the requirement for voter ID at polling places.",
+            "values": {
+              "us_vs_them_lang": {
+                "shap_value": 0.0111,
+                "feature_value": 0.0
+              },
+              "exaggerated_uncertainty": {
+                "shap_value": 0.0337,
+                "feature_value": 1.0
+              },
+              "source_quality": {
+                "shap_value": 0.083,
+                "feature_value": 0.0
+              },
+              "victim_villain_language": {
+                "shap_value": -0.006,
+                "feature_value": 0.0
+              },
+              "black_and_white_language": {
+                "shap_value": 0.0191,
+                "feature_value": 0.0
+              },
+              "dehumanization": {
+                "shap_value": 0.0104,
+                "feature_value": 0.0
+              },
+              "emotionality": {
+                "shap_value": -0.0362,
+                "feature_value": 0.0
+              },
+              "reading_difficulty": {
+                "shap_value": 0.0191,
+                "feature_value": 0.0
+              },
+              "sentiment": {
+                "shap_value": -0.0112,
+                "feature_value": 0.0
+              },
+              "polarization": {
+                "shap_value": 0.071,
+                "feature_value": 0.0
+              }
+            },
+            "top_features": [
+              "source_quality",
+              "polarization",
+              "emotionality",
+              "exaggerated_uncertainty",
+              "black_and_white_language",
+              "reading_difficulty",
+              "sentiment",
+              "us_vs_them_lang",
+              "dehumanization",
+              "victim_villain_language"
+            ]
+          },
+          "action": "individual feature importance",
+          "summary": "Module reports SHAP feature importances for the prediction on the statement: \"California S.B. 1174 eliminates the requirement for voter ID at polling places.\" Supportive-info prediction: True. Key positive contributors (SHAP, feature value): source_quality +0.083 (0.0), polarization +0.071 (0.0), exaggerated_uncertainty +0.0337 (1.0), black_and_white_language +0.0191 (0.0), reading_difficulty +0.0191 (0.0), us_vs_them_lang +0.0111 (0.0), dehumanization +0.0104 (0.0). Negative contributors: emotionality -0.0362 (0.0), sentiment -0.0112 (0.0), victim_villain_language -0.0060 (0.0). The module's top_features ranking is: [source_quality, polarization, emotionality, exaggerated_uncertainty, black_and_white_language, reading_difficulty, sentiment, us_vs_them_lang, dehumanization, victim_villain_language].",
+          "laymans_summary": "The model says the claim is true. The biggest reasons were low source quality (SHAP +0.083) and high polarization (+0.071). The text shows absolute certainty (exaggerated_uncertainty value 1.0, SHAP +0.0337). Emotional tone slightly pushed the model away from the prediction (SHAP -0.0362). Most other features had value 0 and small effects.",
+          "module_name": "individual feature importance",
+          "module_params": {}
+        },
+        {
+          "module_output": {
+            "counts": [
+              65,
+              115,
+              4
+            ],
+            "edges": [
+              0.0,
+              0.6666666666666666,
+              1.3333333333333333,
+              2.0
+            ]
+          },
+          "action": "feature distribution for source_quality (label: True)",
+          "summary": "The feature distribution module reports three bins with edges [0.0, 0.6666666666666666, 1.3333333333333333, 2.0] and counts [65, 115, 4]. Out of a total of 184 observations, 65 fall in the low bin [0.0–0.6667) (35.3%), 115 in the middle bin [0.6667–1.3333) (62.5%), and only 4 in the high bin [1.3333–2.0] (2.2%). The distribution is strongly concentrated in the middle range (0.6667–1.3333) with very few values in the highest bin.",
+          "laymans_summary": "The data is split into three buckets: low, middle, and high. Most examples (about 62 out of every 100) are in the middle bucket, about 35 out of 100 are in the low bucket, and almost none (about 2 out of 100) are in the high bucket. So most values sit in the middle range.",
+          "module_name": "feature distribution",
+          "module_params": {
+            "feature_name": "source_quality",
+            "label": "True"
+          }
+        },
+        {
+          "module_output": "| source_quality ↓ \\ polarization → | 0.00–0.18 | 0.18–0.36 | 0.36–0.54 | 0.54–0.72 | 0.72–0.90 |\n| --- | --- | --- | --- | --- | --- |\n| 0.00–0.67 | 53 | 8 | 2 | 2 | 0 |\n| 0.67–1.33 | 36 | 33 | 7 | 19 | 20 |\n| 1.33–2.00 | 3 | 0 | 0 | 0 | 1 |",
+          "action": "feature distribution 2D for source_quality, polarization (label: True)",
+          "summary": "The 2D feature-distribution table (rows = source_quality bins, columns = polarization bins) contains 184 total samples. The datapoint has source_quality = 0.0 (falls in the 0.00–0.67 row) and polarization = 0.0 (falls in the 0.00–0.18 column). The cell for (source_quality 0.00–0.67, polarization 0.00–0.18) contains 53 samples (53/184 = 28.8%). Row totals: 0.00–0.67 row = 65 samples (35.3%), 0.67–1.33 row = 115 samples (62.5%), 1.33–2.00 row = 4 samples (2.2%). Column totals: 0.00–0.18 = 92 samples (50.0%), 0.18–0.36 = 41 (22.3%), 0.36–0.54 = 9 (4.9%), 0.54–0.72 = 21 (11.4%), 0.72–0.90 = 21 (11.4%). Notably, most examples are concentrated in the middle source_quality row (115/184 = 62.5%) and half of all examples are in the lowest polarization column (92/184 = 50%). Only 4 samples (2.2%) lie in the highest source_quality row.",
+          "laymans_summary": "There are 184 examples total. Your example (source_quality 0.0, polarization 0.0) sits in the cell that contains 53 examples—about 29% of the data. The middle source_quality row has the most examples (115, or 62.5%), and the lowest polarization column has half the examples (92, or 50%). Very few examples (4) have high source_quality.",
+          "module_name": "feature distribution 2D",
+          "module_params": {
+            "feature_name_1": "source_quality",
+            "feature_name_2": "polarization",
+            "label": "True"
+          }
+        },
+        {
+          "module_output": {
+            "accuracy": 0.65,
+            "f1_score": 0.6482,
+            "precision": 0.6531,
+            "recall": 0.65
+          },
+          "action": "performance metrics",
+          "summary": "The performance metrics module reports accuracy = 0.65, F1 score = 0.6482, precision = 0.6531, and recall = 0.65. The model prediction for the given datapoint is True. These metrics indicate moderate overall performance: roughly 65% accuracy with precision and recall closely matched, yielding an F1 around 0.648.",
+          "laymans_summary": "The model is right about 65% of the time. It finds positives and avoids mistakes about equally, so its overall score (F1) is about 0.65 — okay but not great.",
+          "module_name": "performance metrics",
+          "module_params": {}
+        },
+        {
+          "module_output": {
+            "confusion": [
+              [
+                0.64,
+                0.21,
+                0.15
+              ],
+              [
+                0.18,
+                0.66,
+                0.16
+              ],
+              [
+                0.23,
+                0.12,
+                0.65
+              ]
+            ],
+            "note": "First column/row  is the False label, second column/row is the Neither label and third column/row is the True label."
+          },
+          "action": "confusion matrix",
+          "summary": "The module reports a 3x3 confusion matrix where rows/columns map to labels [False, Neither, True]. The matrix is [[0.64, 0.21, 0.15], [0.18, 0.66, 0.16], [0.23, 0.12, 0.65]]. Interpreting rows as the actual class and columns as the model prediction: when the true class is False, the model predicts False 64% of the time, Neither 21%, and True 15%; when true is Neither, the model predicts False 18%, Neither 66%, and True 16%; when true is True, the model predicts False 23%, Neither 12%, and True 65%. Diagonal (correct) rates are 0.64, 0.66, and 0.65 respectively. Misclassification rates are 36% for False, 34% for Neither, and 35% for True. For the current datapoint (model prediction = True), note that when the actual label is True the model predicts True 65% of the time but also predicts True incorrectly 15% of the time when the true label is False and 16% when true is Neither, indicating some false-positive risk.",
+          "laymans_summary": "The model gets each label right about two-thirds of the time: 64% for False, 66% for Neither, and 65% for True. When something really is True, the model says True 65% of the time but sometimes mistakes False or Neither for True (23% and 12% of the time, respectively). So it’s decent but makes errors roughly one third of the time.",
+          "module_name": "confusion matrix",
+          "module_params": {}
+        },
+        {
+          "module_output": {
+            "label": 2,
+            "values": {
+              "us_vs_them_lang": 0.04,
+              "exaggerated_uncertainty": 0.2,
+              "source_quality": 0.18,
+              "victim_villain_language": 0.04,
+              "black_and_white_language": 0.06,
+              "dehumanization": 0.03,
+              "emotionality": 0.12,
+              "reading_difficulty": 0.09,
+              "sentiment": 0.05,
+              "polarization": 0.18
+            },
+            "top_features": [
+              "exaggerated_uncertainty",
+              "source_quality",
+              "polarization"
+            ]
+          },
+          "action": "global feature importance (label: True)",
+          "summary": "The module “global feature importance” reports feature importances computed from the absolute sum of SHAP values (output label=2). The top three features are: exaggerated_uncertainty (importance 0.20), source_quality (0.18), and polarization (0.18). Other feature importances are: emotionality 0.12, reading_difficulty 0.09, black_and_white_language 0.06, sentiment 0.05, us_vs_them_lang 0.04, victim_villain_language 0.04, dehumanization 0.03. These numbers indicate the model’s global prediction (True) is most influenced by exaggerated certainty and the lack/quality of evidence and polarization signals.",
+          "laymans_summary": "The model looks at many parts of the text to decide. The three strongest signals are: exaggerated certainty (0.20), weak or no sourcing (0.18), and how polarizing the text is (0.18). Other smaller signals include emotion (0.12) and reading difficulty (0.09). In short: certainty, sourcing, and polarization mattered most for the model’s decision.",
+          "module_name": "global feature importance",
+          "module_params": {
+            "label": "True"
+          }
+        },
+        {
+          "module_output": {
+            "feature": "source_quality",
+            "class": "True",
+            "grid_values": [
+              0,
+              1,
+              2
+            ],
+            "average": [
+              0.403529136321328,
+              0.3459665205989715,
+              0.07367355304022247
+            ]
+          },
+          "action": "partial dependence plot for source_quality (label: True)",
+          "summary": "The partial dependence plot for feature 'source_quality' toward the predicted label True shows a strong negative relationship: average predicted probability for class True at source_quality=0 is 0.403529136321328, at source_quality=1 is 0.3459665205989715, and at source_quality=2 is 0.07367355304022247. For this datapoint, source_quality equals 0.0, which corresponds to the highest average predicted probability (≈0.4035) among the three grid values. In other words, the model is more likely to predict True when source_quality indicates specific evidence (0) and much less likely when there is no evidence (2).",
+          "laymans_summary": "This chart shows how the model’s chance of saying 'True' changes when the quality of the source changes. When the source is high-quality/specific (0), the model predicts True about 40% of the time. With vague sourcing (1) it drops to about 35%, and with no evidence (2) it falls to about 7%. The given example has source_quality = 0, so it sits at the ~40% level.",
+          "module_name": "partial dependence plot",
+          "module_params": {
+            "feature_name": "source_quality",
+            "label": "True"
+          }
+        }
+      ],
+      "conclusion": {
+        "judgement_rating": 2,
+        "judgement_reason": "Local explanations are internally consistent and lie in reasonably dense regions of the training data, but overall model performance is only moderate so the prediction should be treated with caution. Key points: the SHAP explanation shows a net positive contribution toward True of roughly +0.19 (positives sum ≈+0.247, negatives ≈-0.053 → net ≈+0.194), with the largest contributors being source_quality (+0.083 at value 0.0) and polarization (+0.071 at value 0.0). The datapoint’s (source_quality=0.0, polarization=0.0) 2D cell contains 53/184 samples (28.8%), and the source_quality partial dependence shows source_quality=0 has the highest average predicted probability for True ≈0.4035 (vs 0.346 at 1 and 0.0737 at 2), so the direction and magnitude of the local contributions are supported by global behavior. However, global performance is only ~65% accuracy/F1 and the confusion matrix shows a nontrivial false-positive rate (model predicts True 15% of the time when the actual label is False and 16% when Neither), which lowers trust for high-stakes decisions. Overall: explanation coherence and in-distribution status increase trust, but modest model performance and nonzero false-positive risk limit it to a “good but not excellent” level.",
+        "judgement_reason_short": "Local explanations are coherent and the datapoint lies in a common region, but model accuracy (~65%) and nontrivial false-positive rates mean be somewhat cautious.",
+        "most_relevant_modules": [
+          "individual feature importance",
+          "partial dependence plot"
+        ]
+      }
+    },
+    "error": null,
+    "latency_ms": 95567.421,
+    "start_time": "2025-10-15T16:19:31.463867+00:00",
+    "end_time": "2025-10-15T16:21:07.031288+00:00",
+    "trace_id": "534fda329c2bdee00310a7a1262ea40f",
+    "prompt_token_count": null,
+    "completion_token_count": null,
+    "annotations": [
+      {
+        "name": "xai_description_truthfulness",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 0.7142857142857143,
+        "explanation": null,
+        "trace_id": "7f42e5f957028ff8231a95edff0379c3",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-10-15T16:37:08.652286+00:00",
+        "end_time": "2025-10-15T16:37:57.576248+00:00"
+      },
+      {
+        "name": "layman_xai_truthfulness",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 1.0,
+        "explanation": null,
+        "trace_id": "220d0543a2c1b989cb33c981641d821f",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-10-15T16:37:57.585837+00:00",
+        "end_time": "2025-10-15T16:38:34.901969+00:00"
+      },
+      {
+        "name": "short_assessment_truthfulness",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 1.0,
+        "explanation": null,
+        "trace_id": "812a994c77ae4ecd170d437529c101f3",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-10-15T16:38:34.907631+00:00",
+        "end_time": "2025-10-15T16:38:39.752285+00:00"
+      },
+      {
+        "name": "focus_quality",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 1.0,
+        "explanation": null,
+        "trace_id": "0656ce5533a19b40859a1c8015825b43",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-10-15T16:38:39.812897+00:00",
+        "end_time": "2025-10-15T16:38:45.184438+00:00"
+      },
+      {
+        "name": "label_correlation",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 0.8333333333333334,
+        "explanation": null,
+        "trace_id": "5b9fc86ebcfe7ccfd830f8ab71b62b11",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-10-15T16:38:45.189789+00:00",
+        "end_time": "2025-10-15T16:38:45.190797+00:00"
+      },
+      {
+        "name": "technical_xai_clarity",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 1.0,
+        "explanation": null,
+        "trace_id": "5984f885c98b7b858f77bfd56f3d3de8",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-10-15T16:38:45.237264+00:00",
+        "end_time": "2025-10-15T16:39:19.097398+00:00"
+      },
+      {
+        "name": "technical_assessment_clarity",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 1.0,
+        "explanation": null,
+        "trace_id": "c01e3bc902663d4949d0bd9e2f808874",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-10-15T16:39:19.118197+00:00",
+        "end_time": "2025-10-15T16:39:26.221174+00:00"
+      }
+    ]
+  },
+  {
+    "example_id": "RGF0YXNldEV4YW1wbGU6MjUw",
+    "repetition_number": 1,
+    "input": {
+      "dp_id": 105
+    },
+    "reference_output": {},
+    "output": {
+      "trace": [
+        {
+          "module_output": {
+            "id": 105,
+            "prediction": 1,
+            "statement": "“Right now, over 70% of federal employees are still working from home three years after COVID.\"",
+            "values": {
+              "us_vs_them_lang": {
+                "shap_value": 0.0071,
+                "feature_value": 0.0
+              },
+              "exaggerated_uncertainty": {
+                "shap_value": 0.0428,
+                "feature_value": 0.8
+              },
+              "source_quality": {
+                "shap_value": 0.0714,
+                "feature_value": 1.0
+              },
+              "victim_villain_language": {
+                "shap_value": 0.0028,
+                "feature_value": 0.0
+              },
+              "black_and_white_language": {
+                "shap_value": -0.0061,
+                "feature_value": 0.0
+              },
+              "dehumanization": {
+                "shap_value": 0.0077,
+                "feature_value": 0.0
+              },
+              "emotionality": {
+                "shap_value": 0.0371,
+                "feature_value": 0.2
+              },
+              "reading_difficulty": {
+                "shap_value": 0.0346,
+                "feature_value": 0.2
+              },
+              "sentiment": {
+                "shap_value": -0.0227,
+                "feature_value": 0.0
+              },
+              "polarization": {
+                "shap_value": 0.2083,
+                "feature_value": 0.3
+              }
+            },
+            "top_features": [
+              "polarization",
+              "source_quality",
+              "exaggerated_uncertainty",
+              "emotionality",
+              "reading_difficulty",
+              "sentiment",
+              "dehumanization",
+              "us_vs_them_lang",
+              "black_and_white_language",
+              "victim_villain_language"
+            ]
+          },
+          "action": "individual feature importance",
+          "summary": "Module 'individual feature importance' (id 105) analyzed the statement “Right now, over 70% of federal employees are still working from home three years after COVID.” The module's local feature contributions (SHAP) and feature values are: polarization: shap=0.2083, feature_value=0.3; source_quality: shap=0.0714, feature_value=1.0; exaggerated_uncertainty: shap=0.0428, feature_value=0.8; emotionality: shap=0.0371, feature_value=0.2; reading_difficulty: shap=0.0346, feature_value=0.2; sentiment: shap=-0.0227, feature_value=0.0; dehumanization: shap=0.0077, feature_value=0.0; us_vs_them_lang: shap=0.0071, feature_value=0.0; black_and_white_language: shap=-0.0061, feature_value=0.0; victim_villain_language: shap=0.0028, feature_value=0.0. The top features ranked by importance are: [\"polarization\", \"source_quality\", \"exaggerated_uncertainty\", \"emotionality\", \"reading_difficulty\", \"sentiment\", \"dehumanization\", \"us_vs_them_lang\", \"black_and_white_language\", \"victim_villain_language\"]. Note: the supportive information lists the overall prediction as 'Neither'.",
+          "laymans_summary": "This module looked at which small parts of the sentence pushed the model's decision the most. The biggest push came from 'polarization' (0.2083) and then 'source_quality' (0.0714). Three other features gave smaller positive pushes: 'exaggerated_uncertainty' (0.0428), 'emotionality' (0.0371), and 'reading_difficulty' (0.0346). One feature ('sentiment') pushed the decision a little in the opposite direction (-0.0227). All feature numbers (values) were also recorded: e.g., polarization value 0.3, source_quality 1.0, exaggerated_uncertainty 0.8. The model's listed overall prediction in the supporting data is 'Neither'.",
+          "module_name": "individual feature importance",
+          "module_params": {}
+        },
+        {
+          "module_output": {
+            "counts": [
+              40,
+              16,
+              21,
+              11,
+              4,
+              13,
+              3,
+              21,
+              39,
+              13,
+              3
+            ],
+            "edges": [
+              0.0,
+              0.09090909090909091,
+              0.18181818181818182,
+              0.2727272727272727,
+              0.36363636363636365,
+              0.4545454545454546,
+              0.5454545454545454,
+              0.6363636363636364,
+              0.7272727272727273,
+              0.8181818181818182,
+              0.9090909090909092,
+              1.0
+            ]
+          },
+          "action": "feature distribution for polarization (label: Neither)",
+          "summary": "Feature-distribution histogram summary: edges define 11 bins from 0.0 to 1.0 with equal width ≈0.09091. Counts per bin: [40, 16, 21, 11, 4, 13, 3, 21, 39, 13, 3], total N = 184. Highest-frequency bins: bin 0 (0.0–0.0909) count 40 and bin 8 (0.7273–0.8182) count 39. Lowest-frequency bins: bin 6 (0.54545–0.63636) and bin 10 (0.90909–1.0) each have 3 samples. Mapping relevant datapoint feature values to bins: exaggerated_uncertainty = 0.8 → bin 8 (count 39); source_quality = 1.0 → last bin (0.90909–1.0, count 3); sentiment = 0.0, us_vs_them_lang = 0.0, dehumanization = 0.0 → bin 0 (0.0–0.0909, count 40); polarization = 0.3 → bin 3 (0.2727–0.3636, count 11); emotionality = 0.2 and reading_difficulty = 0.2 → bin 2 (0.1818–0.2727, count 21). Model prediction for the datapoint: \"Neither\".",
+          "laymans_summary": "There are 184 training examples split into 11 equal ranges from 0 to 1. Most examples fall either very low (0–0.09, 40 examples) or around 0.73–0.82 (39 examples). Very few examples are in the highest range (0.91–1.0) or the 0.55–0.64 range (3 each). For this datapoint, one feature (exaggerated_uncertainty = 0.8) sits in the high group, source_quality = 1.0 is in the rare highest bin, and several features (sentiment, us_vs_them_lang, dehumanization) are in the low group.",
+          "module_name": "feature distribution",
+          "module_params": {
+            "feature_name": "polarization",
+            "label": "Neither"
+          }
+        },
+        {
+          "module_output": "| polarization ↓ \\ source_quality → | 0.00–0.67 | 0.67–1.33 | 1.33–2.00 |\n| --- | --- | --- | --- |\n| 0.00–0.20 | 28 | 25 | 3 |\n| 0.20–0.40 | 5 | 26 | 1 |\n| 0.40–0.60 | 1 | 18 | 1 |\n| 0.60–0.80 | 2 | 16 | 3 |\n| 0.80–1.00 | 0 | 46 | 9 |",
+          "action": "feature distribution 2D for polarization, source_quality (label: Neither)",
+          "summary": "The 2D feature distribution table cross-tabulates polarization (rows) against source_quality (columns). The datapoint has polarization=0.3 (row 0.20–0.40) and source_quality=1.0 (column 0.67–1.33). The cell for that bin contains 26 examples. The full row 0.20–0.40 has counts [5, 26, 1] across the three source_quality bins (0.00–0.67, 0.67–1.33, 1.33–2.00). Across the table the middle source_quality column (0.67–1.33) is dominant with column totals 131 (row totals by column: first=36, middle=131, last=17), meaning 131 of the 184 total examples (≈71%) sit in the middle source_quality bin. Therefore the datapoint lies in a moderately populated cell (26 neighbors) within the most common source_quality range.",
+          "laymans_summary": "The point has polarization 0.3 and source_quality 1.0, which puts it in the box with 26 similar examples. In the whole table most examples (131 out of 184, about 71%) are in the middle column, so this cell is in a common area of the distribution.",
+          "module_name": "feature distribution 2D",
+          "module_params": {
+            "feature_name_1": "polarization",
+            "feature_name_2": "source_quality",
+            "label": "Neither"
+          }
+        },
+        {
+          "module_output": {
+            "accuracy": 0.65,
+            "f1_score": 0.6482,
+            "precision": 0.6531,
+            "recall": 0.65
+          },
+          "action": "performance metrics",
+          "summary": "Performance metrics: accuracy = 0.65, F1 score = 0.6482, precision = 0.6531, recall = 0.65. These numbers indicate the model's overall correctness is about 65%; when it predicts a class it's correct ~65% of the time (precision 0.6531), and it finds ~65% of true positives (recall 0.65), giving an F1 of 0.6482. The metrics show moderate performance with clear room for improvement.",
+          "laymans_summary": "The model is right about 65 out of 100 times. When it says something is true, it's correct about 65 times out of 100, and it finds about 65 of the things it should find. The overall score (F1) is about 0.65, so the model works okay but could be better.",
+          "module_name": "performance metrics",
+          "module_params": {}
+        },
+        {
+          "module_output": {
+            "confusion": [
+              [
+                0.64,
+                0.21,
+                0.15
+              ],
+              [
+                0.18,
+                0.66,
+                0.16
+              ],
+              [
+                0.23,
+                0.12,
+                0.65
+              ]
+            ],
+            "note": "First column/row  is the False label, second column/row is the Neither label and third column/row is the True label."
+          },
+          "action": "confusion matrix",
+          "summary": "The provided confusion matrix (rows = actual labels, columns = predicted labels; order: False, Neither, True) is:\n- Actual False: predicted False 0.64, predicted Neither 0.21, predicted True 0.15.\n- Actual Neither: predicted False 0.18, predicted Neither 0.66, predicted True 0.16.\n- Actual True: predicted False 0.23, predicted Neither 0.12, predicted True 0.65.\nThe model’s largest values are the diagonals (correct predictions): 0.64 (False), 0.66 (Neither), and 0.65 (True), so the model correctly labels each class roughly 64–66% of the time. The main confusions are: actual False is misclassified as Neither 21% of the time and as True 15% of the time; actual True is misclassified as False 23% and as Neither 12%. Given the datapoint prediction “Neither,” the matrix indicates the model is generally strongest at correctly predicting Neither (0.66), but there remains notable confusion primarily between False and Neither and between True and False.",
+          "laymans_summary": "The matrix shows how often the model gets each label right. When the true label is False, it predicts False 64% of the time and mixes it up with Neither (21%) or True (15%). When the true label is Neither, it gets it right 66% of the time. When the true label is True, it predicts True 65% but sometimes calls it False (23%). In short: the model is correct about two-thirds of the time for each class, with the biggest mistakes swapping False and Neither or calling True False.",
+          "module_name": "confusion matrix",
+          "module_params": {}
+        },
+        {
+          "module_output": {
+            "label": 1,
+            "values": {
+              "us_vs_them_lang": 0.04,
+              "exaggerated_uncertainty": 0.13,
+              "source_quality": 0.15,
+              "victim_villain_language": 0.09,
+              "black_and_white_language": 0.04,
+              "dehumanization": 0.03,
+              "emotionality": 0.11,
+              "reading_difficulty": 0.1,
+              "sentiment": 0.1,
+              "polarization": 0.21
+            },
+            "top_features": [
+              "polarization",
+              "source_quality",
+              "exaggerated_uncertainty"
+            ]
+          },
+          "action": "global feature importance (label: Neither)",
+          "summary": "Global feature importance indicates that polarization is the most influential feature (importance 0.21), followed by source_quality (0.15) and exaggerated_uncertainty (0.13). For this datapoint the values for those top features are polarization = 0.3, source_quality = 1.0 (no/very vague evidence), and exaggerated_uncertainty = 0.8 (near-absolute certainty). The model's prediction for the datapoint is 'Neither'. Other feature importances (absolute SHAP sums) are: emotionality 0.11, reading_difficulty 0.10, sentiment 0.10, victim_villain_language 0.09, us_vs_them_lang 0.04, black_and_white_language 0.04, dehumanization 0.03. Interpretation: the model relied most on polarization, source quality, and certainty when forming its output; the remaining features had smaller contributions.",
+          "laymans_summary": "The model says three things mattered most: how polarizing the text is (importance 0.21), how good the evidence is (0.15), and how certain the claims sound (0.13). For this example the text had moderate polarization (0.3), poor/no evidence (1.0), and sounded very certain (0.8). The model still labeled it 'Neither'. Other features mattered less.",
+          "module_name": "global feature importance",
+          "module_params": {
+            "label": "Neither"
+          }
+        },
+        {
+          "module_output": {
+            "feature": "polarization",
+            "class": "Neither",
+            "grid_values": [
+              0.0,
+              0.1,
+              0.2,
+              0.3,
+              0.4,
+              0.5,
+              0.6,
+              0.7,
+              0.8,
+              0.9,
+              1.0
+            ],
+            "average": [
+              0.3115496870330339,
+              0.2743365441384729,
+              0.3213941708143009,
+              0.4263419699847853,
+              0.46425132692146187,
+              0.39031841506085097,
+              0.38892413869875103,
+              0.39263828615520535,
+              0.3291453606675924,
+              0.34434726559641005,
+              0.2929180459288766
+            ]
+          },
+          "action": "partial dependence plot for polarization (label: Neither)",
+          "summary": "Partial dependence plot for feature \"polarization\" (class = Neither) shows how predicted probability of the class Neither varies across polarization values. Grid values: [0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0]. Corresponding average predicted probabilities: [0.3115496870, 0.2743365441, 0.3213941708, 0.42634196998, 0.46425132692, 0.39031841506, 0.38892413870, 0.39263828616, 0.32914536067, 0.34434726560, 0.29291804593]. The curve rises from 0.3116 at polarization 0.0 to a peak of 0.4643 at 0.4, with a local high at 0.3 of 0.4263, then declines toward 1.0 (0.2929). The datapoint's polarization value is 0.3 and the model predicted label is \"Neither\", consistent with the PDP showing an elevated predicted probability (~0.4263) at that polarization.",
+          "laymans_summary": "This plot shows how likely the model is to say \"Neither\" depending on how \"polarized\" the text is. When polarization is low (0.0) the chance is about 31%. It goes up and peaks near polarization 0.4 at about 46%. The example text has polarization 0.3, where the model’s chance of \"Neither\" is about 43%, so the model’s prediction (\"Neither\") matches that higher chance.",
+          "module_name": "partial dependence plot",
+          "module_params": {
+            "feature_name": "polarization",
+            "label": "Neither"
+          }
+        }
+      ],
+      "conclusion": {
+        "judgement_rating": 2,
+        "judgement_reason": "Local explanations are coherent and moderately well-supported: the largest local SHAP contributor is polarization (SHAP=0.2083) with the datapoint polarization=0.3, and the partial dependence shows an elevated Pred(Neither) ≈0.4263 at polarization=0.3, consistent with the predicted class. Source_quality (SHAP=0.0714) and exaggerated_uncertainty (SHAP=0.0428) also push toward Neither. The datapoint sits in a moderately populated 2D cell (26 neighbors) in the polarization×source_quality table, indicating local support, though single-feature binning showed source_quality near an extreme bin with only 3 samples (possible rarity). Model-level performance is moderate (accuracy ≈0.65; Neither class correct ≈0.66), so the prediction is reasonably credible but not highly reliable.",
+        "judgement_reason_short": "The model’s local reasons (big positive SHAP for polarization 0.3 and PDP showing ≈0.426 probability) match the “Neither” output, but model performance (~65%) and some rare feature values lower full confidence.",
+        "most_relevant_modules": [
+          "individual feature importance",
+          "partial dependence plot"
+        ]
+      }
+    },
+    "error": null,
+    "latency_ms": 108874.03899999999,
+    "start_time": "2025-10-15T16:22:41.667023+00:00",
+    "end_time": "2025-10-15T16:24:30.541062+00:00",
+    "trace_id": "fe53d7c9c7a39217c2c6f2728d2c67b0",
+    "prompt_token_count": null,
+    "completion_token_count": null,
+    "annotations": [
+      {
+        "name": "xai_description_truthfulness",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 0.8571428571428571,
+        "explanation": null,
+        "trace_id": "0389b34d1226bc662af95f0f42d7ba96",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-10-15T16:39:26.236439+00:00",
+        "end_time": "2025-10-15T16:40:11.058299+00:00"
+      },
+      {
+        "name": "layman_xai_truthfulness",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 1.0,
+        "explanation": null,
+        "trace_id": "89d3ae36c73ca867349208e9cdcd1873",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-10-15T16:40:11.089751+00:00",
+        "end_time": "2025-10-15T16:40:51.745816+00:00"
+      },
+      {
+        "name": "short_assessment_truthfulness",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 1.0,
+        "explanation": null,
+        "trace_id": "1e8fac43a6fd185910c1b49f1f718cc4",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-10-15T16:40:51.777173+00:00",
+        "end_time": "2025-10-15T16:40:57.541725+00:00"
+      },
+      {
+        "name": "focus_quality",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 1.0,
+        "explanation": null,
+        "trace_id": "1076f48ddadc8afd64cd0e1ca65e3d18",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-10-15T16:40:57.549660+00:00",
+        "end_time": "2025-10-15T16:41:03.263121+00:00"
+      },
+      {
+        "name": "label_correlation",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 0.8333333333333334,
+        "explanation": null,
+        "trace_id": "8fef493b119216dbe8dd8ea9fb3123f6",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-10-15T16:41:03.286909+00:00",
+        "end_time": "2025-10-15T16:41:03.287961+00:00"
+      },
+      {
+        "name": "technical_xai_clarity",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 1.0,
+        "explanation": null,
+        "trace_id": "b94dbda38882dece9a20553c875bc865",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-10-15T16:41:03.333214+00:00",
+        "end_time": "2025-10-15T16:41:37.548905+00:00"
+      },
+      {
+        "name": "technical_assessment_clarity",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 1.0,
+        "explanation": null,
+        "trace_id": "4733fe4ef6d1066ae245e5b06413191e",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-10-15T16:41:37.575888+00:00",
+        "end_time": "2025-10-15T16:41:41.028870+00:00"
+      }
+    ]
+  },
+  {
+    "example_id": "RGF0YXNldEV4YW1wbGU6MjUx",
+    "repetition_number": 1,
+    "input": {
+      "dp_id": 106
+    },
+    "reference_output": {},
+    "output": {
+      "trace": [
+        {
+          "module_output": {
+            "id": 106,
+            "prediction": 1,
+            "statement": "Citizens Property Insurance “is not solvent.”",
+            "values": {
+              "us_vs_them_lang": {
+                "shap_value": 0.0231,
+                "feature_value": 0.0
+              },
+              "exaggerated_uncertainty": {
+                "shap_value": 0.0069,
+                "feature_value": 0.7
+              },
+              "source_quality": {
+                "shap_value": 0.0448,
+                "feature_value": 1.0
+              },
+              "victim_villain_language": {
+                "shap_value": 0.0011,
+                "feature_value": 0.0
+              },
+              "black_and_white_language": {
+                "shap_value": 0.0079,
+                "feature_value": 0.0
+              },
+              "dehumanization": {
+                "shap_value": 0.0096,
+                "feature_value": 0.0
+              },
+              "emotionality": {
+                "shap_value": 0.0223,
+                "feature_value": -0.5
+              },
+              "reading_difficulty": {
+                "shap_value": 0.0446,
+                "feature_value": 0.2
+              },
+              "sentiment": {
+                "shap_value": 0.0082,
+                "feature_value": -1.0
+              },
+              "polarization": {
+                "shap_value": 0.2329,
+                "feature_value": 0.4
+              }
+            },
+            "top_features": [
+              "polarization",
+              "source_quality",
+              "reading_difficulty",
+              "us_vs_them_lang",
+              "emotionality",
+              "dehumanization",
+              "sentiment",
+              "black_and_white_language",
+              "exaggerated_uncertainty",
+              "victim_villain_language"
+            ]
+          },
+          "action": "individual feature importance",
+          "summary": "Module 'individual feature importance' (id 106) produced prediction = 1 for the statement: \"Citizens Property Insurance “is not solvent.\" The SHAP contributions and feature values (feature_value -> shap_value) are: polarization 0.4 -> 0.2329 (largest contributor); source_quality 1.0 -> 0.0448; reading_difficulty 0.2 -> 0.0446; us_vs_them_lang 0.0 -> 0.0231; emotionality -0.5 -> 0.0223; dehumanization 0.0 -> 0.0096; sentiment -1.0 -> 0.0082; black_and_white_language 0.0 -> 0.0079; exaggerated_uncertainty 0.7 -> 0.0069; victim_villain_language 0.0 -> 0.0011. The module's top_features rank these in order: [polarization, source_quality, reading_difficulty, us_vs_them_lang, emotionality, dehumanization, sentiment, black_and_white_language, exaggerated_uncertainty, victim_villain_language]. Summary: polarization (shap=0.2329, value=0.4) is by far the dominant factor driving the model prediction; source_quality (shap=0.0448, value=1.0) and reading_difficulty (shap=0.0446, value=0.2) are the next largest contributors. All other features contribute only small positive amounts (<= 0.0231).",
+          "laymans_summary": "The model labeled the sentence \"Citizens Property Insurance is not solvent\" with prediction 1. The single biggest reason was \"polarization\" (score 0.4), which had the largest effect (0.2329). The next reasons were \"vague/no source\" (source_quality = 1.0, effect 0.0448) and a bit of reading difficulty (0.2, effect 0.0446). Most other things (like name-calling or extreme us-vs-them language) were zero and barely affected the decision. In short: polarization was the main driver, with source quality and reading difficulty giving smaller boosts.",
+          "module_name": "individual feature importance",
+          "module_params": {}
+        },
+        {
+          "module_output": {
+            "counts": [
+              40,
+              16,
+              21,
+              11,
+              4,
+              13,
+              3,
+              21,
+              39,
+              13,
+              3
+            ],
+            "edges": [
+              0.0,
+              0.09090909090909091,
+              0.18181818181818182,
+              0.2727272727272727,
+              0.36363636363636365,
+              0.4545454545454546,
+              0.5454545454545454,
+              0.6363636363636364,
+              0.7272727272727273,
+              0.8181818181818182,
+              0.9090909090909092,
+              1.0
+            ]
+          },
+          "action": "feature distribution for polarization (label: Neither)",
+          "summary": "The module shows a histogram-like feature distribution with 11 bins defined by edges [0.0, 0.09090909090909091, 0.18181818181818182, 0.2727272727272727, 0.36363636363636365, 0.4545454545454546, 0.5454545454545454, 0.6363636363636364, 0.7272727272727273, 0.8181818181818182, 0.9090909090909092, 1.0] and corresponding counts [40, 16, 21, 11, 4, 13, 3, 21, 39, 13, 3]. The largest concentrations are in the first bin (count=40, range ≈0.00–0.09) and bin covering ≈0.73–0.82 (count=39), with smaller peaks at bins with counts 21 (two bins). The smallest counts are 3 (two bins). Overall the distribution is roughly bimodal with modes near the low end and the upper-middle of the normalized range. The model prediction for this datapoint is “Neither.”",
+          "laymans_summary": "Imagine 11 buckets from 0 to 1. The number of examples in each bucket are: 40, 16, 21, 11, 4, 13, 3, 21, 39, 13, 3. Most examples fall into the very first bucket (40) and another near the top (39). This means values are clustered near the low end and also around 0.73–0.82. The model’s predicted label for this item is “Neither.”",
+          "module_name": "feature distribution",
+          "module_params": {
+            "feature_name": "polarization",
+            "label": "Neither"
+          }
+        },
+        {
+          "module_output": "| polarization ↓ \\ source_quality → | 0.00–0.67 | 0.67–1.33 | 1.33–2.00 |\n| --- | --- | --- | --- |\n| 0.00–0.20 | 28 | 25 | 3 |\n| 0.20–0.40 | 5 | 26 | 1 |\n| 0.40–0.60 | 1 | 18 | 1 |\n| 0.60–0.80 | 2 | 16 | 3 |\n| 0.80–1.00 | 0 | 46 | 9 |",
+          "action": "feature distribution 2D for polarization, source_quality (label: Neither)",
+          "summary": "The datapoint (polarization = 0.40, source_quality = 1.00) falls into the 2D histogram cell for polarization 0.40–0.60 and source_quality 0.67–1.33, which contains 18 examples. That polarization row (0.40–0.60) has a total of 20 examples (1 in the low source_quality column, 18 in the mid column, 1 in the high column), so 90% of samples in this row are in the mid source_quality bin. Across the entire table there are 184 samples: 36 (19.6%) in source_quality 0.00–0.67, 131 (71.2%) in 0.67–1.33, and 17 (9.2%) in 1.33–2.00. The mid source_quality column dominates the distribution (131 of 184), with especially high concentration at the highest polarization row (0.80–1.00) which alone has 46 examples in the mid column. In short: the datapoint is in a relatively common cell (18 neighbors), and the dataset is heavily weighted toward mid-range source_quality values.",
+          "laymans_summary": "Your example (polarization = 0.40, source_quality = 1.00) sits in the cell for polarization 0.40–0.60 and source_quality 0.67–1.33, where there are 18 similar cases. That row has 20 cases in total, so most (90%) of those are in the middle source-quality group. Overall, most examples (131 out of 184) have medium source-quality — the middle column is much larger than the low or high columns.",
+          "module_name": "feature distribution 2D",
+          "module_params": {
+            "feature_name_1": "polarization",
+            "feature_name_2": "source_quality",
+            "label": "Neither"
+          }
+        },
+        {
+          "module_output": {
+            "accuracy": 0.65,
+            "f1_score": 0.6482,
+            "precision": 0.6531,
+            "recall": 0.65
+          },
+          "action": "performance metrics",
+          "summary": "Model performance metrics: accuracy = 0.65, F1 score = 0.6482, precision = 0.6531, recall = 0.65. These values indicate moderate performance overall, with precision and recall nearly identical, suggesting a balance between false positives and false negatives and an overall effectiveness around 65%.",
+          "laymans_summary": "The model is correct about 65 out of 100 times. Its ability to find true answers and avoid wrong ones is about the same, so it makes similar amounts of both kinds of mistakes.",
+          "module_name": "performance metrics",
+          "module_params": {}
+        },
+        {
+          "module_output": {
+            "confusion": [
+              [
+                0.64,
+                0.21,
+                0.15
+              ],
+              [
+                0.18,
+                0.66,
+                0.16
+              ],
+              [
+                0.23,
+                0.12,
+                0.65
+              ]
+            ],
+            "note": "First column/row  is the False label, second column/row is the Neither label and third column/row is the True label."
+          },
+          "action": "confusion matrix",
+          "summary": "The confusion matrix (rows = actual, columns = predicted; order: False, Neither, True) is: row False -> [0.64, 0.21, 0.15]; row Neither -> [0.18, 0.66, 0.16]; row True -> [0.23, 0.12, 0.65]. The model’s per-class correct-prediction rates (diagonals) are 0.64 for False, 0.66 for Neither, and 0.65 for True. Off-diagonal confusions include: actual False predicted as Neither 0.21 and as True 0.15; actual Neither predicted as False 0.18 and as True 0.16; actual True predicted as False 0.23 and as Neither 0.12. Given the model’s prediction of “Neither” for this datapoint, the matrix shows that when the true label is False the model predicts Neither 21% of the time, when the true label is Neither it predicts Neither 66% of the time, and when the true label is True it predicts Neither 12% of the time.",
+          "laymans_summary": "The matrix shows how often the model gets each label right: it correctly predicts False 64% of the time, Neither 66% of the time, and True 65% of the time. Mistakes happen too — for example, real False cases are called Neither 21% of the time, and real True cases are called False 23% of the time. Since the model predicted “Neither” here, note it predicts Neither 66% of the time when that’s the true label, but it also calls False cases Neither 21% of the time and True cases Neither 12% of the time.",
+          "module_name": "confusion matrix",
+          "module_params": {}
+        },
+        {
+          "module_output": {
+            "label": 1,
+            "values": {
+              "us_vs_them_lang": 0.04,
+              "exaggerated_uncertainty": 0.13,
+              "source_quality": 0.15,
+              "victim_villain_language": 0.09,
+              "black_and_white_language": 0.04,
+              "dehumanization": 0.03,
+              "emotionality": 0.11,
+              "reading_difficulty": 0.1,
+              "sentiment": 0.1,
+              "polarization": 0.21
+            },
+            "top_features": [
+              "polarization",
+              "source_quality",
+              "exaggerated_uncertainty"
+            ]
+          },
+          "action": "global feature importance (label: Neither)",
+          "summary": "The \"global feature importance\" module shows polarization as the most important feature (importance 0.21), followed by source_quality (0.15) and exaggerated_uncertainty (0.13). Other feature importances are: emotionality 0.11, reading_difficulty 0.10, sentiment 0.10, victim_villain_language 0.09, us_vs_them_lang 0.04, black_and_white_language 0.04, and dehumanization 0.03. For this datapoint (prediction: Neither), the corresponding feature values of the top three are polarization = 0.4, source_quality = 1.0, and exaggerated_uncertainty = 0.7. The module thus indicates the model relies most on polarization, source_quality, and exaggerated_uncertainty when making predictions.",
+          "laymans_summary": "The model says some characteristics matter more than others. The top three are: polarization (importance 0.21) — this post has polarization 0.4; source quality (importance 0.15) — this post has vague sourcing at 1.0; and exaggerated certainty (importance 0.13) — this post scores 0.7 (pretty certain). The model predicted \"Neither.\"",
+          "module_name": "global feature importance",
+          "module_params": {
+            "label": "Neither"
+          }
+        },
+        {
+          "module_output": {
+            "feature": "polarization",
+            "class": "Neither",
+            "grid_values": [
+              0.0,
+              0.1,
+              0.2,
+              0.3,
+              0.4,
+              0.5,
+              0.6,
+              0.7,
+              0.8,
+              0.9,
+              1.0
+            ],
+            "average": [
+              0.3115496870330339,
+              0.2743365441384729,
+              0.3213941708143009,
+              0.4263419699847853,
+              0.46425132692146187,
+              0.39031841506085097,
+              0.38892413869875103,
+              0.39263828615520535,
+              0.3291453606675924,
+              0.34434726559641005,
+              0.2929180459288766
+            ]
+          },
+          "action": "partial dependence plot for polarization (label: Neither)",
+          "summary": "Partial dependence plot for the feature 'polarization' (class = 'Neither') reports average predicted probabilities at grid values [0.0,0.1,...,1.0] as: 0.0 -> 0.31155, 0.1 -> 0.27434, 0.2 -> 0.32139, 0.3 -> 0.42634, 0.4 -> 0.46425, 0.5 -> 0.39032, 0.6 -> 0.38892, 0.7 -> 0.39264, 0.8 -> 0.32915, 0.9 -> 0.34435, 1.0 -> 0.29292. The PDP is non-monotonic and reaches its maximum average predicted probability for 'Neither' at polarization = 0.4 with value 0.46425. The given datapoint has polarization = 0.4 and the model prediction is 'Neither', which aligns with the PDP peak. Extremes (e.g., polarization = 1.0) correspond to lower average probabilities (~0.29292).",
+          "laymans_summary": "Think of polarization as a dial from 0 to 1. The plot shows how often the model picks 'Neither' at each dial setting. At 0.4 the model says 'Neither' about 46% of the time (0.46425) — the highest point on the plot. Your datapoint’s polarization is 0.4 and the model predicted 'Neither', so the datapoint sits where the model most often chooses 'Neither'.",
+          "module_name": "partial dependence plot",
+          "module_params": {
+            "feature_name": "polarization",
+            "label": "Neither"
+          }
+        }
+      ],
+      "conclusion": {
+        "judgement_rating": 2,
+        "judgement_reason": "Local explanations are internally consistent and point to a clear dominant factor (polarization=0.40 with SHAP +0.2329) that increases the predicted probability for 'Neither' at the PDP peak (0.46425). The datapoint sits in a reasonably populated 2D cell (18 neighbors; 20 examples in the polarization row, 90% of which share mid-range source_quality), so the local neighborhood supports the model’s behavior. However, overall model performance is moderate (accuracy 0.65, F1 0.6482) and the model appears to rely heavily on a single feature (polarization contributes ~0.2329 vs ~0.0448 and ~0.0446 for the next features), which raises risk of over-reliance or spurious correlation. Thus I assess the prediction as fairly trustworthy locally but with caution due to moderate global performance and single-feature dominance.",
+        "judgement_reason_short": "The model’s explanation is clear and supported by nearby examples, but overall accuracy is only ~65% and it leans heavily on one feature (polarization), so trust it cautiously.",
+        "most_relevant_modules": [
+          "individual feature importance",
+          "partial dependence plot"
+        ]
+      }
+    },
+    "error": null,
+    "latency_ms": 111287.018,
+    "start_time": "2025-10-15T16:24:30.555212+00:00",
+    "end_time": "2025-10-15T16:26:21.842230+00:00",
+    "trace_id": "edd523bf55254665fa68cfe8aeb0adf4",
+    "prompt_token_count": null,
+    "completion_token_count": null,
+    "annotations": [
+      {
+        "name": "xai_description_truthfulness",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 0.8571428571428571,
+        "explanation": null,
+        "trace_id": "066158b20abbe085911bb3b2d2834a58",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-10-15T16:41:41.077927+00:00",
+        "end_time": "2025-10-15T16:42:31.885742+00:00"
+      },
+      {
+        "name": "layman_xai_truthfulness",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 0.8571428571428571,
+        "explanation": null,
+        "trace_id": "602539e9acf8cb825992f9d0ee3e599f",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-10-15T16:42:31.900151+00:00",
+        "end_time": "2025-10-15T16:43:11.910324+00:00"
+      },
+      {
+        "name": "short_assessment_truthfulness",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 1.0,
+        "explanation": null,
+        "trace_id": "1eb555489fd12ee4ed8c8626fda3187a",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-10-15T16:43:11.917123+00:00",
+        "end_time": "2025-10-15T16:43:17.031463+00:00"
+      },
+      {
+        "name": "focus_quality",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 1.0,
+        "explanation": null,
+        "trace_id": "ec5978df01698f15d801598fbdda8cd7",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-10-15T16:43:17.048291+00:00",
+        "end_time": "2025-10-15T16:43:22.994606+00:00"
+      },
+      {
+        "name": "label_correlation",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 0.8333333333333334,
+        "explanation": null,
+        "trace_id": "3b653d419e73972305e4d355b0eeec9a",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-10-15T16:43:23.004762+00:00",
+        "end_time": "2025-10-15T16:43:23.007916+00:00"
+      },
+      {
+        "name": "technical_xai_clarity",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 1.0,
+        "explanation": null,
+        "trace_id": "aba8403fd2f595140d52dd02b7199079",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-10-15T16:43:23.061590+00:00",
+        "end_time": "2025-10-15T16:43:58.682500+00:00"
+      },
+      {
+        "name": "technical_assessment_clarity",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 0.0,
+        "explanation": null,
+        "trace_id": "abef8dca61dca4002276a05149e654cb",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-10-15T16:43:58.709073+00:00",
+        "end_time": "2025-10-15T16:44:06.053910+00:00"
+      }
+    ]
+  },
+  {
+    "example_id": "RGF0YXNldEV4YW1wbGU6MjUy",
+    "repetition_number": 1,
+    "input": {
+      "dp_id": 107
+    },
+    "reference_output": {},
+    "output": {
+      "trace": [
+        {
+          "module_output": {
+            "id": 107,
+            "prediction": 1,
+            "statement": "U.S. Senate candidate Mike Rogers “believes he should make that decision” about whether to end pregnancies.",
+            "values": {
+              "us_vs_them_lang": {
+                "shap_value": 0.0035,
+                "feature_value": 0.0
+              },
+              "exaggerated_uncertainty": {
+                "shap_value": -0.0249,
+                "feature_value": 0.5
+              },
+              "source_quality": {
+                "shap_value": 0.0419,
+                "feature_value": 1.0
+              },
+              "victim_villain_language": {
+                "shap_value": -0.0179,
+                "feature_value": 0.0
+              },
+              "black_and_white_language": {
+                "shap_value": -0.0142,
+                "feature_value": 0.0
+              },
+              "dehumanization": {
+                "shap_value": 0.0049,
+                "feature_value": 0.0
+              },
+              "emotionality": {
+                "shap_value": 0.0462,
+                "feature_value": 0.0
+              },
+              "reading_difficulty": {
+                "shap_value": 0.0392,
+                "feature_value": 0.2
+              },
+              "sentiment": {
+                "shap_value": -0.0314,
+                "feature_value": 0.0
+              },
+              "polarization": {
+                "shap_value": -0.0112,
+                "feature_value": 0.2
+              }
+            },
+            "top_features": [
+              "emotionality",
+              "source_quality",
+              "reading_difficulty",
+              "sentiment",
+              "exaggerated_uncertainty",
+              "victim_villain_language",
+              "black_and_white_language",
+              "polarization",
+              "dehumanization",
+              "us_vs_them_lang"
+            ]
+          },
+          "action": "individual feature importance",
+          "summary": "Module 'individual feature importance' (id 107) explains the model's prediction for the sentence: \"U.S. Senate candidate Mike Rogers \\u201cbelieves he should make that decision\\u201d about whether to end pregnancies.\" The module reports a prediction value of 1 and lists SHAP contributions for 10 features. The three largest positive contributions (pushing the prediction up) are: emotionality +0.0462 (feature value 0.0), source_quality +0.0419 (feature value 1.0 — vague sourcing), and reading_difficulty +0.0392 (feature value 0.2). The largest negative contributions (pushing the prediction down) are sentiment -0.0314 (feature value 0.0), exaggerated_uncertainty -0.0249 (feature value 0.5), victim_villain_language -0.0179 (feature value 0.0), black_and_white_language -0.0142 (feature value 0.0), and polarization -0.0112 (feature value 0.2). Two features show small positive effects: dehumanization +0.0049 (0.0) and us_vs_them_lang +0.0035 (0.0). The module also provides a top_features ranking: [\"emotionality\", \"source_quality\", \"reading_difficulty\", \"sentiment\", \"exaggerated_uncertainty\", \"victim_villain_language\", \"black_and_white_language\", \"polarization\", \"dehumanization\", \"us_vs_them_lang\"].",
+          "laymans_summary": "This explanation lists which parts of the sentence mattered most to the model. The biggest helps were emotional tone (+0.0462), vague sourcing (+0.0419), and how hard the sentence is to read (+0.0392). Things that pushed the model the other way included neutral sentiment (-0.0314) and a moderately certain claim (-0.0249). All numbers are SHAP contributions showing how much each feature moved the model's decision.",
+          "module_name": "individual feature importance",
+          "module_params": {}
+        },
+        {
+          "module_output": {
+            "counts": [
+              2,
+              0,
+              52,
+              5,
+              11,
+              72,
+              3,
+              24,
+              1,
+              11,
+              2,
+              0,
+              1
+            ],
+            "edges": [
+              -0.8,
+              -0.6615384615384616,
+              -0.5230769230769231,
+              -0.38461538461538464,
+              -0.24615384615384617,
+              -0.10769230769230775,
+              0.03076923076923077,
+              0.1692307692307693,
+              0.3076923076923077,
+              0.4461538461538461,
+              0.5846153846153845,
+              0.7230769230769232,
+              0.8615384615384616,
+              1.0
+            ]
+          },
+          "action": "feature distribution for emotionality (label: Neither)",
+          "summary": "The module presents a 13-bin histogram (edges from -0.8 to 1.0) with counts: [2, 0, 52, 5, 11, 72, 3, 24, 1, 11, 2, 0, 1] (total 184 samples). The largest bin is bin 6 (edge range -0.10769230769230775 to 0.03076923076923077) with 72 samples; the second-largest is bin 3 (-0.5230769230769231 to -0.38461538461538464) with 52 samples. A smaller mode appears in bin 8 (0.1692307692307693 to 0.3076923076923077) with 24 samples. Very few examples occupy the extreme bins at the left and right ends (first bin 2 samples, last bin 1 sample). Overall the distribution is concentrated around slightly negative to near-zero values with secondary peaks further negative and modestly positive.",
+          "laymans_summary": "Think of a bar chart divided into 13 slices from -0.8 up to 1.0. There are 184 total items. Most items (72) are in the slice just below zero (-0.11 to 0.03). The next biggest group (52) sits a bit more negative (-0.52 to -0.38). A smaller group (24) is slightly positive (0.17 to 0.31). Very few items are at the far left or far right.",
+          "module_name": "feature distribution",
+          "module_params": {
+            "feature_name": "emotionality",
+            "label": "Neither"
+          }
+        },
+        {
+          "module_output": "| emotionality ↓ \\ source_quality → | 0.00–0.67 | 0.67–1.33 | 1.33–2.00 |\n| --- | --- | --- | --- |\n| -0.80–-0.44 | 1 | 44 | 9 |\n| -0.44–-0.08 | 1 | 13 | 2 |\n| -0.08–0.28 | 29 | 62 | 4 |\n| 0.28–0.64 | 5 | 12 | 1 |\n| 0.64–1.00 | 0 | 0 | 1 |",
+          "action": "feature distribution 2D for emotionality, source_quality (label: Neither)",
+          "summary": "The module provides a 5x3 2D count distribution of emotionality (rows: -0.80→-0.44, -0.44→-0.08, -0.08→0.28, 0.28→0.64, 0.64→1.00) versus source_quality (columns: 0.00→0.67, 0.67→1.33, 1.33→2.00). The full table sums to 184 samples. The datapoint (emotionality = 0.0 falls in -0.08→0.28; source_quality = 1.0 falls in 0.67→1.33) lies in the cell with count 62. That cell is the largest single cell (62/184 = 33.7%). Column totals: 0.00–0.67 = 36, 0.67–1.33 = 131, 1.33–2.00 = 17. Row totals: -0.80–-0.44 = 54, -0.44–-0.08 = 16, -0.08–0.28 = 95, 0.28–0.64 = 18, 0.64–1.00 = 1. The distribution is strongly concentrated in the middle source_quality column (131/184 = 71.2%) and the neutral-to-mild emotionality row (-0.08→0.28, 95/184 = 51.6%).",
+          "laymans_summary": "The chart counts examples by emotion and how specific their sources are. Your example (neutral emotion, vague source) sits in the busiest box with 62 examples out of 184 — this area is the most common overall.",
+          "module_name": "feature distribution 2D",
+          "module_params": {
+            "feature_name_1": "emotionality",
+            "feature_name_2": "source_quality",
+            "label": "Neither"
+          }
+        },
+        {
+          "module_output": {
+            "accuracy": 0.65,
+            "f1_score": 0.6482,
+            "precision": 0.6531,
+            "recall": 0.65
+          },
+          "action": "performance metrics",
+          "summary": "The module “performance metrics” reports accuracy = 0.65, F1-score = 0.6482, precision = 0.6531, and recall = 0.65. Given the model’s prediction for this datapoint is “Neither,” these values indicate moderate overall performance: the classifier correctly predicts roughly 65% of cases, with precision and recall balanced near 0.65 and an F1 of ~0.648. No per-instance confidence or error breakdown is provided by the module.",
+          "laymans_summary": "The model is right about 65 out of 100 times. Its precision, recall, and F1 are all about 0.65, so when it says “Neither” for this example it’s working about two-thirds as well as possible.",
+          "module_name": "performance metrics",
+          "module_params": {}
+        },
+        {
+          "module_output": {
+            "confusion": [
+              [
+                0.64,
+                0.21,
+                0.15
+              ],
+              [
+                0.18,
+                0.66,
+                0.16
+              ],
+              [
+                0.23,
+                0.12,
+                0.65
+              ]
+            ],
+            "note": "First column/row  is the False label, second column/row is the Neither label and third column/row is the True label."
+          },
+          "action": "confusion matrix",
+          "summary": "Confusion matrix (rows = actual labels: False, Neither, True; columns = predicted labels) shows per-class true positive rates of 0.64 for False, 0.66 for Neither, and 0.65 for True. Averaging the diagonal gives an overall accuracy of ≈0.65 (65%). Main off-diagonal confusions: actual False → predicted Neither 0.21 and → True 0.15; actual Neither → predicted False 0.18 and → True 0.16; actual True → predicted False 0.23 and → Neither 0.12. The largest single error is actual True misclassified as False (0.23), followed by False→Neither (0.21). Given the model predicted “Neither” for this datapoint, the matrix indicates the Neither class has a 0.66 correct rate but still shows nontrivial confusion with False (0.18) and True (0.16).",
+          "laymans_summary": "The model gets about 65% correct overall. When the real label is False it guesses False 64% of the time (mixing up with Neither 21% and True 15%). For real Neither it’s correct 66% (mistakes 18% as False and 16% as True). For real True it’s correct 65% (mistakes 23% as False and 12% as Neither). The biggest single mistake is calling a True example False (23%). The model’s prediction of “Neither” is reasonably reliable (66% correct) but still confused sometimes.",
+          "module_name": "confusion matrix",
+          "module_params": {}
+        },
+        {
+          "module_output": {
+            "label": 1,
+            "values": {
+              "us_vs_them_lang": 0.04,
+              "exaggerated_uncertainty": 0.13,
+              "source_quality": 0.15,
+              "victim_villain_language": 0.09,
+              "black_and_white_language": 0.04,
+              "dehumanization": 0.03,
+              "emotionality": 0.11,
+              "reading_difficulty": 0.1,
+              "sentiment": 0.1,
+              "polarization": 0.21
+            },
+            "top_features": [
+              "polarization",
+              "source_quality",
+              "exaggerated_uncertainty"
+            ]
+          },
+          "action": "global feature importance (label: Neither)",
+          "summary": "For output label 1, the module's global feature importance (based on absolute SHAP sums) ranks polarization as the most influential feature with importance 0.21. It is followed by source_quality at 0.15 and exaggerated_uncertainty at 0.13 (the module's top_features list: [\"polarization\",\"source_quality\",\"exaggerated_uncertainty\"]). Other feature importances are emotionality 0.11, reading_difficulty 0.10, sentiment 0.10, victim_villain_language 0.09, us_vs_them_lang 0.04, black_and_white_language 0.04, and dehumanization 0.03. These numbers quantify each feature's relative contribution to the model output for label 1.",
+          "laymans_summary": "The model says some parts of the text mattered more than others when making its decision. The biggest factor was polarization (0.21), then how the claims were sourced (0.15), and how certain the text sounded (0.13). Other parts had smaller effects (like emotion at 0.11 and reading difficulty at 0.10).",
+          "module_name": "global feature importance",
+          "module_params": {
+            "label": "Neither"
+          }
+        },
+        {
+          "module_output": {
+            "feature": "emotionality",
+            "class": "Neither",
+            "grid_values": [
+              -1.0,
+              -0.8,
+              -0.7,
+              -0.6,
+              -0.5,
+              -0.3,
+              -0.2,
+              -0.1,
+              0.0,
+              0.1,
+              0.2,
+              0.3,
+              0.4,
+              0.5,
+              0.6,
+              1.0
+            ],
+            "average": [
+              0.26971219471352714,
+              0.26971219471352714,
+              0.2735929953446477,
+              0.2755119049374704,
+              0.31955293027902654,
+              0.3723707470783575,
+              0.36330302494811334,
+              0.3586015000943636,
+              0.3796987578492047,
+              0.29783291119038174,
+              0.3095438418243188,
+              0.3328686213191162,
+              0.332407788251875,
+              0.3070830307893713,
+              0.35691980105413074,
+              0.3594513984930512
+            ]
+          },
+          "action": "partial dependence plot for emotionality (label: Neither)",
+          "summary": "The partial dependence plot shows how the model’s predicted probability of the class “Neither” changes with the feature emotionality. Grid values for emotionality and the corresponding average predicted probabilities are: -1.0: 0.2697121947, -0.8: 0.2697121947, -0.7: 0.2735929953, -0.6: 0.2755119049, -0.5: 0.3195529303, -0.3: 0.3723707471, -0.2: 0.3633030249, -0.1: 0.3586015001, 0.0: 0.3796987578, 0.1: 0.2978329112, 0.2: 0.3095438418, 0.3: 0.3328686213, 0.4: 0.3324077883, 0.5: 0.3070830308, 0.6: 0.3569198011, 1.0: 0.3594513985. The datapoint’s emotionality is 0.0 and the model predicted label is “Neither”; at emotionality 0.0 the PDP average predicted probability for “Neither” is 0.3796987578492047, which is the highest value on the provided grid. This indicates that neutral emotionality increases the model’s tendency to predict “Neither” relative to very negative emotionality (e.g., -1.0 -> 0.269712) and many other points on the grid.",
+          "laymans_summary": "The plot shows how the model’s chance of choosing “Neither” changes when the text is more or less emotional. When the text is neutral (emotionality = 0.0), the model’s chance of “Neither” is about 38% (0.3797), which is higher than when the text is very negative (about 27% at -1.0). So neutral emotional tone makes the model more likely to pick “Neither.”",
+          "module_name": "partial dependence plot",
+          "module_params": {
+            "feature_name": "emotionality",
+            "label": "Neither"
+          }
+        }
+      ],
+      "conclusion": {
+        "judgement_rating": 1,
+        "judgement_reason": "Local explanations give mixed but cautious support for the model’s “Neither” prediction. The individual SHAP contributions are small in magnitude (top positives: emotionality +0.0462, source_quality +0.0419, reading_difficulty +0.0392; top negatives sum to about -0.0996), producing a small net local push (~+0.036) toward “Neither,” which suggests the model’s decision is not strongly driven by any single decisive feature. The partial dependence for emotionality shows the datapoint’s emotionality (0.0) corresponds to the highest grid-average predicted probability for “Neither” (0.3797), which supports the label locally. The datapoint lies in a dense region of training data (2D cell emotionality≈0.0 & source_quality≈1.0 has 62/184 = 33.7% of examples), so the model is interpolating rather than extrapolating. However, global performance is modest (accuracy ≈0.65, Neither true positive rate 0.66) and the model still confuses Neither with False (0.18) and True (0.16), so there is a nontrivial chance of error. Global feature importances also show polarization (0.21) and source_quality (0.15) are most influential for the class, but polarization did not appear among the top local SHAP effects for this instance, indicating local/global mismatch. Taken together, local evidence leans toward but does not strongly confirm the prediction; I therefore assess moderate trustworthiness.",
+        "judgement_reason_short": "Local explanations weakly support the prediction (small SHAP sums and PDP support) but overall model accuracy (~65%) and class confusions mean only moderate trust.",
+        "most_relevant_modules": [
+          "individual feature importance",
+          "feature distribution 2D"
+        ]
+      }
+    },
+    "error": null,
+    "latency_ms": 119159.897,
+    "start_time": "2025-10-15T16:28:15.527549+00:00",
+    "end_time": "2025-10-15T16:30:14.687446+00:00",
+    "trace_id": "bd5d14d982760a45dfe44223fc2fa067",
+    "prompt_token_count": null,
+    "completion_token_count": null,
+    "annotations": [
+      {
+        "name": "xai_description_truthfulness",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 1.0,
+        "explanation": null,
+        "trace_id": "389e138631697649a44fa7e4aae2ebf8",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-10-15T16:44:06.061656+00:00",
+        "end_time": "2025-10-15T16:44:53.084768+00:00"
+      },
+      {
+        "name": "layman_xai_truthfulness",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 0.8571428571428571,
+        "explanation": null,
+        "trace_id": "dedbf355b9fe51abe8da4d8059252223",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-10-15T16:44:53.126652+00:00",
+        "end_time": "2025-10-15T16:45:36.343032+00:00"
+      },
+      {
+        "name": "short_assessment_truthfulness",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 1.0,
+        "explanation": null,
+        "trace_id": "556cd5847a05eaeb9a79a13bb6981e0a",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-10-15T16:45:36.367682+00:00",
+        "end_time": "2025-10-15T16:45:42.373716+00:00"
+      },
+      {
+        "name": "focus_quality",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 1.0,
+        "explanation": null,
+        "trace_id": "d51985f99b1479cbe6207d7f7cd6e6e5",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-10-15T16:45:42.402892+00:00",
+        "end_time": "2025-10-15T16:45:50.265464+00:00"
+      },
+      {
+        "name": "label_correlation",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 0.8333333333333334,
+        "explanation": null,
+        "trace_id": "0f356e415adaf44139e58a5524f95577",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-10-15T16:45:50.282302+00:00",
+        "end_time": "2025-10-15T16:45:50.283811+00:00"
+      },
+      {
+        "name": "technical_xai_clarity",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 1.0,
+        "explanation": null,
+        "trace_id": "456c78681f70a6c1b31dfa95ef0e39ac",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-10-15T16:45:50.336549+00:00",
+        "end_time": "2025-10-15T16:46:26.140404+00:00"
+      },
+      {
+        "name": "technical_assessment_clarity",
+        "annotator_kind": "CODE",
+        "label": null,
+        "score": 1.0,
+        "explanation": null,
+        "trace_id": "c4bdced50afe2d4742a3f4ef2a72075c",
+        "error": null,
+        "metadata": {},
+        "start_time": "2025-10-15T16:46:26.160821+00:00",
+        "end_time": "2025-10-15T16:46:32.930461+00:00"
+      }
+    ]
+  }
+]

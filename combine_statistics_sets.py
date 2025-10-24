@@ -4,7 +4,7 @@ import os
 import sys
 from typing import Dict, List, Any, Set
 
-version = "_v1-1"
+version = "_v1-2"
 
 def ensure_project_on_path() -> None:
     """Ensure the project root (this file's directory) is on sys.path for imports."""
