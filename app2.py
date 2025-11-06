@@ -7,12 +7,23 @@ import random
 from cors_handling import _corsify_actual_response, _build_cors_preflight_response
 from config import base_url
 from operations.utils.retrieve_datapoint import retrieve_datapoint
+from openai import OpenAI
+from dotenv import load_dotenv
+from pydantic import BaseModel
+load_dotenv(override=True)
+
+import instructor
 
 app = Flask(__name__)
 
 # Load the dataframe
 df = pd.read_csv("data/full_df.csv")
 datapoint_ids = [30, 31, 32, 33, 34, 35, 65, 66, 67, 68, 69, 70, 197, 198, 199, 200, 201, 202, 255, 256, 257, 258, 259, 260]
+api_key = os.getenv("API_KEY")
+client = instructor.from_openai(OpenAI(api_key=api_key))
+
+class BaseResponseModel(BaseModel):
+    response: str
 
 @app.route(f"{base_url}/posts", methods=["GET", "OPTIONS"])
 def get_posts():
@@ -105,6 +116,7 @@ def get_evaluation_data():
                                         visualization = {
                                             "title": module.get("module_name"),
                                             "description": module.get("laymans_summary"),
+                                            "extended_description": module.get("summary"),
                                             "data": module.get("module_output"),
                                         }
                                         visualizations.append(visualization)
@@ -145,6 +157,53 @@ def get_evaluation_data():
         except Exception as e:
             error_response = make_response(jsonify({"error": f"Internal server error: {str(e)}"}), 500)
             return _corsify_actual_response(error_response)
+
+
+@app.route(f"{base_url}/chat", methods=["POST", "OPTIONS"])
+def chat_completion():
+    if request.method == "OPTIONS":
+        return _build_cors_preflight_response()
+    elif request.method == "POST":
+        try:
+            body = request.get_json() or {}
+            prompt = body.get("prompt")
+            model = "gpt-4.1-mini"
+            
+            print(prompt)
+
+            if not prompt:
+                return _corsify_actual_response(make_response(jsonify({"error": "Missing 'prompt' in request body"}), 400))
+
+            if not api_key:
+                return _corsify_actual_response(make_response(jsonify({"error": "API_KEY not set in environment"}), 500))
+
+
+            completion = client.chat.completions.create(
+                model=model,
+                messages=[{
+                    "role": "system",
+                    "content": "You are a helpful assistant that addresses the user's request in a to the point manner.",
+                }, {
+                    "role": "user", "content": prompt
+                }],
+                response_model=BaseResponseModel,
+            )
+            
+            print(completion.model_dump())
+
+            message_content = completion.response
+
+            response = make_response(
+                jsonify({
+                    "response": message_content,
+                })
+            )
+            return _corsify_actual_response(response)
+
+        except Exception as e:
+            error_response = make_response(jsonify({"error": f"Internal server error: {str(e)}"}), 500)
+            return _corsify_actual_response(error_response)
+
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -29,7 +29,7 @@ OLLAMA_ENDPOINT = os.getenv("OLLAMA_ENDPOINT")
 
 
 experiment_version = (
-    f"v1.3-{MODEL_NAME}-{'thinking' if NO_THINKING == 'False' else 'no_thinking'}"
+    f"v2.0-{MODEL_NAME}-{'thinking' if NO_THINKING == 'False' else 'no_thinking'}"
 )
 
 load_dotenv(override=True)
@@ -340,35 +340,35 @@ def main():
     #     },
     # ]
     
-    for i in range(1, 3):
-        for key, value in test_dataset.items():
-            ds_version = f"patterns_{key}_v1.2"
-            overall_experiment_df = pd.DataFrame(value)
-            try:
-                dataset = px_client.upload_dataset(dataframe=overall_experiment_df,
-                                        dataset_name=f"structured_experiment_inputs_{ds_version}",
-                                        input_keys=["dp_id"])
-            except Exception as e:
-                print(f"Error uploading dataset: {e}")
-                dataset = px_client.get_dataset(name=f"structured_experiment_inputs_{ds_version}")
-            if not dataset:
-                print(f"Error getting dataset: {ds_version}")
-                continue
-            experiment = run_experiment(
-                dataset,
-                run_agent_task,
-                evaluators=[
-                    xai_description_truthfulness,
-                    layman_xai_truthfulness,
-                    short_assessment_truthfulness,
-                    focus_quality,
-                    label_correlation,
-                    technical_xai_clarity,
-                    technical_assessment_clarity,
-                ],
-                experiment_name=f"Structured Experiment {experiment_version}",
-                experiment_description="Evaluating the structured experiment",
-            )
+    # for i in range(1, 3):
+    for key, value in test_dataset.items():
+        ds_version = f"patterns_{key}_v1.2"
+        overall_experiment_df = pd.DataFrame(value)
+        try:
+            dataset = px_client.upload_dataset(dataframe=overall_experiment_df,
+                                    dataset_name=f"structured_experiment_inputs_{ds_version}",
+                                    input_keys=["dp_id"])
+        except Exception as e:
+            print(f"Error uploading dataset: {e}")
+            dataset = px_client.get_dataset(name=f"structured_experiment_inputs_{ds_version}")
+        if not dataset:
+            print(f"Error getting dataset: {ds_version}")
+            continue
+        experiment = run_experiment(
+            dataset,
+            run_agent_task,
+            evaluators=[
+                xai_description_truthfulness,
+                layman_xai_truthfulness,
+                short_assessment_truthfulness,
+                focus_quality,
+                label_correlation,
+                technical_xai_clarity,
+                technical_assessment_clarity,
+            ],
+            experiment_name=f"Structured Experiment {experiment_version}",
+            experiment_description="Evaluating the structured experiment",
+        )
 
 
 if __name__ == "__main__":

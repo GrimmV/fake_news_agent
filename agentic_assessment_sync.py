@@ -71,35 +71,35 @@ def agentic_assessment(
         predicted_label_for_action=predicted_label,
     )
 
-    trace, performance_output = call_and_summarize_module(
-        module_caller=module_caller,
-        agent_handler=agent_handler,
-        trace=trace,
-        module_name="performance metrics",
-        module_params={},
-        description_template="Contains the performance metrics of the model.",
-        dp_id=dp_id,
-    )
-    trace, confusion_matrix_output = call_and_summarize_module(
-        module_caller=module_caller,
-        agent_handler=agent_handler,
-        trace=trace,
-        module_name="confusion matrix",
-        module_params={},
-        description_template="Contains the confusion matrix of the model predictions. First row/column is False, second is Neither and third is True.",
-        dp_id=dp_id,
-    )
+    # trace, performance_output = call_and_summarize_module(
+    #     module_caller=module_caller,
+    #     agent_handler=agent_handler,
+    #     trace=trace,
+    #     module_name="performance metrics",
+    #     module_params={},
+    #     description_template="Contains the performance metrics of the model.",
+    #     dp_id=dp_id,
+    # )
+    # trace, confusion_matrix_output = call_and_summarize_module(
+    #     module_caller=module_caller,
+    #     agent_handler=agent_handler,
+    #     trace=trace,
+    #     module_name="confusion matrix",
+    #     module_params={},
+    #     description_template="Contains the confusion matrix of the model predictions. First row/column is False, second is Neither and third is True.",
+    #     dp_id=dp_id,
+    # )
 
-    trace, global_feature_importance_output = call_and_summarize_module(
-        module_caller=module_caller,
-        agent_handler=agent_handler,
-        trace=trace,
-        module_name="global feature importance",
-        module_params={"label": predicted_label},
-        description_template="Contains the global feature importance calculated based on the absolute sum of SHAP values.",
-        dp_id=dp_id,
-        predicted_label_for_action=predicted_label,
-    )
+    # trace, global_feature_importance_output = call_and_summarize_module(
+    #     module_caller=module_caller,
+    #     agent_handler=agent_handler,
+    #     trace=trace,
+    #     module_name="global feature importance",
+    #     module_params={"label": predicted_label},
+    #     description_template="Contains the global feature importance calculated based on the absolute sum of SHAP values.",
+    #     dp_id=dp_id,
+    #     predicted_label_for_action=predicted_label,
+    # )
 
     trace, dist = call_and_summarize_module(
         module_caller=module_caller,
