@@ -1,0 +1,1 @@
+web: gunicorn -b :$PORT app2:app2
