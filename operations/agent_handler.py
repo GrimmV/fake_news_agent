@@ -96,7 +96,7 @@ class TrustAssessment(BaseModel):
     )
     judgement_reason: str = Field(description="A reason for the judgement rating")
     judgement_reason_short: str = Field(
-        description="One sentence summary of the judgement reason in a way that is understandable by a 5th grader"
+        description="One sentence summary of the judgement reason in a way that is understandable by a 5th grader. Avoid technical terms such as SHAP values, feature importance, etc."
     )
     most_relevant_modules: List[str] = Field(
         min_length=1,
@@ -111,7 +111,7 @@ class TrustAssessment(BaseModel):
 class ModuleSummarization(BaseModel):
     summarization: str
     laymans_summary: str = Field(
-        description="A laymans summary of the summarization being understandable by a 5th grader"
+        description="A laymans summary of the summarization being understandable by a 5th grader. Avoid technical terms such as SHAP values, feature importance, etc."
     )
 
 

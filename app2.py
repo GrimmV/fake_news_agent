@@ -10,6 +10,7 @@ from operations.utils.retrieve_datapoint import retrieve_datapoint
 from openai import OpenAI
 from dotenv import load_dotenv
 from pydantic import BaseModel
+from login.usernames import usernames
 load_dotenv(override=True)
 
 import instructor
@@ -167,9 +168,16 @@ def chat_completion():
         try:
             body = request.get_json() or {}
             prompt = body.get("prompt")
+            username = body.get("username")
             model = "gpt-4.1-mini"
             
             print(prompt)
+            
+            print(username)
+
+            if not username in usernames:
+                print("Username not found")
+                return _corsify_actual_response(make_response(jsonify({"error": "Username not found"}), 400))
 
             if not prompt:
                 return _corsify_actual_response(make_response(jsonify({"error": "Missing 'prompt' in request body"}), 400))
