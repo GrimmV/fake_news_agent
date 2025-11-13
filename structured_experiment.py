@@ -37,7 +37,7 @@ load_dotenv(override=True)
 open_ai_key = os.getenv("API_KEY")
 # eval_model = OpenAIModel(model="gpt-4o-mini", api_key=open_ai_key)
 eval_model = OpenAIModel(model=MODEL_NAME_2, api_key="ollama", base_url=OLLAMA_ENDPOINT)
-full_df = pd.read_csv("data/tone_rf_train-o3-eval-3.csv")
+full_df = pd.read_csv("data/tone_rf_train-gpt-5-mini-eval-1.csv")
 
 
 def run_agent_task(dp_id):
