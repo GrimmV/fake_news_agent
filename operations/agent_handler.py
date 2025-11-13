@@ -90,9 +90,9 @@ def max_three_modules(v: List[ModuleChoice]) -> str:
 
 class TrustAssessment(BaseModel):
     judgement_rating: int = Field(
-        description="Rating for the predictions trustwortiness between 3 (Excellent), 2 (Good), 1 (Moderate), and 0 (Poor)",
+        description="Rating for the predictions trustwortiness: either 0 (Unreliable) or 1 (Reliable)",
         ge=0,
-        le=3,
+        le=1,
     )
     judgement_reason: str = Field(description="A reason for the judgement rating")
     judgement_reason_short: str = Field(

@@ -113,6 +113,8 @@ def agentic_assessment(
         predicted_label_for_action=predicted_label, 
     )
     
+    datapoint = retrieve_datapoint(agent_handler.df, dp_id)
+    
     def remove_module_output(elem):
         # generate copy of elem
         elem_copy = elem.copy()
@@ -120,14 +122,24 @@ def agentic_assessment(
         elem_copy.pop("laymans_summary")
         return elem_copy
     
+    def post_process_trace(elem):
+        elem_copy = elem.copy()
+        elem_copy["feature_values"] = datapoint["properties"]
+        elem_copy["prediction"] = datapoint["prediction"]
+        elem_copy["statement"] = datapoint["statement"]
+        return elem_copy
+        
+    
     # calculate an adapted trace that is removing "module_output" from each element in the trace
     adapted_trace = [remove_module_output(elem) for elem in trace]
 
     # Step 8: Final Summary (Condensed)
-    conclusion = agent_handler_2.trust_assessment(adapted_trace, statement)
+    conclusion = agent_handler.trust_assessment(adapted_trace, statement)
     # conclusion2 = agent_handler_2.trust_assessment2(trace, statement)
 
-    return {"trace": trace, "conclusion": conclusion}
+    post_processed_trace = [post_process_trace(elem) for elem in trace]
+
+    return {"trace": post_processed_trace, "conclusion": conclusion}
 
 
 def call_and_summarize_module(

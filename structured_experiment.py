@@ -198,125 +198,15 @@ def technical_assessment_clarity(output: str) -> float:
 
 
 def main():
+    pof = [{"dp_id": elem} for elem in range(17, 37)]
+    false = [{"dp_id": elem} for elem in range(54, 74)]
+    mostly_true = [{"dp_id": elem} for elem in range(186, 206)]
+    true = [{"dp_id": elem} for elem in range(230, 250)]
     test_dataset = {
-        "pof": [
-            {
-                "dp_id": 30,
-            },
-            {
-                "dp_id": 31,
-            },
-            {
-                "dp_id": 32,
-            },
-            {
-                "dp_id": 33,
-            },
-            {
-                "dp_id": 34,
-            },
-            {
-                "dp_id": 35,
-            },
-        ],
-        "false": [
-            {
-                "dp_id": 65,
-            },
-            {
-                "dp_id": 66,
-            },
-            {
-                "dp_id": 67,
-            },
-            {
-                "dp_id": 68,
-            },
-            {
-                "dp_id": 69,
-            },
-            {"dp_id": 70},
-        ],
-        "mostly_false": [
-            {
-                "dp_id": 102,
-            },
-            {
-                "dp_id": 103,
-            },
-            {
-                "dp_id": 104,
-            },
-            {
-                "dp_id": 105,
-            },
-            {
-                "dp_id": 106,
-            },
-            {
-                "dp_id": 107,
-            },
-        ],
-        "half_true": [
-            {
-                "dp_id": 146,
-            },
-            {
-                "dp_id": 147,
-            },
-            {
-                "dp_id": 148,
-            },
-            {
-                "dp_id": 149,
-            },
-            {
-                "dp_id": 150,
-            },
-            {
-                "dp_id": 151,
-            },
-        ],
-        "mostly_true": [
-            {
-                "dp_id": 197,
-            },
-            {
-                "dp_id": 198,
-            },
-            {
-                "dp_id": 199,
-            },
-            {
-                "dp_id": 200,
-            },
-            {
-                "dp_id": 201,
-            },
-            {
-                "dp_id": 202,
-            },
-        ],
-        "true": [
-            {
-                "dp_id": 255,
-            },
-            {
-                "dp_id": 256,
-            },
-            {
-                "dp_id": 257,
-            },
-            {
-                "dp_id": 258,
-            },
-            {
-                "dp_id": 259,
-            },
-            {
-                "dp_id": 260,
-            },
-        ],
+        "pof": pof,
+        "false": false,
+        "mostly_true": mostly_true,
+        "true": true
     }
     px_client = px.Client()
     # test_dataset = [
@@ -342,7 +232,7 @@ def main():
     
     # for i in range(1, 3):
     for key, value in test_dataset.items():
-        ds_version = f"patterns_{key}_v1.2"
+        ds_version = f"patterns_{key}_v1.4"
         overall_experiment_df = pd.DataFrame(value)
         try:
             dataset = px_client.upload_dataset(dataframe=overall_experiment_df,
@@ -358,13 +248,13 @@ def main():
             dataset,
             run_agent_task,
             evaluators=[
-                xai_description_truthfulness,
-                layman_xai_truthfulness,
-                short_assessment_truthfulness,
-                focus_quality,
-                label_correlation,
-                technical_xai_clarity,
-                technical_assessment_clarity,
+                # xai_description_truthfulness,
+                # layman_xai_truthfulness,
+                # short_assessment_truthfulness,
+                # focus_quality,
+                # label_correlation,
+                # technical_xai_clarity,
+                # technical_assessment_clarity,
             ],
             experiment_name=f"Structured Experiment {experiment_version}",
             experiment_description="Evaluating the structured experiment",

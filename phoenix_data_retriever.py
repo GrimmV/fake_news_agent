@@ -13,7 +13,7 @@ from typing import List, Dict, Any
 from collections import defaultdict
 import logging
 
-version = "v1.2"
+version = "v1.4"
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')

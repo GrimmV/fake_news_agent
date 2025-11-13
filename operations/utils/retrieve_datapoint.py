@@ -35,19 +35,19 @@ def retrieve_datapoint(df, dp_id, with_label=False):
             "name": "source_quality",
             "min": 0,
             "max": 2,
-            "description": "0=Specific evidence, 1=Vague sourcing, 2=No evidence. How verifiable are the claims?",
+            "description": "Score 0-2: 2=Specific evidence, 1=Vague sourcing, 0=No evidence. How verifiable are the claims?",
         },
         {
             "name": "victim_villain_language",
             "min": 0,
             "max": 1,
-            "description": "0=No, 1=Yes. Does the post frame an issue as 'good people harmed by evil actors'?",
+            "description": "0=True, 1=False. Does the post frame an issue as 'good people harmed by evil actors'?",
         },
         {
             "name": "black_and_white_language",
             "min": 0,
             "max": 1,
-            "description": "0=No, 1=Yes. Does the post reduce a complex issue to one cause, two choices, or blame a single group?",
+            "description": "0=True, 1=False. Does the post reduce a complex issue to one cause, two choices, or blame a single group?",
         },
         {
             "name": "dehumanization",
@@ -59,25 +59,25 @@ def retrieve_datapoint(df, dp_id, with_label=False):
             "name": "emotionality",
             "min": -1,
             "max": 1,
-            "description": "Emotionality of the text from -1 (very negative) to 1 (very positive)",
+            "description": "-1.0=Highly negative, 1.0=Highly positive. How emotionally charged is the text?",
         },
         {
             "name": "reading_difficulty",
             "min": 0,
             "max": 1,
-            "description": "Reading difficulty of the text from 0 (very easy) to 1 (very difficult)",
+            "description": "0.0=Very easy, 1.0=Very difficult. How accessible is the language used?",
         },
         {
             "name": "sentiment",
             "min": -1,
             "max": 1,
-            "description": "Overall sentiment of the text (positive (1)/negative (-1)/neutral (0))",
+            "description": "-1=Negative, 0=Neutral, 1=Positive. What is the general emotional orientation?",
         },
         {
             "name": "polarization",
             "min": 0,
             "max": 1,
-            "description": "Polarization of the text from 1 (very polarizing) to 0 (very nuanced)",
+            "description": "0.0=Balanced or nuanced, 1.0=Highly divisive. How strongly does the text separate opposing views?",
         },
     ]
 
