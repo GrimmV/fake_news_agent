@@ -147,9 +147,12 @@ def get_evaluation_data():
                 for subdir in subdirs:
                     if found:
                         break
-
+                    
                     # Get all exp-*.json files in this subdirectory
-                    exp_files = glob(f"{base_path}/{subdir}/exp-2.json")
+                    if subdir == "true":
+                        exp_files = glob(f"{base_path}/{subdir}/exp-1.json")
+                    else:
+                        exp_files = glob(f"{base_path}/{subdir}/exp-1.json")
 
                     for exp_file in exp_files:
                         try:
