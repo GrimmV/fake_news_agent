@@ -26,7 +26,7 @@ def retrieve_datapoint(df, dp_id, with_label=False):
             "description": "0=Neutral, 1=Moderate rivalry, 2=Extreme demonization. How severely does the post frame opponents as evil/threatening?",
         },
         {
-            "name": "exaggerated_uncertainty",
+            "name": "exaggerated_certainty",
             "min": 0,
             "max": 1,
             "description": "0.0=Speculative, 1.0=Absolute certainty. How definitively are claims presented?",
@@ -35,19 +35,19 @@ def retrieve_datapoint(df, dp_id, with_label=False):
             "name": "source_quality",
             "min": 0,
             "max": 2,
-            "description": "Score 0-2: 2=Specific evidence, 1=Vague sourcing, 0=No evidence. How verifiable are the claims?",
+            "description": "2=Specific evidence, 1=Vague sourcing, 0=No evidence. How verifiable are the claims?",
         },
         {
             "name": "victim_villain_language",
             "min": 0,
             "max": 1,
-            "description": "0=True, 1=False. Does the post frame an issue as 'good people harmed by evil actors'?",
+            "description": "1=True, 0=False. Does the post frame an issue as 'good people harmed by evil actors'?",
         },
         {
             "name": "black_and_white_language",
             "min": 0,
             "max": 1,
-            "description": "0=True, 1=False. Does the post reduce a complex issue to one cause, two choices, or blame a single group?",
+            "description": "1=True, 0=False. Does the post reduce a complex issue to one cause, two choices, or blame a single group?",
         },
         {
             "name": "dehumanization",

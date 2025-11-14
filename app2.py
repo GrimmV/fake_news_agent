@@ -19,7 +19,7 @@ import instructor
 app = Flask(__name__)
 
 # Load the dataframe
-df = pd.read_csv("data/tone_rf_train-o3-eval-3.csv")
+df = pd.read_csv("data/tone_rf_train-gpt-5-mini-eval-1.csv")
 # df = pd.read_csv("data/full_df.csv")
 datapoint_ids = [
     18,
@@ -53,12 +53,10 @@ datapoint_ids = [
     234,
     235,
     237,
-    239,
     240,
     241,
     242,
     245,
-    246,
 ]
 api_key = os.getenv("API_KEY")
 client = instructor.from_openai(OpenAI(api_key=api_key))
