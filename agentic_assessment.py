@@ -303,7 +303,7 @@ if __name__ == "__main__":
 
     feature_names = [feature["name"] for feature in features]
     dp_id = 10885
-    df = pd.read_csv("data/full_df.csv")
+    df = pd.read_csv("data/tone_rf_train-gpt-5-mini-eval-1.csv")
     datapoint = retrieve_datapoint(df, dp_id)
     label = datapoint["prediction"]["label"]
     API_KEY = os.getenv("API_KEY")

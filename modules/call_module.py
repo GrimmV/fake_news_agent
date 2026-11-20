@@ -31,7 +31,7 @@ class ModuleCaller:
             elif (module_name == "partial dependence plot"):
                 return return_module(self.global_xai_module.get_partial_dependence, params, span=span)
             elif (module_name == "individual feature importance"):
-                return return_module(self.individual_xai_module.get_shap_values, params={}, datapoint_id=datapoint_id, span=span)
+                return return_module(self.individual_xai_module.get_shap_values, params={"dp_id": datapoint_id}, span=span)
             else:
                 return None
         

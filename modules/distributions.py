@@ -8,7 +8,7 @@ from modules.utils.word_similarity import find_most_similar_word
 class DistributionModule:
 
     def __init__(self, features):
-        self.df = pd.read_csv("data/full_df.csv")
+        self.df = pd.read_csv("data/tone_rf_train-gpt-5-mini-eval-1.csv")
         self.features = features
 
     def get_distribution_1d(self, feature_name, label, **kwargs):

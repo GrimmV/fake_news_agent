@@ -8,6 +8,8 @@ def trust_assessment_prompt(trace: List[Dict[str, Any]], statement: str, sceptic
     This is the trace of actions:
     {trace}
     
+    Do not overweight feature values, e.g. high polarization is not an immediate reason for distrust. Focus on the actions and descriptions in the trace. 
+    
     This is the statement:
     {statement}
 

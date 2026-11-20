@@ -14,12 +14,13 @@ from operations.agent_handler import AgentHandler
 import os
 from dotenv import load_dotenv
 from opentelemetry.trace import StatusCode
+import asyncio
 
 # load .env file to environment
 load_dotenv(override=True)
 
 # === AGENTIC REASONING LOOP ===
-def agentic_assessment(
+async def agentic_assessment(
     predicted_label: str,
     statement: str,
     module_caller: ModuleCaller,
@@ -30,88 +31,86 @@ def agentic_assessment(
 
     trace = []
 
-    trace, local_feature_importance_output = call_and_summarize_module(
+    # First call must be sequential to get feature1 and feature2
+    trace_element, local_feature_importance_output = await call_and_summarize_module(
         module_caller=module_caller,
         agent_handler=agent_handler,
-        trace=trace,
         module_name="individual feature importance",
         module_params={},
         description_template="Contains the feature importance for the particular model prediction.",
         dp_id=dp_id
     )
+    trace.append(trace_element)
     top_features = local_feature_importance_output["top_features"]
     feature1 = top_features[0]
     feature2 = top_features[1]
 
-    trace, dist = call_and_summarize_module(
-        module_caller=module_caller,
-        agent_handler=agent_handler,
-        trace=trace,
-        module_name="feature distribution",
-        module_params={"feature_name": feature1, "label": predicted_label},
-        description_template="Contains the feature distribution for the particular model prediction.",
-        dp_id=dp_id,
-        feature_name_for_action=feature1,
-        predicted_label_for_action=predicted_label,
+    # Run all remaining calls in parallel
+    results = await asyncio.gather(
+        call_and_summarize_module(
+            module_caller=module_caller,
+            agent_handler=agent_handler,
+            module_name="feature distribution",
+            module_params={"feature_name": feature1, "label": predicted_label},
+            description_template="Contains the feature distribution for the particular model prediction.",
+            dp_id=dp_id,
+            feature_name_for_action=feature1,
+            predicted_label_for_action=predicted_label,
+        ),
+        call_and_summarize_module(
+            module_caller=module_caller,
+            agent_handler=agent_handler,
+            module_name="feature distribution 2D",
+            module_params={
+                "feature_name_1": feature1,
+                "feature_name_2": feature2,
+                "label": predicted_label,
+            },
+            description_template="Contains the 2D feature distribution for the particular model prediction.",
+            dp_id=dp_id,
+            feature_name_for_action=[feature1, feature2],
+            predicted_label_for_action=predicted_label,
+        ),
+        call_and_summarize_module(
+            module_caller=module_caller,
+            agent_handler=agent_handler,
+            module_name="performance metrics",
+            module_params={},
+            description_template="Contains the performance metrics of the model.",
+            dp_id=dp_id,
+        ),
+        call_and_summarize_module(
+            module_caller=module_caller,
+            agent_handler=agent_handler,
+            module_name="confusion matrix",
+            module_params={},
+            description_template="Contains the confusion matrix of the model predictions. First row/column is False, second is Neither and third is True.",
+            dp_id=dp_id,
+        ),
+        call_and_summarize_module(
+            module_caller=module_caller,
+            agent_handler=agent_handler,
+            module_name="global feature importance",
+            module_params={"label": predicted_label},
+            description_template="Contains the global feature importance calculated based on the absolute sum of SHAP values.",
+            dp_id=dp_id,
+            predicted_label_for_action=predicted_label,
+        ),
+        call_and_summarize_module(
+            module_caller=module_caller,
+            agent_handler=agent_handler,
+            module_name="partial dependence plot",
+            module_params={"feature_name": feature1, "label": predicted_label},
+            description_template="Contains the partial dependence plot of {feature} towards the predicted label {predicted_label}.",
+            dp_id=dp_id,
+            feature_name_for_action=feature1,
+            predicted_label_for_action=predicted_label, 
+        ),
     )
-
-    trace, dist = call_and_summarize_module(
-        module_caller=module_caller,
-        agent_handler=agent_handler,
-        trace=trace,
-        module_name="feature distribution 2D",
-        module_params={
-            "feature_name_1": feature1,
-            "feature_name_2": feature2,
-            "label": predicted_label,
-        },
-        description_template="Contains the 2D feature distribution for the particular model prediction.",
-        dp_id=dp_id,
-        feature_name_for_action=[feature1, feature2],
-        predicted_label_for_action=predicted_label,
-    )
-
-    # trace, performance_output = call_and_summarize_module(
-    #     module_caller=module_caller,
-    #     agent_handler=agent_handler,
-    #     trace=trace,
-    #     module_name="performance metrics",
-    #     module_params={},
-    #     description_template="Contains the performance metrics of the model.",
-    #     dp_id=dp_id,
-    # )
-    # trace, confusion_matrix_output = call_and_summarize_module(
-    #     module_caller=module_caller,
-    #     agent_handler=agent_handler,
-    #     trace=trace,
-    #     module_name="confusion matrix",
-    #     module_params={},
-    #     description_template="Contains the confusion matrix of the model predictions. First row/column is False, second is Neither and third is True.",
-    #     dp_id=dp_id,
-    # )
-
-    # trace, global_feature_importance_output = call_and_summarize_module(
-    #     module_caller=module_caller,
-    #     agent_handler=agent_handler,
-    #     trace=trace,
-    #     module_name="global feature importance",
-    #     module_params={"label": predicted_label},
-    #     description_template="Contains the global feature importance calculated based on the absolute sum of SHAP values.",
-    #     dp_id=dp_id,
-    #     predicted_label_for_action=predicted_label,
-    # )
-
-    trace, dist = call_and_summarize_module(
-        module_caller=module_caller,
-        agent_handler=agent_handler,
-        trace=trace,
-        module_name="partial dependence plot",
-        module_params={"feature_name": feature1, "label": predicted_label},
-        description_template="Contains the partial dependence plot of {feature} towards the predicted label {predicted_label}.",
-        dp_id=dp_id,
-        feature_name_for_action=feature1,
-        predicted_label_for_action=predicted_label, 
-    )
+    
+    # Combine all trace elements into the trace
+    for trace_element, _ in results:
+        trace.append(trace_element)
     
     datapoint = retrieve_datapoint(agent_handler.df, dp_id)
     
@@ -142,10 +141,9 @@ def agentic_assessment(
     return {"trace": post_processed_trace, "conclusion": conclusion}
 
 
-def call_and_summarize_module(
+async def call_and_summarize_module(
     module_caller,
     agent_handler,
-    trace,
     module_name,
     module_params,
     description_template,
@@ -154,12 +152,11 @@ def call_and_summarize_module(
     predicted_label_for_action = None,
 ):
     """
-    Calls a specified module, summarizes its output, appends to the trace, and sends data via WebSocket if a callback is provided.
+    Calls a specified module, summarizes its output, and returns a trace element.
 
     Args:
         module_caller: The object used to call modules.
         agent_handler: The object used for module summarization.
-        trace: The list to append action and summary to.
         module_name: The name of the module to call.
         module_params: A dictionary of parameters for the module.
         description_template: A format string for the description in summarization.
@@ -167,16 +164,21 @@ def call_and_summarize_module(
         dp_id: The decision point ID.
         feature_name_for_action: (Optional) The feature name to include in the trace action.
         predicted_label_for_action: (Optional) The predicted label to include in the trace action.
-        websocket_send_callback: (Optional) A callback function to send updates via WebSocket.
+    
+    Returns:
+        tuple: (trace_element, module_output) where trace_element is a dict to be appended to trace.
     """
     with agent_handler.tracer.start_as_current_span(
         "CallModule", openinference_span_kind="tool"
     ) as span:
-        module_output = module_caller.call_module(
+        # Run synchronous call_module in thread pool
+        module_result = await asyncio.to_thread(
+            module_caller.call_module,
             module_name,
             module_params,
             dp_id,
-        )["raw"]
+        )
+        module_output = module_result["raw"]
 
         # Dynamically create the description string
         description_kwargs = {}
@@ -187,7 +189,9 @@ def call_and_summarize_module(
 
         description = description_template.format(**description_kwargs)
 
-        summarization = agent_handler.module_summarization(
+        # Run synchronous module_summarization in thread pool
+        summarization = await asyncio.to_thread(
+            agent_handler.module_summarization,
             {"name": module_name, "description": description, "output": module_output},
             dp_id,
         )
@@ -208,20 +212,18 @@ def call_and_summarize_module(
 
         action = " ".join(action_description_parts)
 
-        trace.append(
-            {
-                "module_output": module_output,
-                "action": action,
-                "summary": summary,
-                "laymans_summary": laymans_summary,
-                "module_name": module_name,
-                "module_params": module_params,
-            }
-        )
+        trace_element = {
+            "module_output": module_output,
+            "action": action,
+            "summary": summary,
+            "laymans_summary": laymans_summary,
+            "module_name": module_name,
+            "module_params": module_params,
+        }
         
         span.set_status(StatusCode.OK)
 
-    return trace, module_output
+    return trace_element, module_output
 
 
 # === RUN EXAMPLE ===
@@ -229,7 +231,7 @@ if __name__ == "__main__":
 
     feature_names = [feature["name"] for feature in features]
     dp_id = 10885
-    df = pd.read_csv("data/full_df.csv")
+    df = pd.read_csv("data/tone_rf_train-gpt-5-mini-eval-1.csv")
     datapoint = retrieve_datapoint(df, dp_id)
     label = datapoint["prediction"]["label"]
     API_KEY = os.getenv("API_KEY")
@@ -242,14 +244,16 @@ if __name__ == "__main__":
         feature_descriptions=features,
         module_descriptions=module_descriptions,
     )
-    module_caller = ModuleCaller([feature["name"] for feature in features])
+    module_caller = ModuleCaller([feature["name"] for feature in features], agent_handler.tracer)
     print(label)
-    result = agentic_assessment(
+    result = asyncio.run(agentic_assessment(
         predicted_label=label,
+        statement=datapoint["statement"],
         module_caller=module_caller,
         agent_handler=agent_handler,
+        agent_handler_2=agent_handler,
         dp_id=dp_id,
-    )
-    for step in result:
+    ))
+    for step in result["trace"]:
         print(f"\n[Action: {step['action']}]")
         print(json.dumps(step["summary"], indent=2))

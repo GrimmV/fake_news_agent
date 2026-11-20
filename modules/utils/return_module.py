@@ -15,7 +15,7 @@ def return_module(function, params, datapoint_id: int = None, span = None):
         span.set_status(StatusCode.OK)
             
     visual = the_module["visual"]
-    visual.update_layout(
-        margin=dict(l=10, r=10, t=30, b=10)
-    )
+    # visual.update_layout(
+    #     margin=dict(l=10, r=10, t=30, b=10)
+    # )
     return the_module

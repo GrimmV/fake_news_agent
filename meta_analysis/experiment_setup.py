@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from typing import Dict, Any, Optional
 from divergence_analyzer import DivergenceAnalyzer
 
+model = "gpt-5-mini-2025-08-07"
 
 @dataclass
 class DivergenceThresholds:
@@ -11,8 +12,8 @@ class DivergenceThresholds:
     # 'Close' agreement between label and prediction:
     alignment_threshold: int = 0           # e.g., |label - prediction| <= 1
     # Trust thresholds on 0..3 scale
-    trust_high_threshold: int = 2          # High trust (LLM is confident)
-    trust_low_threshold: int = 1           # Low trust (LLM is skeptical)
+    trust_high_threshold: int = 1          # High trust (LLM is confident)
+    trust_low_threshold: int = 0          # Low trust (LLM is skeptical)
 
 
 def conduct_divergence_analysis(trace: str,
@@ -21,7 +22,7 @@ def conduct_divergence_analysis(trace: str,
                                 prediction: int,
                                 trustscore: int) -> Dict[str, Any]:
     
-    analyzer = DivergenceAnalyzer(model_name="gpt-5-2025-08-07")
+    analyzer = DivergenceAnalyzer(model_name=model)
     analysis = analyzer.analyze_trace(trace, case_type, label, prediction, trustscore)
     
     

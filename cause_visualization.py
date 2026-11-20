@@ -170,6 +170,6 @@ if __name__ == "__main__":
     # Example usage of the functions
     print("Example usage:")
     print("1. Single plot:")
-    plot_cause_statistics('cause_statistics_summary-initial.csv', 'Initial Results')
+    plot_cause_statistics('cause_statistics_summary-improved_v1.5.csv', 'Improved Results')
     print("\n2. Comparison plot:")
-    plot_compare_cause_statistics('cause_statistics_summary-initial.csv', 'cause_statistics_summary-improved.csv', 'Initial', 'Improved')
+    # plot_compare_cause_statistics('cause_statistics_summary-initial.csv', 'cause_statistics_summary-improved.csv', 'Initial', 'Improved')

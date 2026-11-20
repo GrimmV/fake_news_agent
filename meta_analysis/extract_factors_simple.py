@@ -86,8 +86,8 @@ def get_available_divergence_types(experiment_results_file="experiment_results.j
 
 if __name__ == "__main__":
     # Example usage - change the divergence type here
-    divergence_type = "explanation_framing"  # Change this to the divergence type you want
-    the_id = "improved"
+    divergence_type = "feature_interpretation_bias"  # Change this to the divergence type you want
+    the_id = "initial_v1.5"
     experiment_results_file = f"experiment_results-{the_id}.json"
     
     

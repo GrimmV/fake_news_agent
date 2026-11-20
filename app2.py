@@ -30,7 +30,6 @@ datapoint_ids = [
     31,
     33,
     34,
-    35,
     55,
     57,
     58,
@@ -148,9 +147,9 @@ def get_evaluation_data():
                     
                     # Get all exp-*.json files in this subdirectory
                     if subdir == "true":
-                        exp_files = glob(f"{base_path}/{subdir}/exp-1.json")
+                        exp_files = glob(f"{base_path}/{subdir}/exp-4.json")
                     else:
-                        exp_files = glob(f"{base_path}/{subdir}/exp-1.json")
+                        exp_files = glob(f"{base_path}/{subdir}/exp-4.json")
 
                     for exp_file in exp_files:
                         try:

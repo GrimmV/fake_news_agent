@@ -12,14 +12,14 @@ shaps_location = "data/shap.csv"
 class IndividualXAIModule:
 
     def __init__(self):
-        similars_location = "data/similars.csv"
-        cfs_location = "data/counterfactuals.csv"
-        self.df = pd.read_csv("data/full_df.csv")
+        # similars_location = "data_features/similars.csv"
+        # cfs_location = "data_features/counterfactuals.csv"
+        self.df = pd.read_csv("data/tone_rf_train-gpt-5-mini-eval-1.csv")
 
-        with open(similars_location) as f:
-            self.similars = json.load(f)
-        with open(cfs_location) as f:
-            self.counterfactuals = json.load(f)
+        # with open(similars_location) as f:
+        #     self.similars = json.load(f)
+        # with open(cfs_location) as f:
+        #     self.counterfactuals = json.load(f)
         # with open(shaps_location) as f:
         #     self.shaps = json.load(f)
 
@@ -72,14 +72,18 @@ class IndividualXAIModule:
         my_list.sort(key=lambda x: abs(x[1]["shap_value"]), reverse=True)
         top_features = [x[0] for x in my_list]
         elem["top_features"] = top_features
+        
+        print(feature_dict.keys())
+        print([elem["shap_value"] for elem in feature_dict.values()])
 
-        visual = px.bar(
-            x=feature_dict.keys(),
-            y=[elem["shap_value"] for elem in feature_dict.values()],
-            title="Individual Feature Importance",
-            labels={"x": "Features", "y": "Importance"},
-        )
-        visual.update_xaxes(tickangle=45)
+        visual = None
+        # visual = px.bar(
+        #     x=feature_dict.keys(),
+        #     y=[elem["shap_value"] for elem in feature_dict.values()],
+        #     title="Individual Feature Importance",
+        #     labels={"x": "Features", "y": "Importance"},
+        # )
+        # visual.update_xaxes(tickangle=45)
         print(elem)
 
         return {"raw": elem, "visual": visual}

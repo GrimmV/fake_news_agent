@@ -5,11 +5,11 @@ from typing import Dict, List, Tuple
 
 # Configuration
 FILES = [
-    "cause_statistics_summary-initial.csv",
-    "cause_statistics_summary-improved.csv"
+    "cause_statistics_summary-initial_v1.5.csv",
+    "cause_statistics_summary-improved_v1.5.csv"
 ]
 
-OUTPUT_PREFIX = "cause_analysis"
+OUTPUT_PREFIX = "cause_analysis_1-5"
 FIGSIZE = (12, 8)
 BAR_WIDTH = 0.35
 FONTSIZE_TITLE = 16
@@ -75,7 +75,7 @@ def create_single_subplot(ax, primary_data: Dict[str, int], secondary_data: Dict
     ax.legend(fontsize=FONTSIZE_LABELS, loc='upper left')
     
     # Set y-axis limit
-    ax.set_ylim(0, 33)
+    ax.set_ylim(0, 60)
     
     # Add grid for better readability
     ax.grid(axis='y', alpha=0.3, linestyle='--')
@@ -102,7 +102,11 @@ def main():
     for filename in FILES:
         print(f"Processing {filename}...")
         primary_data, secondary_data = load_and_process_data(filename)
-        dataset_name = filename.replace('cause_statistics_summary-', '').replace('.csv', '')
+        dataset_name = (
+            filename.replace('cause_statistics_summary-', '')
+            .replace('.csv', '')
+            .replace('_v1.5', '')
+        )
         
         datasets.append({
             'name': dataset_name,

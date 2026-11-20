@@ -4,7 +4,9 @@ from utils.retrieve_datapoint import retrieve_datapoint
 from experiment_setup import assess_case
 
 the_id = "improved"
-output_file = f"experiment_results-{the_id}.json"
+version = "_v1.5"
+output_file = f"experiment_results-{the_id}{version}.json"
+
 
 def experiment(experiment_file_path):
     """
@@ -18,7 +20,7 @@ def experiment(experiment_file_path):
     """
     # Load the experiment data
     with open(
-        f"observations/experiments_raw/{experiment_file_path}", "r", encoding="utf-8"
+        f"observations/experiments_raw{version}/{experiment_file_path}", "r", encoding="utf-8"
     ) as f:
         experiment_data = json.load(f)
         
@@ -43,7 +45,7 @@ def experiment(experiment_file_path):
         trace = [remove_from_trace(elem) for elem in trace]
 
         # Load the dataframe for retrieve_datapoint
-        df = pd.read_csv("data/full_df.csv", encoding="utf-8")
+        df = pd.read_csv("data/tone_rf_train-gpt-5-mini-eval-1.csv", encoding="utf-8")
 
         # Get datapoint information with labels
         datapoint = retrieve_datapoint(df, dp_id, with_label=True)
@@ -65,7 +67,7 @@ if __name__ == "__main__":
     labels = ["pof", "false", "mostly_false", "half_true", "mostly_true", "true"]
     # labels = ["false"]
     # experiment_ids = [1]
-    experiment_ids = [21, 22, 23, 24, 25]
+    experiment_ids = [36, 37, 38, 39, 40]
     
     # Load existing results or create new dictionary
     try:

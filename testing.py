@@ -22,7 +22,7 @@ datapoint_id = 10882
 
 if __name__ == '__main__':
     
-    df = pd.read_csv("data/full_df.csv")
+    df = pd.read_csv("data/tone_rf_train-gpt-5-mini-eval-1.csv")
     
     row = df[df["id"] == datapoint_id]
     
